@@ -6,13 +6,13 @@
 <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <link href="../../../img/favicon.ico" rel="shortcut icon"/>
-<title>Problem 1 - Physics and Mathematics</title>
+<title>Orbital Period and Orbital Radius: Exploring Kepler's Third Law - Physics and Mathematics</title>
 <link href="../../../css/theme.css" rel="stylesheet"/>
 <link href="../../../css/theme_extra.css" rel="stylesheet"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" rel="stylesheet"/>
 <script>
         // Current page data
-        var mkdocs_page_name = "Problem 1";
+        var mkdocs_page_name = "Orbital Period and Orbital Radius: Exploring Kepler\u0027s Third Law";
         var mkdocs_page_input_path = "1 Physics/2 Gravity/Problem_1.md";
         var mkdocs_page_url = null;
       </script>
@@ -54,8 +54,56 @@
 </li>
 <li class="toctree-l1 current"><a class="reference internal current">2 Gravity</a>
 <ul class="current">
-<li class="toctree-l2 current"><a class="reference internal current" href="#">Problem 1</a>
+<li class="toctree-l2 current"><a class="reference internal current" href="#">Orbital Period and Orbital Radius: Exploring Kepler's Third Law</a>
 <ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="#introduction">Introduction</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#theoretical-foundation">Theoretical Foundation</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#derivation-of-keplers-third-law">Derivation of Kepler's Third Law</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#extension-to-elliptical-orbits">Extension to Elliptical Orbits</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#analysis-and-applications">Analysis and Applications</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#solar-system-verification">Solar System Verification</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#determining-masses-of-celestial-bodies">Determining Masses of Celestial Bodies</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#binary-star-systems">Binary Star Systems</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#satellite-orbits-and-space-missions">Satellite Orbits and Space Missions</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#computational-analysis">Computational Analysis</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#simulation-of-orbital-motion">Simulation of Orbital Motion</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#verification-of-keplers-third-law">Verification of Kepler's Third Law</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#practical-examples">Practical Examples</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#earth-moon-system">Earth-Moon System</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#exoplanet-detection">Exoplanet Detection</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#limitations-and-extensions">Limitations and Extensions</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#relativistic-effects">Relativistic Effects</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#three-body-problem">Three-Body Problem</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#conclusion">Conclusion</a>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../Problem_2/">Problem 2</a>
@@ -163,7 +211,7 @@
 <li><a aria-label="Docs" class="icon icon-home" href="../../.."></a></li>
 <li class="breadcrumb-item">1 Physics</li>
 <li class="breadcrumb-item">2 Gravity</li>
-<li class="breadcrumb-item active">Problem 1</li>
+<li class="breadcrumb-item active">Orbital Period and Orbital Radius: Exploring Kepler's Third Law</li>
 <li class="wy-breadcrumbs-aside">
 </li>
 </ul>
@@ -171,7 +219,196 @@
 </div>
 <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
 <div class="section" itemprop="articleBody">
-<h1 id="problem-1">Problem 1</h1>
+<h1 id="orbital-period-and-orbital-radius-exploring-keplers-third-law">Orbital Period and Orbital Radius: Exploring Kepler's Third Law</h1>
+<h2 id="introduction">Introduction</h2>
+<p>In this solution, I explore the fascinating relationship between the orbital period and orbital radius of celestial bodies. This relationship, formalized as Kepler's Third Law, represents one of the fundamental principles in celestial mechanics and provides profound insights into the nature of gravitational interactions throughout the universe. By understanding this relationship, we can predict the motion of planets, moons, and artificial satellites, as well as gain deeper insights into the structure of our solar system and beyond.</p>
+<h2 id="theoretical-foundation">Theoretical Foundation</h2>
+<h3 id="derivation-of-keplers-third-law">Derivation of Kepler's Third Law</h3>
+<p>I'll begin by deriving the relationship between orbital period and orbital radius for circular orbits using Newton's laws of motion and his law of universal gravitation.</p>
+<p>Consider a body of mass <span class="arithmatex">\(m\)</span> orbiting a much larger central body of mass <span class="arithmatex">\(M\)</span> in a circular orbit of radius <span class="arithmatex">\(r\)</span>. For a circular orbit to be maintained, the centripetal force must equal the gravitational force:</p>
+<p><span class="arithmatex">\(F_{centripetal} = F_{gravitational}\)</span></p>
+<p><span class="arithmatex">\(\frac{mv^2}{r} = G\frac{Mm}{r^2}\)</span></p>
+<p>Where:
+- <span class="arithmatex">\(v\)</span> is the orbital velocity
+- <span class="arithmatex">\(G\)</span> is the gravitational constant (<span class="arithmatex">\(6.674 \times 10^{-11} \, \text{m}^3 \text{kg}^{-1} \text{s}^{-2}\)</span>)</p>
+<p>Simplifying this equation:</p>
+<p><span class="arithmatex">\(v^2 = G\frac{M}{r}\)</span></p>
+<p>For a circular orbit, the orbital velocity can be expressed in terms of the orbital period <span class="arithmatex">\(T\)</span> and radius <span class="arithmatex">\(r\)</span>:</p>
+<p><span class="arithmatex">\(v = \frac{2\pi r}{T}\)</span></p>
+<p>Substituting this into our previous equation:</p>
+<p><span class="arithmatex">\(\left(\frac{2\pi r}{T}\right)^2 = G\frac{M}{r}\)</span></p>
+<p><span class="arithmatex">\(\frac{4\pi^2 r^2}{T^2} = G\frac{M}{r}\)</span></p>
+<p>Rearranging to isolate the relationship between <span class="arithmatex">\(T\)</span> and <span class="arithmatex">\(r\)</span>:</p>
+<p><span class="arithmatex">\(T^2 = \frac{4\pi^2 r^3}{GM}\)</span></p>
+<p>This can be written as:</p>
+<p><span class="arithmatex">\(T^2 = K r^3\)</span></p>
+<p>Where <span class="arithmatex">\(K = \frac{4\pi^2}{GM}\)</span> is a constant for a given central body.</p>
+<p>This is Kepler's Third Law: <strong>The square of the orbital period is proportional to the cube of the semi-major axis of the orbit</strong>. For circular orbits, the semi-major axis is simply the radius.</p>
+<p><img alt="Circular orbit diagram" src="../circular_orbit_diagram.png"/></p>
+<p><em>Figure 1: Diagram showing a body in circular orbit around a central mass, with the gravitational force providing the necessary centripetal acceleration.</em></p>
+<h3 id="extension-to-elliptical-orbits">Extension to Elliptical Orbits</h3>
+<p>For elliptical orbits, Kepler's Third Law still holds, but the radius <span class="arithmatex">\(r\)</span> is replaced by the semi-major axis <span class="arithmatex">\(a\)</span> of the ellipse:</p>
+<p><span class="arithmatex">\(T^2 = \frac{4\pi^2 a^3}{GM}\)</span></p>
+<p>This remarkable relationship applies to all orbiting bodies, regardless of their mass, as long as the central body is much more massive than the orbiting body.</p>
+<h2 id="analysis-and-applications">Analysis and Applications</h2>
+<h3 id="solar-system-verification">Solar System Verification</h3>
+<p>One of the most direct applications of Kepler's Third Law is in our own solar system. By examining the orbital periods and distances of the planets from the Sun, we can verify this relationship.</p>
+<p>For planets orbiting the Sun, the constant <span class="arithmatex">\(K\)</span> in the equation <span class="arithmatex">\(T^2 = Kr^3\)</span> should be the same for all planets if Kepler's Third Law holds true. Let's examine this with real data:</p>
+<table>
+<thead>
+<tr>
+<th>Planet</th>
+<th>Orbital Period (years)</th>
+<th>Semi-major Axis (AU)</th>
+<th><span class="arithmatex">\(T^2/a^3\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mercury</td>
+<td>0.241</td>
+<td>0.387</td>
+<td>1.00</td>
+</tr>
+<tr>
+<td>Venus</td>
+<td>0.615</td>
+<td>0.723</td>
+<td>1.00</td>
+</tr>
+<tr>
+<td>Earth</td>
+<td>1.000</td>
+<td>1.000</td>
+<td>1.00</td>
+</tr>
+<tr>
+<td>Mars</td>
+<td>1.881</td>
+<td>1.524</td>
+<td>1.00</td>
+</tr>
+<tr>
+<td>Jupiter</td>
+<td>11.86</td>
+<td>5.203</td>
+<td>1.00</td>
+</tr>
+<tr>
+<td>Saturn</td>
+<td>29.46</td>
+<td>9.537</td>
+<td>1.00</td>
+</tr>
+<tr>
+<td>Uranus</td>
+<td>84.01</td>
+<td>19.19</td>
+<td>1.00</td>
+</tr>
+<tr>
+<td>Neptune</td>
+<td>164.8</td>
+<td>30.07</td>
+<td>1.00</td>
+</tr>
+</tbody>
+</table>
+<p>The consistency of the <span class="arithmatex">\(T^2/a^3\)</span> ratio demonstrates the validity of Kepler's Third Law across our solar system.</p>
+<p><img alt="Solar system verification" src="../kepler_law_verification.png"/></p>
+<p><em>Figure 2: Plot showing the relationship between orbital period squared and semi-major axis cubed for the planets in our solar system, demonstrating Kepler's Third Law.</em></p>
+<h3 id="determining-masses-of-celestial-bodies">Determining Masses of Celestial Bodies</h3>
+<p>One powerful application of Kepler's Third Law is determining the mass of celestial bodies. By rearranging the equation:</p>
+<p><span class="arithmatex">\(M = \frac{4\pi^2 a^3}{G T^2}\)</span></p>
+<p>If we can measure the orbital period <span class="arithmatex">\(T\)</span> and semi-major axis <span class="arithmatex">\(a\)</span> of a satellite orbiting a central body, we can calculate the mass of the central body.</p>
+<p>For example, by observing the orbital period and distance of the Moon, we can calculate Earth's mass:</p>
+<ul>
+<li>Moon's orbital period: <span class="arithmatex">\(T \approx 27.3\)</span> days <span class="arithmatex">\(= 2.36 \times 10^6\)</span> seconds</li>
+<li>Moon's average distance from Earth: <span class="arithmatex">\(a \approx 3.84 \times 10^8\)</span> meters</li>
+</ul>
+<p><span class="arithmatex">\(M_{Earth} = \frac{4\pi^2 (3.84 \times 10^8 \text{ m})^3}{G (2.36 \times 10^6 \text{ s})^2} \approx 6.0 \times 10^{24} \text{ kg}\)</span></p>
+<p>This calculated value is very close to Earth's actual mass of <span class="arithmatex">\(5.97 \times 10^{24}\)</span> kg.</p>
+<h3 id="binary-star-systems">Binary Star Systems</h3>
+<p>For binary star systems where both stars have comparable masses, we need to modify Kepler's Third Law. If we have two stars with masses <span class="arithmatex">\(M_1\)</span> and <span class="arithmatex">\(M_2\)</span> orbiting their common center of mass, the relationship becomes:</p>
+<p><span class="arithmatex">\(T^2 = \frac{4\pi^2 a^3}{G(M_1 + M_2)}\)</span></p>
+<p>Where <span class="arithmatex">\(a\)</span> is now the semi-major axis of the relative orbit. This allows astronomers to determine the combined mass of binary star systems by observing their orbital parameters.</p>
+<p><img alt="Binary star system" src="../binary_star_system.png"/></p>
+<p><em>Figure 3: Diagram of a binary star system showing the two stars orbiting their common center of mass.</em></p>
+<h3 id="satellite-orbits-and-space-missions">Satellite Orbits and Space Missions</h3>
+<p>Kepler's Third Law is essential for planning satellite orbits and space missions. For example, geostationary satellites, which appear stationary relative to Earth's surface, must orbit at a specific altitude to have an orbital period equal to Earth's rotational period (23.93 hours).</p>
+<p>Using Kepler's Third Law:</p>
+<p><span class="arithmatex">\(r^3 = \frac{GMT^2}{4\pi^2}\)</span></p>
+<p>With <span class="arithmatex">\(M = 5.97 \times 10^{24}\)</span> kg (Earth's mass) and <span class="arithmatex">\(T = 86,164\)</span> seconds (sidereal day), we can calculate:</p>
+<p><span class="arithmatex">\(r \approx 42,164\)</span> km from Earth's center, or about 35,786 km above Earth's surface.</p>
+<p>This is precisely the altitude at which all geostationary satellites are placed.</p>
+<h2 id="computational-analysis">Computational Analysis</h2>
+<h3 id="simulation-of-orbital-motion">Simulation of Orbital Motion</h3>
+<p>To verify Kepler's Third Law computationally, I implemented a numerical simulation of orbital motion using the fourth-order Runge-Kutta method to solve the differential equations of motion under gravitational force.</p>
+<p>The equations of motion for a body orbiting a central mass are:</p>
+<p><span class="arithmatex">\(\frac{d^2x}{dt^2} = -\frac{GMx}{r^3}\)</span>
+<span class="arithmatex">\(\frac{d^2y}{dt^2} = -\frac{GMy}{r^3}\)</span></p>
+<p>Where <span class="arithmatex">\(r = \sqrt{x^2 + y^2}\)</span> is the distance from the orbiting body to the central mass.</p>
+<pre><code class="language-python">def acceleration(x, y, M):
+    """Calculate gravitational acceleration components."""
+    r = np.sqrt(x**2 + y**2)
+    ax = -G * M * x / r**3
+    ay = -G * M * y / r**3
+    return ax, ay
+
+def runge_kutta_step(x, y, vx, vy, dt, M):
+    """Perform one step of RK4 integration for orbital motion."""
+    # Initial accelerations
+    ax0, ay0 = acceleration(x, y, M)
+
+    # First intermediate step
+    x1 = x + vx * dt/2
+    y1 = y + vy * dt/2
+    vx1 = vx + ax0 * dt/2
+    vy1 = vy + ay0 * dt/2
+    ax1, ay1 = acceleration(x1, y1, M)
+
+    # Second intermediate step
+    x2 = x + vx1 * dt/2
+    y2 = y + vy1 * dt/2
+    vx2 = vx + ax1 * dt/2
+    vy2 = vy + ay1 * dt/2
+    ax2, ay2 = acceleration(x2, y2, M)
+
+    # Third intermediate step
+    x3 = x + vx2 * dt
+    y3 = y + vy2 * dt
+    vx3 = vx + ax2 * dt
+    vy3 = vy + ay2 * dt
+    ax3, ay3 = acceleration(x3, y3, M)
+
+    # Final values
+    x_new = x + (vx + 2*vx1 + 2*vx2 + vx3) * dt/6
+    y_new = y + (vy + 2*vy1 + 2*vy2 + vy3) * dt/6
+    vx_new = vx + (ax0 + 2*ax1 + 2*ax2 + ax3) * dt/6
+    vy_new = vy + (ay0 + 2*ay1 + 2*ay2 + ay3) * dt/6
+
+    return x_new, y_new, vx_new, vy_new
+</code></pre>
+<h3 id="verification-of-keplers-third-law">Verification of Kepler's Third Law</h3>
+<p>Using the simulation, I tested orbits at different distances from a central mass and measured their periods. The results confirm that <span class="arithmatex">\(T^2 \propto r^3\)</span> across a wide range of orbital radii.</p>
+<p><img alt="Simulation results" src="../kepler_law_simulation.png"/></p>
+<p><em>Figure 4: Results from orbital simulation showing the relationship between <span class="arithmatex">\(T^2\)</span> and <span class="arithmatex">\(r^3\)</span> for various simulated orbits, confirming Kepler's Third Law.</em></p>
+<h2 id="practical-examples">Practical Examples</h2>
+<h3 id="earth-moon-system">Earth-Moon System</h3>
+<p>The Earth-Moon system provides an excellent example for applying Kepler's Third Law. The Moon orbits Earth at an average distance of about 384,400 km with a period of 27.3 days. Using these values, we can calculate the expected mass of Earth and compare it with the known value.</p>
+<h3 id="exoplanet-detection">Exoplanet Detection</h3>
+<p>Kepler's Third Law plays a crucial role in the detection and characterization of exoplanets. By observing the periodic dimming of a star as a planet transits across its face, astronomers can determine the orbital period. If they can also estimate the orbital radius (often through other methods like radial velocity measurements), they can calculate the mass of the star using Kepler's Third Law.</p>
+<p>This technique has led to the discovery of thousands of exoplanets, revolutionizing our understanding of planetary systems beyond our own.</p>
+<p><img alt="Exoplanet transit" src="../exoplanet_transit.png"/></p>
+<p><em>Figure 5: Illustration of an exoplanet transit and how it can be used with Kepler's Third Law to determine orbital parameters.</em></p>
+<h2 id="limitations-and-extensions">Limitations and Extensions</h2>
+<h3 id="relativistic-effects">Relativistic Effects</h3>
+<p>Kepler's Third Law, as derived from Newtonian mechanics, is an excellent approximation for most orbital systems. However, for very massive central bodies or very close orbits, relativistic effects become significant. Einstein's theory of general relativity predicts deviations from Kepler's Third Law, such as the precession of Mercury's orbit.</p>
+<h3 id="three-body-problem">Three-Body Problem</h3>
+<p>Kepler's Third Law applies precisely only to two-body systems. In systems with three or more bodies of comparable mass, the orbital dynamics become much more complex and can even exhibit chaotic behavior. Numerical simulations are typically required to analyze such systems accurately.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>Through this analysis, I've demonstrated the profound relationship between orbital period and orbital radius encapsulated in Kepler's Third Law. This elegant mathematical relationship, <span class="arithmatex">\(T^2 \propto r^3\)</span>, provides a powerful tool for understanding the dynamics of celestial bodies throughout the universe.</p>
+<p>From predicting the orbits of planets and satellites to determining the masses of stars and galaxies, Kepler's Third Law continues to be a cornerstone of modern astronomy and space exploration. Its derivation from Newton's laws of motion and gravitation represents one of the great triumphs of classical physics, connecting the motion of celestial bodies to the fundamental forces that govern our universe.</p>
 </div>
 </div><footer>
 <div aria-label="Footer Navigation" class="rst-footer-buttons" role="navigation">
