@@ -1,3 +1,4 @@
+
 # Orbital Period and Orbital Radius: Exploring Kepler's Third Law
 
 ## Introduction
@@ -46,7 +47,7 @@ Where $K = \frac{4\pi^2}{GM}$ is a constant for a given central body.
 
 This is Kepler's Third Law: **The square of the orbital period is proportional to the cube of the semi-major axis of the orbit**. For circular orbits, the semi-major axis is simply the radius.
 
-![Circular orbit diagram](circular_orbit_diagram.png)
+![Circular orbit diagram](figures/circular_orbit_diagram.png)
 
 *Figure 1: Diagram showing a body in circular orbit around a central mass, with the gravitational force providing the necessary centripetal acceleration.*
 
@@ -79,7 +80,7 @@ For planets orbiting the Sun, the constant $K$ in the equation $T^2 = Kr^3$ shou
 
 The consistency of the $T^2/a^3$ ratio demonstrates the validity of Kepler's Third Law across our solar system.
 
-![Solar system verification](kepler_law_verification.png)
+![Solar system verification](figures/kepler_law_verification.png)
 
 *Figure 2: Plot showing the relationship between orbital period squared and semi-major axis cubed for the planets in our solar system, demonstrating Kepler's Third Law.*
 
@@ -108,7 +109,7 @@ $T^2 = \frac{4\pi^2 a^3}{G(M_1 + M_2)}$
 
 Where $a$ is now the semi-major axis of the relative orbit. This allows astronomers to determine the combined mass of binary star systems by observing their orbital parameters.
 
-![Binary star system](binary_star_system.png)
+![Binary star system](figures/binary_star_system.png)
 
 *Figure 3: Diagram of a binary star system showing the two stars orbiting their common center of mass.*
 
@@ -186,7 +187,7 @@ def runge_kutta_step(x, y, vx, vy, dt, M):
 
 Using the simulation, I tested orbits at different distances from a central mass and measured their periods. The results confirm that $T^2 \propto r^3$ across a wide range of orbital radii.
 
-![Simulation results](kepler_law_simulation.png)
+![Simulation results](figures/kepler_law_simulation.png)
 
 *Figure 4: Results from orbital simulation showing the relationship between $T^2$ and $r^3$ for various simulated orbits, confirming Kepler's Third Law.*
 
@@ -202,7 +203,7 @@ Kepler's Third Law plays a crucial role in the detection and characterization of
 
 This technique has led to the discovery of thousands of exoplanets, revolutionizing our understanding of planetary systems beyond our own.
 
-![Exoplanet transit](exoplanet_transit.png)
+![Exoplanet transit](figures/exoplanet_transit.png)
 
 *Figure 5: Illustration of an exoplanet transit and how it can be used with Kepler's Third Law to determine orbital parameters.*
 

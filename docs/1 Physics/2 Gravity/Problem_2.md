@@ -16,7 +16,7 @@ Cosmic velocities represent key threshold speeds that define different regimes o
 
 3. **Third Cosmic Velocity (Interstellar Escape Velocity)**: The minimum velocity needed for an object to escape not just the gravitational field of its planet, but the entire star system.
 
-![Cosmic velocities diagram](cosmic_velocities_diagram.png)
+![Cosmic velocities diagram](figures/cosmic_velocities_diagram.png)
 
 *Figure 1: Illustration of the three cosmic velocities showing different trajectory types: circular orbit (first cosmic velocity), parabolic escape trajectory (second cosmic velocity), and hyperbolic interstellar trajectory (third cosmic velocity).*
 
@@ -81,7 +81,7 @@ The escape velocity varies significantly across different celestial bodies, depe
 | Sun | $1.99 \times 10^{30}$ | 695,700 | 617.5 |
 | Black Hole (10 solar masses) | $1.99 \times 10^{31}$ | 29.5 | 299,792 (speed of light) |
 
-![Escape velocities comparison](escape_velocities_comparison.png)
+![Escape velocities comparison](figures/escape_velocities_comparison.png)
 
 *Figure 2: Comparison of escape velocities for different celestial bodies in our solar system, showing how mass and radius affect the escape velocity.*
 
@@ -97,7 +97,7 @@ Several factors influence the cosmic velocities for a given celestial body:
 
 4. **Rotation of the celestial body**: A body's rotation can provide an initial velocity boost, effectively reducing the additional velocity needed for escape (particularly relevant at the equator).
 
-![Altitude effect on escape velocity](altitude_effect.png)
+![Altitude effect on escape velocity](figures/altitude_effect.png)
 
 *Figure 3: Graph showing how escape velocity from Earth decreases with increasing altitude above the surface.*
 
@@ -120,7 +120,7 @@ Interstellar travel requires achieving at least the third cosmic velocity. Curre
 - Solar sails
 - Theoretical concepts like antimatter drives or Bussard ramjets
 
-![Interstellar mission concept](interstellar_mission_concept.png)
+![Interstellar mission concept](figures/interstellar_mission_concept.png)
 
 *Figure 4: Conceptual illustration of an interstellar mission showing the trajectory beyond the solar system and the propulsion systems required to achieve third cosmic velocity.*
 
@@ -209,7 +209,7 @@ def simulate_trajectory(initial_velocity, angle_degrees, planet_mass, planet_rad
     return solution.t, solution.y[0], solution.y[1]
 ```
 
-![Trajectory simulations](trajectory_simulations.png)
+![Trajectory simulations](figures/trajectory_simulations.png)
 
 *Figure 5: Simulated trajectories for objects launched from Earth's surface at different velocities, showing bound orbits, escape trajectories, and hyperbolic paths.*
 

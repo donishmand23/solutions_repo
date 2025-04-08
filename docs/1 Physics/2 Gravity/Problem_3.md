@@ -30,7 +30,7 @@ $\frac{d^2z}{dt^2} = -\frac{GM}{r^3}z$
 
 Where $r = \sqrt{x^2 + y^2 + z^2}$ is the distance from Earth's center.
 
-![Coordinate system for payload trajectories](payload_coordinate_system.png)
+![Coordinate system for payload trajectories](figures/payload_coordinate_system.png)
 
 *Figure 1: Coordinate system for analyzing payload trajectories, showing the relationship between the payload position, velocity, and Earth's gravitational field.*
 
@@ -53,7 +53,7 @@ Where $v$ is the payload's velocity. The trajectory type depends on the sign of 
 - $\varepsilon = 0$: Parabolic trajectory
 - $\varepsilon > 0$: Hyperbolic trajectory
 
-![Types of trajectories](trajectory_types.png)
+![Types of trajectories](figures/trajectory_types.png)
 
 *Figure 2: The three possible trajectory types for a released payload: elliptical (bound), parabolic (escape with zero velocity at infinity), and hyperbolic (escape with non-zero velocity at infinity).*
 
@@ -89,7 +89,7 @@ The trajectory of a released payload is completely determined by its initial con
 
 4. **Direction of Release**: The angle at which the payload is released relative to the rocket's velocity vector
 
-![Initial conditions impact](initial_conditions_impact.png)
+![Initial conditions impact](figures/initial_conditions_impact.png)
 
 *Figure 3: Illustration showing how different initial conditions (release velocity, altitude, and direction) affect the resulting trajectory of the payload.*
 
@@ -180,7 +180,7 @@ Using the numerical integrator, I simulated various payload release scenarios to
 - **Release Velocity**: Varying from sub-orbital to super-escape velocities
 - **Release Direction**: Different angles relative to the rocket's velocity vector
 
-![Simulation results](simulation_results.png)
+![Simulation results](figures/simulation_results.png)
 
 *Figure 4: Results from numerical simulations showing various payload trajectories for different release conditions. The trajectories are color-coded based on their type: elliptical (blue), parabolic (green), and hyperbolic (red).*
 
@@ -196,7 +196,7 @@ The results showed that:
 
 3. **Angular Sensitivity**: The direction of release is most critical for orbital insertion scenarios, where deviations of just a few degrees can result in highly elliptical orbits instead of the intended circular ones.
 
-![Sensitivity analysis](sensitivity_analysis.png)
+![Sensitivity analysis](figures/sensitivity_analysis.png)
 
 *Figure 5: Sensitivity analysis showing how small variations in initial conditions affect the resulting trajectories. Each panel shows the effect of varying one parameter while keeping others constant.*
 
