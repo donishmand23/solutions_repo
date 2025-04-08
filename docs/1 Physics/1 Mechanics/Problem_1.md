@@ -151,10 +151,6 @@ I extended the simulation to explore how different parameters affect the range-a
 2. **Including Air Resistance**: With air resistance, the curve becomes asymmetric, with the optimal angle shifting below 45°.
 3. **Different Launch Heights**: When launched from a height, the optimal angle decreases.
 
-![Range vs Angle with Parameters](range_vs_angle_parameters.png)
-
-*Figure 4: Comparison of range-angle relationships under different conditions.*
-
 ## Limitations and Extensions
 
 ### Model Limitations
