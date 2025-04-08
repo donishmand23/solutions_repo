@@ -6,13 +6,13 @@
 <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <link href="../../../img/favicon.ico" rel="shortcut icon"/>
-<title>Investigating the Range as a Function of the Angle of Projection - Physics and Mathematics</title>
+<title>Problem 1 - Physics and Mathematics</title>
 <link href="../../../css/theme.css" rel="stylesheet"/>
 <link href="../../../css/theme_extra.css" rel="stylesheet"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" rel="stylesheet"/>
 <script>
         // Current page data
-        var mkdocs_page_name = "Investigating the Range as a Function of the Angle of Projection";
+        var mkdocs_page_name = "Problem 1";
         var mkdocs_page_input_path = "1 Physics/1 Mechanics/Problem_1.md";
         var mkdocs_page_url = null;
       </script>
@@ -46,59 +46,11 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal current">1 Mechanics</a>
 <ul class="current">
-<li class="toctree-l2 current"><a class="reference internal current" href="#">Investigating the Range as a Function of the Angle of Projection</a>
+<li class="toctree-l2 current"><a class="reference internal current" href="#">Problem 1</a>
 <ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="#introduction">Introduction</a>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#theoretical-foundation">Theoretical Foundation</a>
-<ul>
-<li class="toctree-l4"><a class="reference internal" href="#deriving-the-equations-of-motion">Deriving the Equations of Motion</a>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="#time-of-flight">Time of Flight</a>
-</li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#analysis-of-the-range">Analysis of the Range</a>
-<ul>
-<li class="toctree-l4"><a class="reference internal" href="#range-formula">Range Formula</a>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="#optimizing-for-maximum-range">Optimizing for Maximum Range</a>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="#effect-of-parameter-variations">Effect of Parameter Variations</a>
-</li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#practical-applications">Practical Applications</a>
-<ul>
-<li class="toctree-l4"><a class="reference internal" href="#non-level-terrain">Non-level Terrain</a>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="#air-resistance">Air Resistance</a>
-</li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#implementation-computational-analysis">Implementation: Computational Analysis</a>
-<ul>
-<li class="toctree-l4"><a class="reference internal" href="#simulation-algorithm">Simulation Algorithm</a>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="#range-vs-angle-analysis">Range vs. Angle Analysis</a>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="#parameter-exploration">Parameter Exploration</a>
-</li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#limitations-and-extensions">Limitations and Extensions</a>
-<ul>
-<li class="toctree-l4"><a class="reference internal" href="#model-limitations">Model Limitations</a>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="#incorporating-realistic-factors">Incorporating Realistic Factors</a>
-</li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#conclusion">Conclusion</a>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../Problem_2/">Investigating the Dynamics of a Forced Damped Pendulum</a>
+<li class="toctree-l2"><a class="reference internal" href="../Problem_2/">Problem 2</a>
 </li>
 </ul>
 </li>
@@ -211,7 +163,7 @@
 <li><a aria-label="Docs" class="icon icon-home" href="../../.."></a></li>
 <li class="breadcrumb-item">1 Physics</li>
 <li class="breadcrumb-item">1 Mechanics</li>
-<li class="breadcrumb-item active">Investigating the Range as a Function of the Angle of Projection</li>
+<li class="breadcrumb-item active">Problem 1</li>
 <li class="wy-breadcrumbs-aside">
 </li>
 </ul>
@@ -219,6 +171,7 @@
 </div>
 <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
 <div class="section" itemprop="articleBody">
+<h1 id="problem-1">Problem 1</h1>
 <h1 id="investigating-the-range-as-a-function-of-the-angle-of-projection">Investigating the Range as a Function of the Angle of Projection</h1>
 <h2 id="introduction">Introduction</h2>
 <p>In this solution, I explore the fascinating relationship between the angle of projection and the range of a projectile. Projectile motion represents one of the fundamental applications of Newtonian mechanics, combining principles of kinematics in both horizontal and vertical dimensions. This analysis will provide insights into how we can optimize the launch angle to achieve maximum range, and how other parameters influence this relationship.</p>
@@ -238,7 +191,7 @@
 <span class="arithmatex">\(v_x(t) = v_0\cos\theta\)</span></p>
 <p><span class="arithmatex">\(y(t) = (v_0\sin\theta)t - \frac{1}{2}gt^2\)</span>
 <span class="arithmatex">\(v_y(t) = v_0\sin\theta - gt\)</span></p>
-<p><img alt="Projectile motion trajectory diagram" src="../projectile_motion_diagram.png"/></p>
+<p><img alt="Projectile motion trajectory diagram" src="../figures/projectile_motion_diagram.png"/></p>
 <p><em>Figure 1: Diagram showing the trajectory of a projectile with initial velocity <span class="arithmatex">\(v_0\)</span> at angle <span class="arithmatex">\(\theta\)</span>. The horizontal range <span class="arithmatex">\(R\)</span> is the distance traveled before returning to the initial height.</em></p>
 <h3 id="time-of-flight">Time of Flight</h3>
 <p>To find the range, I first need to determine when the projectile returns to its initial height (y = 0). From the vertical position equation:</p>
@@ -264,7 +217,7 @@
 <h3 id="effect-of-parameter-variations">Effect of Parameter Variations</h3>
 <h4 id="initial-velocity">Initial Velocity</h4>
 <p>The range is proportional to the square of the initial velocity. Doubling the initial velocity quadruples the range. This relationship can be visualized in the following graph:</p>
-<p><img alt="Range vs Initial Velocity" src="../range_vs_velocity.png"/></p>
+<p><img alt="Range vs Initial Velocity" src="../figures/range_vs_velocity.png"/></p>
 <p><em>Figure 2: Graph showing the quadratic relationship between range and initial velocity for different projection angles.</em></p>
 <h4 id="gravitational-acceleration">Gravitational Acceleration</h4>
 <p>The range is inversely proportional to gravitational acceleration. This means projectiles on the Moon (where <span class="arithmatex">\(g\)</span> is approximately 1/6 that of Earth) would travel about 6 times farther with the same initial conditions.</p>
@@ -300,7 +253,7 @@
 </code></pre>
 <h3 id="range-vs-angle-analysis">Range vs. Angle Analysis</h3>
 <p>Using this simulation, I calculated the range for angles from 0° to 90° in 1° increments. The results confirm our theoretical prediction that 45° yields the maximum range in the ideal case.</p>
-<p><img alt="Range vs Angle" src="../range_vs_angle.png"/></p>
+<p><img alt="Range vs Angle" src="../figures/range_vs_angle.png"/></p>
 <p><em>Figure 3: Graph showing how the range varies with the angle of projection. Note the symmetric curve with maximum at 45°.</em></p>
 <h3 id="parameter-exploration">Parameter Exploration</h3>
 <p>I extended the simulation to explore how different parameters affect the range-angle relationship:</p>
@@ -309,8 +262,6 @@
 <li><strong>Including Air Resistance</strong>: With air resistance, the curve becomes asymmetric, with the optimal angle shifting below 45°.</li>
 <li><strong>Different Launch Heights</strong>: When launched from a height, the optimal angle decreases.</li>
 </ol>
-<p><img alt="Range vs Angle with Parameters" src="../range_vs_angle_parameters.png"/></p>
-<p><em>Figure 4: Comparison of range-angle relationships under different conditions.</em></p>
 <h2 id="limitations-and-extensions">Limitations and Extensions</h2>
 <h3 id="model-limitations">Model Limitations</h3>
 <p>The ideal projectile motion model has several limitations:
@@ -332,7 +283,7 @@
 </div><footer>
 <div aria-label="Footer Navigation" class="rst-footer-buttons" role="navigation">
 <a class="btn btn-neutral float-left" href="../../.." title="Introduction"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-<a class="btn btn-neutral float-right" href="../Problem_2/" title="Investigating the Dynamics of a Forced Damped Pendulum">Next <span class="icon icon-circle-arrow-right"></span></a>
+<a class="btn btn-neutral float-right" href="../Problem_2/" title="Problem 2">Next <span class="icon icon-circle-arrow-right"></span></a>
 </div>
 <hr/>
 <div role="contentinfo">
