@@ -1,3 +1,4 @@
+# Problem 1
 # Investigating the Range as a Function of the Angle of Projection
 
 ## Introduction
@@ -31,7 +32,7 @@ $v_x(t) = v_0\cos\theta$
 $y(t) = (v_0\sin\theta)t - \frac{1}{2}gt^2$
 $v_y(t) = v_0\sin\theta - gt$
 
-![Projectile motion trajectory diagram](projectile_motion_diagram.png)
+![Projectile motion trajectory diagram](figures/projectile_motion_diagram.png)
 
 *Figure 1: Diagram showing the trajectory of a projectile with initial velocity $v_0$ at angle $\theta$. The horizontal range $R$ is the distance traveled before returning to the initial height.*
 
@@ -80,7 +81,7 @@ $R_{max} = \frac{v_0^2}{g}$
 
 The range is proportional to the square of the initial velocity. Doubling the initial velocity quadruples the range. This relationship can be visualized in the following graph:
 
-![Range vs Initial Velocity](range_vs_velocity.png)
+![Range vs Initial Velocity](figures/range_vs_velocity.png)
 
 *Figure 2: Graph showing the quadratic relationship between range and initial velocity for different projection angles.*
 
@@ -139,7 +140,7 @@ function simulate_projectile(v0, theta, g, dt):
 
 Using this simulation, I calculated the range for angles from 0° to 90° in 1° increments. The results confirm our theoretical prediction that 45° yields the maximum range in the ideal case.
 
-![Range vs Angle](range_vs_angle.png)
+![Range vs Angle](figures/range_vs_angle.png)
 
 *Figure 3: Graph showing how the range varies with the angle of projection. Note the symmetric curve with maximum at 45°.*
 

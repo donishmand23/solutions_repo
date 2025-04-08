@@ -1,3 +1,4 @@
+# Problem 2
 # Investigating the Dynamics of a Forced Damped Pendulum
 
 ## Introduction
@@ -21,7 +22,7 @@ Where:
 - $\omega$ is the angular frequency of the external driving force
 - $t$ is time
 
-![Forced damped pendulum diagram](forced_damped_pendulum_diagram.png)
+![Forced damped pendulum diagram](figures/forced_damped_pendulum_diagram.png)
 
 *Figure 1: Diagram of a forced damped pendulum showing the key parameters and forces acting on the system.*
 
@@ -70,6 +71,34 @@ After a sufficient time, the transient term $\theta_c(t)$ decays to zero due to 
 
 ## Analysis of Dynamics
 
+### Simple Pendulum Motion
+
+Let's first examine the behavior of a simple pendulum without damping or external forcing. In this case, the equation of motion simplifies to:
+
+$\frac{d^2\theta}{dt^2} + \frac{g}{L}\sin\theta = 0$
+
+For small angles, this results in simple harmonic motion with a period $T = 2\pi\sqrt{\frac{L}{g}}$. For larger angles, the period increases slightly due to the nonlinearity of the sine function.
+
+![Simple pendulum motion](figures/simple_pendulum.png)
+
+*Figure 2: Angular displacement of a simple pendulum over time, showing the periodic oscillation with constant amplitude.*
+
+### Damped Pendulum Motion
+
+When damping is introduced, the oscillations gradually decay over time. The rate of decay depends on the damping coefficient $b$:
+
+![Damped pendulum motion](figures/damped_pendulum.png)
+
+*Figure 3: Angular displacement of a damped pendulum with different damping coefficients. Higher damping leads to faster decay of oscillations.*
+
+### Forced Pendulum Motion
+
+When an external periodic force is applied to an undamped pendulum, the system can exhibit interesting resonance behaviors. The response depends strongly on the relationship between the driving frequency $\omega$ and the natural frequency $\omega_0$:
+
+![Forced pendulum motion](figures/forced_pendulum.png)
+
+*Figure 4: Angular displacement of a forced pendulum (without damping) for different driving frequencies. Note how the response amplitude varies with frequency.*
+
 ### Resonance Phenomenon
 
 One of the most interesting aspects of the forced damped pendulum is resonance. The amplitude of the steady-state oscillation is given by:
@@ -82,11 +111,11 @@ $\omega_{\text{res}} = \sqrt{\omega_0^2 - \frac{b^2}{2}}$
 
 For small damping, $\omega_{\text{res}} \approx \omega_0$, meaning the system resonates when driven near its natural frequency.
 
-![Amplitude vs driving frequency](amplitude_vs_frequency.png)
+![Amplitude vs driving frequency](figures/amplitude_vs_frequency.png)
 
 *Figure 2: Amplitude response curve showing how the steady-state amplitude varies with driving frequency for different damping coefficients.*
 
-### Effect of Damping
+### Effect of Damping in Forced Oscillations
 
 The damping coefficient $b$ has several important effects on the system:
 
@@ -94,9 +123,17 @@ The damping coefficient $b$ has several important effects on the system:
 2. **Resonance peak broadening**: Higher damping broadens the resonance peak and reduces its height
 3. **Phase shift**: Damping affects the phase relationship between the driving force and the response
 
-![Phase shift vs frequency](phase_shift_vs_frequency.png)
+![Forced damped pendulum with different frequencies](figures/forced_damped_pendulum_scenario1.png)
 
-*Figure 3: Phase shift between the driving force and the pendulum's response as a function of driving frequency for different damping coefficients.*
+*Figure 5: Forced damped pendulum with fixed damping and different driving frequencies, showing how the system responds to various forcing frequencies.*
+
+![Forced damped pendulum with different damping](figures/forced_damped_pendulum_scenario2.png)
+
+*Figure 6: Forced damped pendulum with near-resonant driving frequency and different damping coefficients, illustrating how damping affects the amplitude and phase of oscillations.*
+
+![Phase shift vs frequency](figures/phase_shift_vs_frequency.png)
+
+*Figure 7: Phase shift between the driving force and the pendulum's response as a function of driving frequency for different damping coefficients.*
 
 ### Beyond Small-Angle Approximation
 
@@ -106,9 +143,9 @@ When we consider the full nonlinear equation with $\sin\theta$ instead of the sm
 2. **Period doubling**: As parameters change, the system can undergo period-doubling bifurcations
 3. **Chaotic motion**: For certain parameter values, the motion becomes chaotic and highly sensitive to initial conditions
 
-![Bifurcation diagram](bifurcation_diagram.png)
+![Bifurcation diagram](figures/bifurcation_diagram.png)
 
-*Figure 4: Bifurcation diagram showing the transition to chaos as the driving amplitude increases.*
+*Figure 8: Bifurcation diagram showing the transition to chaos as the driving amplitude increases.*
 
 ## Practical Applications
 
@@ -168,17 +205,17 @@ def runge_kutta_step(theta, omega, t, dt, b, omega0_squared, A, Omega):
 
 The phase space ($\theta$ vs. $\omega$) provides valuable insights into the system's dynamics. For the damped undriven pendulum, trajectories spiral toward an equilibrium point. For the forced damped pendulum, the phase portrait can show limit cycles, strange attractors, or other complex structures.
 
-![Phase portrait](phase_portrait.png)
+![Phase portrait](figures/phase_portrait.png)
 
-*Figure 5: Phase portrait showing the pendulum's behavior in the $\theta$-$\omega$ plane for different parameter values.*
+*Figure 9: Phase portrait showing the pendulum's behavior in the $\theta$-$\omega$ plane for different parameter values.*
 
 ### Poincaré Sections
 
 A Poincaré section is created by sampling the phase space at regular intervals synchronized with the driving force (e.g., once per driving period). This technique helps visualize the long-term behavior of the system and identify chaotic dynamics.
 
-![Poincare section](poincare_section.png)
+![Poincare section](figures/poincare_section.png)
 
-*Figure 6: Poincaré section showing the transition from regular to chaotic motion as the driving amplitude increases.*
+*Figure 10: Poincaré section showing the transition from regular to chaotic motion as the driving amplitude increases.*
 
 ## Limitations and Extensions
 
