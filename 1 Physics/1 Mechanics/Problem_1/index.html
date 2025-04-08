@@ -6,13 +6,13 @@
 <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <link href="../../../img/favicon.ico" rel="shortcut icon"/>
-<title>Problem 1 - Physics and Mathematics</title>
+<title>Investigating the Range as a Function of the Angle of Projection - Physics and Mathematics</title>
 <link href="../../../css/theme.css" rel="stylesheet"/>
 <link href="../../../css/theme_extra.css" rel="stylesheet"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" rel="stylesheet"/>
 <script>
         // Current page data
-        var mkdocs_page_name = "Problem 1";
+        var mkdocs_page_name = "Investigating the Range as a Function of the Angle of Projection";
         var mkdocs_page_input_path = "1 Physics/1 Mechanics/Problem_1.md";
         var mkdocs_page_url = null;
       </script>
@@ -46,8 +46,56 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal current">1 Mechanics</a>
 <ul class="current">
-<li class="toctree-l2 current"><a class="reference internal current" href="#">Problem 1</a>
+<li class="toctree-l2 current"><a class="reference internal current" href="#">Investigating the Range as a Function of the Angle of Projection</a>
 <ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="#introduction">Introduction</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#theoretical-foundation">Theoretical Foundation</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#deriving-the-equations-of-motion">Deriving the Equations of Motion</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#time-of-flight">Time of Flight</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#analysis-of-the-range">Analysis of the Range</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#range-formula">Range Formula</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#optimizing-for-maximum-range">Optimizing for Maximum Range</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#effect-of-parameter-variations">Effect of Parameter Variations</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#practical-applications">Practical Applications</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#non-level-terrain">Non-level Terrain</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#air-resistance">Air Resistance</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#implementation-computational-analysis">Implementation: Computational Analysis</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#simulation-algorithm">Simulation Algorithm</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#range-vs-angle-analysis">Range vs. Angle Analysis</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#parameter-exploration">Parameter Exploration</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#limitations-and-extensions">Limitations and Extensions</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#model-limitations">Model Limitations</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#incorporating-realistic-factors">Incorporating Realistic Factors</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#conclusion">Conclusion</a>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../Problem_2/">Problem 2</a>
@@ -163,7 +211,7 @@
 <li><a aria-label="Docs" class="icon icon-home" href="../../.."></a></li>
 <li class="breadcrumb-item">1 Physics</li>
 <li class="breadcrumb-item">1 Mechanics</li>
-<li class="breadcrumb-item active">Problem 1</li>
+<li class="breadcrumb-item active">Investigating the Range as a Function of the Angle of Projection</li>
 <li class="wy-breadcrumbs-aside">
 </li>
 </ul>
@@ -171,8 +219,115 @@
 </div>
 <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
 <div class="section" itemprop="articleBody">
-<h1 id="problem-1">Problem 1</h1>
-<p>test</p>
+<h1 id="investigating-the-range-as-a-function-of-the-angle-of-projection">Investigating the Range as a Function of the Angle of Projection</h1>
+<h2 id="introduction">Introduction</h2>
+<p>In this solution, I explore the fascinating relationship between the angle of projection and the range of a projectile. Projectile motion represents one of the fundamental applications of Newtonian mechanics, combining principles of kinematics in both horizontal and vertical dimensions. This analysis will provide insights into how we can optimize the launch angle to achieve maximum range, and how other parameters influence this relationship.</p>
+<h2 id="theoretical-foundation">Theoretical Foundation</h2>
+<h3 id="deriving-the-equations-of-motion">Deriving the Equations of Motion</h3>
+<p>I'll begin by establishing the governing equations from first principles. Consider a projectile launched from the origin with an initial velocity <span class="arithmatex">\(v_0\)</span> at an angle <span class="arithmatex">\(\theta\)</span> with respect to the horizontal.</p>
+<p>The initial velocity can be decomposed into horizontal and vertical components:</p>
+<p><span class="arithmatex">\(v_{0x} = v_0 \cos\theta\)</span>
+<span class="arithmatex">\(v_{0y} = v_0 \sin\theta\)</span></p>
+<p>Assuming no air resistance and constant gravitational acceleration <span class="arithmatex">\(g\)</span>, the equations of motion are derived from Newton's second law:</p>
+<p><span class="arithmatex">\(\frac{d^2x}{dt^2} = 0\)</span> (horizontal)
+<span class="arithmatex">\(\frac{d^2y}{dt^2} = -g\)</span> (vertical)</p>
+<p>Integrating these differential equations with the initial conditions:
+- At <span class="arithmatex">\(t=0\)</span>: <span class="arithmatex">\(x=0\)</span>, <span class="arithmatex">\(y=0\)</span>, <span class="arithmatex">\(v_x = v_0\cos\theta\)</span>, <span class="arithmatex">\(v_y = v_0\sin\theta\)</span></p>
+<p>I obtain:</p>
+<p><span class="arithmatex">\(x(t) = (v_0\cos\theta)t\)</span>
+<span class="arithmatex">\(v_x(t) = v_0\cos\theta\)</span></p>
+<p><span class="arithmatex">\(y(t) = (v_0\sin\theta)t - \frac{1}{2}gt^2\)</span>
+<span class="arithmatex">\(v_y(t) = v_0\sin\theta - gt\)</span></p>
+<p><img alt="Projectile motion trajectory diagram" src="../projectile_motion_diagram.png"/></p>
+<p><em>Figure 1: Diagram showing the trajectory of a projectile with initial velocity <span class="arithmatex">\(v_0\)</span> at angle <span class="arithmatex">\(\theta\)</span>. The horizontal range <span class="arithmatex">\(R\)</span> is the distance traveled before returning to the initial height.</em></p>
+<h3 id="time-of-flight">Time of Flight</h3>
+<p>To find the range, I first need to determine when the projectile returns to its initial height (y = 0). From the vertical position equation:</p>
+<p><span class="arithmatex">\(0 = (v_0\sin\theta)t - \frac{1}{2}gt^2\)</span></p>
+<p>This gives two solutions: <span class="arithmatex">\(t = 0\)</span> (initial position) and <span class="arithmatex">\(t = \frac{2v_0\sin\theta}{g}\)</span> (time of flight).</p>
+<h2 id="analysis-of-the-range">Analysis of the Range</h2>
+<h3 id="range-formula">Range Formula</h3>
+<p>The horizontal range <span class="arithmatex">\(R\)</span> is the distance traveled during the time of flight:</p>
+<p><span class="arithmatex">\(R = x(t_{flight}) = (v_0\cos\theta) \cdot \frac{2v_0\sin\theta}{g}\)</span></p>
+<p>Simplifying:</p>
+<p><span class="arithmatex">\(R = \frac{v_0^2\sin(2\theta)}{g}\)</span></p>
+<p>This elegant formula reveals that the range depends on:
+1. The square of the initial velocity (<span class="arithmatex">\(v_0^2\)</span>)
+2. The sine of twice the angle (<span class="arithmatex">\(\sin(2\theta)\)</span>)
+3. Inversely proportional to gravitational acceleration (<span class="arithmatex">\(\frac{1}{g}\)</span>)</p>
+<h3 id="optimizing-for-maximum-range">Optimizing for Maximum Range</h3>
+<p>To find the angle that maximizes the range, I differentiate the range formula with respect to <span class="arithmatex">\(\theta\)</span> and set it equal to zero:</p>
+<p><span class="arithmatex">\(\frac{dR}{d\theta} = \frac{v_0^2}{g} \cdot 2\cos(2\theta) = 0\)</span></p>
+<p>This gives <span class="arithmatex">\(\cos(2\theta) = 0\)</span>, which occurs when <span class="arithmatex">\(2\theta = 90°\)</span>, or <span class="arithmatex">\(\theta = 45°\)</span>.</p>
+<p>Therefore, in the absence of air resistance and on level ground, a launch angle of 45° maximizes the range of a projectile.</p>
+<p>The maximum range is:</p>
+<p><span class="arithmatex">\(R_{max} = \frac{v_0^2}{g}\)</span></p>
+<h3 id="effect-of-parameter-variations">Effect of Parameter Variations</h3>
+<h4 id="initial-velocity">Initial Velocity</h4>
+<p>The range is proportional to the square of the initial velocity. Doubling the initial velocity quadruples the range. This relationship can be visualized in the following graph:</p>
+<p><img alt="Range vs Initial Velocity" src="../range_vs_velocity.png"/></p>
+<p><em>Figure 2: Graph showing the quadratic relationship between range and initial velocity for different projection angles.</em></p>
+<h4 id="gravitational-acceleration">Gravitational Acceleration</h4>
+<p>The range is inversely proportional to gravitational acceleration. This means projectiles on the Moon (where <span class="arithmatex">\(g\)</span> is approximately 1/6 that of Earth) would travel about 6 times farther with the same initial conditions.</p>
+<h4 id="launch-height">Launch Height</h4>
+<p>If the projectile is launched from a height <span class="arithmatex">\(h\)</span> above the ground, the range formula becomes more complex:</p>
+<p><span class="arithmatex">\(R = v_0\cos\theta \cdot \left(\frac{v_0\sin\theta + \sqrt{(v_0\sin\theta)^2 + 2gh}}{g}\right)\)</span></p>
+<p>In this case, the optimal angle for maximum range is less than 45°.</p>
+<h2 id="practical-applications">Practical Applications</h2>
+<h3 id="non-level-terrain">Non-level Terrain</h3>
+<p>When launching a projectile uphill or downhill, the optimal angle changes. For uphill launches, the optimal angle is less than 45°, while for downhill launches, it's greater than 45°.</p>
+<h3 id="air-resistance">Air Resistance</h3>
+<p>In real-world scenarios, air resistance significantly affects projectile motion. The drag force is approximately proportional to the square of the velocity:</p>
+<p><span class="arithmatex">\(F_d = -bv^2\)</span></p>
+<p>Where <span class="arithmatex">\(b\)</span> is a constant depending on the projectile's shape, size, and the air density.</p>
+<p>With air resistance, the optimal angle is typically less than 45° (often around 30-35° depending on the projectile).</p>
+<h2 id="implementation-computational-analysis">Implementation: Computational Analysis</h2>
+<h3 id="simulation-algorithm">Simulation Algorithm</h3>
+<p>To visualize how the range varies with the angle of projection, I developed a Python simulation. Here's the pseudocode:</p>
+<pre><code>function simulate_projectile(v0, theta, g, dt):
+    x = 0
+    y = 0
+    vx = v0 * cos(theta)
+    vy = v0 * sin(theta)
+    trajectory = [(x, y)]
+
+    while y &gt;= 0:
+        x += vx * dt
+        y += vy * dt
+        vy -= g * dt
+        trajectory.append((x, y))
+
+    return trajectory, x  # x is the range
+</code></pre>
+<h3 id="range-vs-angle-analysis">Range vs. Angle Analysis</h3>
+<p>Using this simulation, I calculated the range for angles from 0° to 90° in 1° increments. The results confirm our theoretical prediction that 45° yields the maximum range in the ideal case.</p>
+<p><img alt="Range vs Angle" src="../range_vs_angle.png"/></p>
+<p><em>Figure 3: Graph showing how the range varies with the angle of projection. Note the symmetric curve with maximum at 45°.</em></p>
+<h3 id="parameter-exploration">Parameter Exploration</h3>
+<p>I extended the simulation to explore how different parameters affect the range-angle relationship:</p>
+<ol>
+<li><strong>Varying Initial Velocity</strong>: Higher velocities increase the range but maintain the same optimal angle.</li>
+<li><strong>Including Air Resistance</strong>: With air resistance, the curve becomes asymmetric, with the optimal angle shifting below 45°.</li>
+<li><strong>Different Launch Heights</strong>: When launched from a height, the optimal angle decreases.</li>
+</ol>
+<p><img alt="Range vs Angle with Parameters" src="../range_vs_angle_parameters.png"/></p>
+<p><em>Figure 4: Comparison of range-angle relationships under different conditions.</em></p>
+<h2 id="limitations-and-extensions">Limitations and Extensions</h2>
+<h3 id="model-limitations">Model Limitations</h3>
+<p>The ideal projectile motion model has several limitations:
+1. Neglects air resistance
+2. Assumes constant gravitational acceleration
+3. Ignores the Earth's curvature (relevant for very long-range projectiles)
+4. Doesn't account for the Coriolis effect due to Earth's rotation</p>
+<h3 id="incorporating-realistic-factors">Incorporating Realistic Factors</h3>
+<p>To create a more realistic model, I would need to:
+1. Add drag forces (proportional to <span class="arithmatex">\(v^2\)</span>)
+2. Consider variations in air density with altitude
+3. Account for wind effects
+4. Include the projectile's spin (Magnus effect)</p>
+<p>These additions would require numerical integration methods as the equations become non-linear and lack analytical solutions.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>Through this analysis, I've demonstrated how the range of a projectile depends on its angle of projection. The elegant relationship <span class="arithmatex">\(R = \frac{v_0^2\sin(2\theta)}{g}\)</span> reveals that a 45° angle maximizes the range under ideal conditions. However, real-world factors like air resistance and varying terrain modify this relationship.</p>
+<p>This problem beautifully illustrates how mathematical models in physics can provide both practical insights (like how to achieve maximum distance) and theoretical understanding of natural phenomena. The projectile motion framework serves as a foundation for analyzing more complex systems in ballistics, sports, and aerospace engineering.</p>
 </div>
 </div><footer>
 <div aria-label="Footer Navigation" class="rst-footer-buttons" role="navigation">
