@@ -6,13 +6,13 @@
 <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <link href="../../../img/favicon.ico" rel="shortcut icon"/>
-<title>Problem 2 - Physics and Mathematics</title>
+<title>Investigating the Dynamics of a Forced Damped Pendulum - Physics and Mathematics</title>
 <link href="../../../css/theme.css" rel="stylesheet"/>
 <link href="../../../css/theme_extra.css" rel="stylesheet"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" rel="stylesheet"/>
 <script>
         // Current page data
-        var mkdocs_page_name = "Problem 2";
+        var mkdocs_page_name = "Investigating the Dynamics of a Forced Damped Pendulum";
         var mkdocs_page_input_path = "1 Physics/1 Mechanics/Problem_2.md";
         var mkdocs_page_url = null;
       </script>
@@ -46,10 +46,72 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal current">1 Mechanics</a>
 <ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../Problem_1/">Problem 1</a>
+<li class="toctree-l2"><a class="reference internal" href="../Problem_1/">Investigating the Range as a Function of the Angle of Projection</a>
 </li>
-<li class="toctree-l2 current"><a class="reference internal current" href="#">Problem 2</a>
+<li class="toctree-l2 current"><a class="reference internal current" href="#">Investigating the Dynamics of a Forced Damped Pendulum</a>
 <ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="#introduction">Introduction</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#theoretical-foundation">Theoretical Foundation</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#the-governing-differential-equation">The Governing Differential Equation</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#small-angle-approximation">Small-Angle Approximation</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#complementary-solution">Complementary Solution</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#particular-solution">Particular Solution</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#complete-solution">Complete Solution</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#analysis-of-dynamics">Analysis of Dynamics</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#simple-pendulum-motion">Simple Pendulum Motion</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#damped-pendulum-motion">Damped Pendulum Motion</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#forced-pendulum-motion">Forced Pendulum Motion</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#resonance-phenomenon">Resonance Phenomenon</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#effect-of-damping-in-forced-oscillations">Effect of Damping in Forced Oscillations</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#beyond-small-angle-approximation">Beyond Small-Angle Approximation</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#practical-applications">Practical Applications</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#energy-harvesting">Energy Harvesting</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#structural-engineering">Structural Engineering</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#analog-electrical-circuits">Analog Electrical Circuits</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#implementation-computational-analysis">Implementation: Computational Analysis</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#numerical-integration">Numerical Integration</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#phase-space-analysis">Phase Space Analysis</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#poincare-sections">Poincaré Sections</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#limitations-and-extensions">Limitations and Extensions</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#model-limitations">Model Limitations</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#potential-extensions">Potential Extensions</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#conclusion">Conclusion</a>
+</li>
 </ul>
 </li>
 </ul>
@@ -163,7 +225,7 @@
 <li><a aria-label="Docs" class="icon icon-home" href="../../.."></a></li>
 <li class="breadcrumb-item">1 Physics</li>
 <li class="breadcrumb-item">1 Mechanics</li>
-<li class="breadcrumb-item active">Problem 2</li>
+<li class="breadcrumb-item active">Investigating the Dynamics of a Forced Damped Pendulum</li>
 <li class="wy-breadcrumbs-aside">
 </li>
 </ul>
@@ -171,7 +233,6 @@
 </div>
 <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
 <div class="section" itemprop="articleBody">
-<h1 id="problem-2">Problem 2</h1>
 <h1 id="investigating-the-dynamics-of-a-forced-damped-pendulum">Investigating the Dynamics of a Forced Damped Pendulum</h1>
 <h2 id="introduction">Introduction</h2>
 <p>In this solution, I explore the fascinating dynamics of a forced damped pendulum system. This system represents a fundamental model in classical mechanics that exhibits a rich variety of behaviors, from simple harmonic motion to complex chaotic dynamics. By analyzing the interplay between damping forces, restoring forces, and external driving forces, I aim to gain insights into the system's resonance conditions, energy transfer mechanisms, and transitions to chaos.</p>
@@ -333,7 +394,7 @@
 </div>
 </div><footer>
 <div aria-label="Footer Navigation" class="rst-footer-buttons" role="navigation">
-<a class="btn btn-neutral float-left" href="../Problem_1/" title="Problem 1"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+<a class="btn btn-neutral float-left" href="../Problem_1/" title="Investigating the Range as a Function of the Angle of Projection"><span class="icon icon-circle-arrow-left"></span> Previous</a>
 <a class="btn btn-neutral float-right" href="../../2%20Gravity/Problem_1/" title="Orbital Period and Orbital Radius: Exploring Kepler's Third Law">Next <span class="icon icon-circle-arrow-right"></span></a>
 </div>
 <hr/>

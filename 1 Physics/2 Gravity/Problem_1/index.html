@@ -46,9 +46,9 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal">1 Mechanics</a>
 <ul>
-<li class="toctree-l2"><a class="reference internal" href="../../1%20Mechanics/Problem_1/">Problem 1</a>
+<li class="toctree-l2"><a class="reference internal" href="../../1%20Mechanics/Problem_1/">Investigating the Range as a Function of the Angle of Projection</a>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../1%20Mechanics/Problem_2/">Problem 2</a>
+<li class="toctree-l2"><a class="reference internal" href="../../1%20Mechanics/Problem_2/">Investigating the Dynamics of a Forced Damped Pendulum</a>
 </li>
 </ul>
 </li>
@@ -244,7 +244,7 @@
 <p><span class="arithmatex">\(T^2 = K r^3\)</span></p>
 <p>Where <span class="arithmatex">\(K = \frac{4\pi^2}{GM}\)</span> is a constant for a given central body.</p>
 <p>This is Kepler's Third Law: <strong>The square of the orbital period is proportional to the cube of the semi-major axis of the orbit</strong>. For circular orbits, the semi-major axis is simply the radius.</p>
-<p><img alt="Circular orbit diagram" src="../circular_orbit_diagram.png"/></p>
+<p><img alt="Circular orbit diagram" src="../figures/circular_orbit_diagram.png"/></p>
 <p><em>Figure 1: Diagram showing a body in circular orbit around a central mass, with the gravitational force providing the necessary centripetal acceleration.</em></p>
 <h3 id="extension-to-elliptical-orbits">Extension to Elliptical Orbits</h3>
 <p>For elliptical orbits, Kepler's Third Law still holds, but the radius <span class="arithmatex">\(r\)</span> is replaced by the semi-major axis <span class="arithmatex">\(a\)</span> of the ellipse:</p>
@@ -315,7 +315,7 @@
 </tbody>
 </table>
 <p>The consistency of the <span class="arithmatex">\(T^2/a^3\)</span> ratio demonstrates the validity of Kepler's Third Law across our solar system.</p>
-<p><img alt="Solar system verification" src="../kepler_law_verification.png"/></p>
+<p><img alt="Solar system verification" src="../figures/kepler_law_verification.png"/></p>
 <p><em>Figure 2: Plot showing the relationship between orbital period squared and semi-major axis cubed for the planets in our solar system, demonstrating Kepler's Third Law.</em></p>
 <h3 id="determining-masses-of-celestial-bodies">Determining Masses of Celestial Bodies</h3>
 <p>One powerful application of Kepler's Third Law is determining the mass of celestial bodies. By rearranging the equation:</p>
@@ -332,7 +332,7 @@
 <p>For binary star systems where both stars have comparable masses, we need to modify Kepler's Third Law. If we have two stars with masses <span class="arithmatex">\(M_1\)</span> and <span class="arithmatex">\(M_2\)</span> orbiting their common center of mass, the relationship becomes:</p>
 <p><span class="arithmatex">\(T^2 = \frac{4\pi^2 a^3}{G(M_1 + M_2)}\)</span></p>
 <p>Where <span class="arithmatex">\(a\)</span> is now the semi-major axis of the relative orbit. This allows astronomers to determine the combined mass of binary star systems by observing their orbital parameters.</p>
-<p><img alt="Binary star system" src="../binary_star_system.png"/></p>
+<p><img alt="Binary star system" src="../figures/binary_star_system.png"/></p>
 <p><em>Figure 3: Diagram of a binary star system showing the two stars orbiting their common center of mass.</em></p>
 <h3 id="satellite-orbits-and-space-missions">Satellite Orbits and Space Missions</h3>
 <p>Kepler's Third Law is essential for planning satellite orbits and space missions. For example, geostationary satellites, which appear stationary relative to Earth's surface, must orbit at a specific altitude to have an orbital period equal to Earth's rotational period (23.93 hours).</p>
@@ -391,7 +391,7 @@ def runge_kutta_step(x, y, vx, vy, dt, M):
 </code></pre>
 <h3 id="verification-of-keplers-third-law">Verification of Kepler's Third Law</h3>
 <p>Using the simulation, I tested orbits at different distances from a central mass and measured their periods. The results confirm that <span class="arithmatex">\(T^2 \propto r^3\)</span> across a wide range of orbital radii.</p>
-<p><img alt="Simulation results" src="../kepler_law_simulation.png"/></p>
+<p><img alt="Simulation results" src="../figures/kepler_law_simulation.png"/></p>
 <p><em>Figure 4: Results from orbital simulation showing the relationship between <span class="arithmatex">\(T^2\)</span> and <span class="arithmatex">\(r^3\)</span> for various simulated orbits, confirming Kepler's Third Law.</em></p>
 <h2 id="practical-examples">Practical Examples</h2>
 <h3 id="earth-moon-system">Earth-Moon System</h3>
@@ -399,7 +399,7 @@ def runge_kutta_step(x, y, vx, vy, dt, M):
 <h3 id="exoplanet-detection">Exoplanet Detection</h3>
 <p>Kepler's Third Law plays a crucial role in the detection and characterization of exoplanets. By observing the periodic dimming of a star as a planet transits across its face, astronomers can determine the orbital period. If they can also estimate the orbital radius (often through other methods like radial velocity measurements), they can calculate the mass of the star using Kepler's Third Law.</p>
 <p>This technique has led to the discovery of thousands of exoplanets, revolutionizing our understanding of planetary systems beyond our own.</p>
-<p><img alt="Exoplanet transit" src="../exoplanet_transit.png"/></p>
+<p><img alt="Exoplanet transit" src="../figures/exoplanet_transit.png"/></p>
 <p><em>Figure 5: Illustration of an exoplanet transit and how it can be used with Kepler's Third Law to determine orbital parameters.</em></p>
 <h2 id="limitations-and-extensions">Limitations and Extensions</h2>
 <h3 id="relativistic-effects">Relativistic Effects</h3>
@@ -412,7 +412,7 @@ def runge_kutta_step(x, y, vx, vy, dt, M):
 </div>
 </div><footer>
 <div aria-label="Footer Navigation" class="rst-footer-buttons" role="navigation">
-<a class="btn btn-neutral float-left" href="../../1%20Mechanics/Problem_2/" title="Problem 2"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+<a class="btn btn-neutral float-left" href="../../1%20Mechanics/Problem_2/" title="Investigating the Dynamics of a Forced Damped Pendulum"><span class="icon icon-circle-arrow-left"></span> Previous</a>
 <a class="btn btn-neutral float-right" href="../Problem_2/" title="Escape Velocities and Cosmic Velocities: Breaking Free from Gravitational Bonds">Next <span class="icon icon-circle-arrow-right"></span></a>
 </div>
 <hr/>

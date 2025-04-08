@@ -46,9 +46,9 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal">1 Mechanics</a>
 <ul>
-<li class="toctree-l2"><a class="reference internal" href="../../1%20Mechanics/Problem_1/">Problem 1</a>
+<li class="toctree-l2"><a class="reference internal" href="../../1%20Mechanics/Problem_1/">Investigating the Range as a Function of the Angle of Projection</a>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../1%20Mechanics/Problem_2/">Problem 2</a>
+<li class="toctree-l2"><a class="reference internal" href="../../1%20Mechanics/Problem_2/">Investigating the Dynamics of a Forced Damped Pendulum</a>
 </li>
 </ul>
 </li>
@@ -246,7 +246,7 @@
 <p><span class="arithmatex">\(\frac{d^2y}{dt^2} = -\frac{GM}{r^3}y\)</span></p>
 <p><span class="arithmatex">\(\frac{d^2z}{dt^2} = -\frac{GM}{r^3}z\)</span></p>
 <p>Where <span class="arithmatex">\(r = \sqrt{x^2 + y^2 + z^2}\)</span> is the distance from Earth's center.</p>
-<p><img alt="Coordinate system for payload trajectories" src="../payload_coordinate_system.png"/></p>
+<p><img alt="Coordinate system for payload trajectories" src="../figures/payload_coordinate_system.png"/></p>
 <p><em>Figure 1: Coordinate system for analyzing payload trajectories, showing the relationship between the payload position, velocity, and Earth's gravitational field.</em></p>
 <h3 id="types-of-trajectories">Types of Trajectories</h3>
 <p>The trajectory of a released payload depends on its initial position and velocity relative to Earth. Based on the specific energy of the payload, we can classify the possible trajectories into three main types:</p>
@@ -267,7 +267,7 @@
 - <span class="arithmatex">\(\varepsilon &lt; 0\)</span>: Elliptical trajectory
 - <span class="arithmatex">\(\varepsilon = 0\)</span>: Parabolic trajectory
 - <span class="arithmatex">\(\varepsilon &gt; 0\)</span>: Hyperbolic trajectory</p>
-<p><img alt="Types of trajectories" src="../trajectory_types.png"/></p>
+<p><img alt="Types of trajectories" src="../figures/trajectory_types.png"/></p>
 <p><em>Figure 2: The three possible trajectory types for a released payload: elliptical (bound), parabolic (escape with zero velocity at infinity), and hyperbolic (escape with non-zero velocity at infinity).</em></p>
 <h3 id="orbital-elements-and-conic-sections">Orbital Elements and Conic Sections</h3>
 <p>All of these trajectories are conic sections, which can be described by the general equation:</p>
@@ -299,7 +299,7 @@
 <p><strong>Direction of Release</strong>: The angle at which the payload is released relative to the rocket's velocity vector</p>
 </li>
 </ol>
-<p><img alt="Initial conditions impact" src="../initial_conditions_impact.png"/></p>
+<p><img alt="Initial conditions impact" src="../figures/initial_conditions_impact.png"/></p>
 <p><em>Figure 3: Illustration showing how different initial conditions (release velocity, altitude, and direction) affect the resulting trajectory of the payload.</em></p>
 <h3 id="orbital-insertion-scenarios">Orbital Insertion Scenarios</h3>
 <p>For a payload to enter a stable orbit around Earth, it must be released with appropriate initial conditions. The most efficient orbital insertion occurs when the payload is released tangentially to the desired orbit with the correct velocity.</p>
@@ -363,7 +363,7 @@
 <li><strong>Release Velocity</strong>: Varying from sub-orbital to super-escape velocities</li>
 <li><strong>Release Direction</strong>: Different angles relative to the rocket's velocity vector</li>
 </ul>
-<p><img alt="Simulation results" src="../simulation_results.png"/></p>
+<p><img alt="Simulation results" src="../figures/simulation_results.png"/></p>
 <p><em>Figure 4: Results from numerical simulations showing various payload trajectories for different release conditions. The trajectories are color-coded based on their type: elliptical (blue), parabolic (green), and hyperbolic (red).</em></p>
 <h3 id="sensitivity-analysis">Sensitivity Analysis</h3>
 <p>I conducted a sensitivity analysis to understand how small changes in initial conditions affect the resulting trajectory. This analysis is crucial for mission planning, as it helps identify the precision requirements for payload release mechanisms.</p>
@@ -379,7 +379,7 @@
 <p><strong>Angular Sensitivity</strong>: The direction of release is most critical for orbital insertion scenarios, where deviations of just a few degrees can result in highly elliptical orbits instead of the intended circular ones.</p>
 </li>
 </ol>
-<p><img alt="Sensitivity analysis" src="../sensitivity_analysis.png"/></p>
+<p><img alt="Sensitivity analysis" src="../figures/sensitivity_analysis.png"/></p>
 <p><em>Figure 5: Sensitivity analysis showing how small variations in initial conditions affect the resulting trajectories. Each panel shows the effect of varying one parameter while keeping others constant.</em></p>
 <h2 id="practical-applications">Practical Applications</h2>
 <h3 id="satellite-deployment">Satellite Deployment</h3>
