@@ -50,7 +50,7 @@
 </li>
 <li class="toctree-l2 current"><a class="reference internal current" href="#">Investigating the Dynamics of a Forced Damped Pendulum</a>
 <ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="#introduction">Introduction</a>
+<li class="toctree-l3"><a class="reference internal" href="#motivation">Motivation</a>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#theoretical-foundation">Theoretical Foundation</a>
 <ul>
@@ -68,11 +68,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#analysis-of-dynamics">Analysis of Dynamics</a>
 <ul>
-<li class="toctree-l4"><a class="reference internal" href="#simple-pendulum-motion">Simple Pendulum Motion</a>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="#damped-pendulum-motion">Damped Pendulum Motion</a>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="#forced-pendulum-motion">Forced Pendulum Motion</a>
+<li class="toctree-l4"><a class="reference internal" href="#pendulum-motion-under-different-conditions">Pendulum Motion Under Different Conditions</a>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="#resonance-phenomenon">Resonance Phenomenon</a>
 </li>
@@ -234,8 +230,9 @@
 <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
 <div class="section" itemprop="articleBody">
 <h1 id="investigating-the-dynamics-of-a-forced-damped-pendulum">Investigating the Dynamics of a Forced Damped Pendulum</h1>
-<h2 id="introduction">Introduction</h2>
-<p>In this solution, I explore the fascinating dynamics of a forced damped pendulum system. This system represents a fundamental model in classical mechanics that exhibits a rich variety of behaviors, from simple harmonic motion to complex chaotic dynamics. By analyzing the interplay between damping forces, restoring forces, and external driving forces, I aim to gain insights into the system's resonance conditions, energy transfer mechanisms, and transitions to chaos.</p>
+<h2 id="motivation">Motivation</h2>
+<p>The forced damped pendulum is a captivating example of a physical system with intricate behavior resulting from the interplay of damping, restoring forces, and external driving forces. By introducing both damping and external periodic forcing, the system demonstrates a transition from simple harmonic motion to a rich spectrum of dynamics, including resonance, chaos, and quasiperiodic behavior. These phenomena serve as a foundation for understanding complex real-world systems, such as driven oscillators, climate systems, and mechanical structures under periodic stress.</p>
+<p>Adding forcing introduces new parameters, such as the amplitude and frequency of the external force, which significantly affect the pendulum's behavior. By systematically varying these parameters, a diverse class of solutions can be observed, including synchronized oscillations, chaotic motion, and resonance phenomena. These behaviors not only highlight fundamental physics principles but also provide insights into engineering applications such as energy harvesting, vibration isolation, and mechanical resonance.</p>
 <h2 id="theoretical-foundation">Theoretical Foundation</h2>
 <h3 id="the-governing-differential-equation">The Governing Differential Equation</h3>
 <p>The motion of a forced damped pendulum is governed by the following second-order differential equation:</p>
@@ -278,20 +275,22 @@
 <p><span class="arithmatex">\(\theta(t) = \theta_c(t) + \theta_p(t)\)</span></p>
 <p>After a sufficient time, the transient term <span class="arithmatex">\(\theta_c(t)\)</span> decays to zero due to damping, leaving only the steady-state response <span class="arithmatex">\(\theta_p(t)\)</span>.</p>
 <h2 id="analysis-of-dynamics">Analysis of Dynamics</h2>
-<h3 id="simple-pendulum-motion">Simple Pendulum Motion</h3>
-<p>Let's first examine the behavior of a simple pendulum without damping or external forcing. In this case, the equation of motion simplifies to:</p>
-<p><span class="arithmatex">\(\frac{d^2\theta}{dt^2} + \frac{g}{L}\sin\theta = 0\)</span></p>
-<p>For small angles, this results in simple harmonic motion with a period <span class="arithmatex">\(T = 2\pi\sqrt{\frac{L}{g}}\)</span>. For larger angles, the period increases slightly due to the nonlinearity of the sine function.</p>
-<p><img alt="Simple pendulum motion" src="../figures/simple_pendulum.png"/></p>
-<p><em>Figure 2: Angular displacement of a simple pendulum over time, showing the periodic oscillation with constant amplitude.</em></p>
-<h3 id="damped-pendulum-motion">Damped Pendulum Motion</h3>
-<p>When damping is introduced, the oscillations gradually decay over time. The rate of decay depends on the damping coefficient <span class="arithmatex">\(b\)</span>:</p>
-<p><img alt="Damped pendulum motion" src="../figures/damped_pendulum.png"/></p>
-<p><em>Figure 3: Angular displacement of a damped pendulum with different damping coefficients. Higher damping leads to faster decay of oscillations.</em></p>
-<h3 id="forced-pendulum-motion">Forced Pendulum Motion</h3>
-<p>When an external periodic force is applied to an undamped pendulum, the system can exhibit interesting resonance behaviors. The response depends strongly on the relationship between the driving frequency <span class="arithmatex">\(\omega\)</span> and the natural frequency <span class="arithmatex">\(\omega_0\)</span>:</p>
-<p><img alt="Forced pendulum motion" src="../figures/forced_pendulum.png"/></p>
-<p><em>Figure 4: Angular displacement of a forced pendulum (without damping) for different driving frequencies. Note how the response amplitude varies with frequency.</em></p>
+<h3 id="pendulum-motion-under-different-conditions">Pendulum Motion Under Different Conditions</h3>
+<p>To understand the dynamics of the pendulum system, I've simulated three key scenarios that illustrate the fundamental behaviors of the system:</p>
+<p><img alt="Pendulum dynamics under different conditions" src="../figures/pendulum_combined_phase_portraits.png"/></p>
+<p><em>Figure 2: Time series (left) and phase portraits (right) for three pendulum scenarios: (1) Simple pendulum without damping or external force, (2) Damped pendulum with damping coefficient b=0.2, and (3) Forced pendulum with external periodic force.</em></p>
+<p>The figure above shows both the time evolution of the pendulum angle (left column) and the corresponding phase portraits plotting angular velocity against angle (right column) for three different scenarios:</p>
+<ol>
+<li>
+<p><strong>Simple Pendulum (top row)</strong>: With no damping (b=0) and no external force (A=0), the pendulum exhibits perfect oscillatory motion. The phase portrait shows a closed elliptical orbit, indicating conservation of energy. The system perpetually cycles through the same states without energy loss.</p>
+</li>
+<li>
+<p><strong>Damped Pendulum (middle row)</strong>: With damping (b≠0) but no external force (A=0), the oscillations gradually decay over time as energy is dissipated through friction. The phase portrait shows a spiral trajectory that converges to the origin (equilibrium position), illustrating how the system loses energy over time.</p>
+</li>
+<li>
+<p><strong>Forced Pendulum (bottom row)</strong>: With no damping (b=0) but with an external periodic force (A≠0), the pendulum exhibits complex oscillatory behavior. The phase portrait shows a more intricate pattern as the system continuously receives energy from the external force. This can lead to various behaviors depending on the driving frequency, including resonance and potentially chaotic motion.</p>
+</li>
+</ol>
 <h3 id="resonance-phenomenon">Resonance Phenomenon</h3>
 <p>One of the most interesting aspects of the forced damped pendulum is resonance. The amplitude of the steady-state oscillation is given by:</p>
 <p><span class="arithmatex">\(A_{\text{response}} = \frac{A}{\sqrt{(\omega_0^2 - \omega^2)^2 + (b\omega)^2}}\)</span></p>
@@ -340,33 +339,57 @@
 - The voltage source corresponds to the external driving force</p>
 <h2 id="implementation-computational-analysis">Implementation: Computational Analysis</h2>
 <h3 id="numerical-integration">Numerical Integration</h3>
-<p>To explore the dynamics beyond the small-angle approximation, I implemented a numerical simulation using the fourth-order Runge-Kutta method. The second-order differential equation was converted to a system of first-order equations:</p>
+<p>To generate the phase portraits shown in Figure 2, I implemented a numerical simulation using SciPy's <code>solve_ivp</code> function, which employs the Runge-Kutta method. The second-order differential equation was converted to a system of first-order equations:</p>
 <p><span class="arithmatex">\(\frac{d\theta}{dt} = \omega\)</span>
 <span class="arithmatex">\(\frac{d\omega}{dt} = -b\omega - \frac{g}{L}\sin\theta + A\cos(\Omega t)\)</span></p>
 <p>Where <span class="arithmatex">\(\omega\)</span> here represents the angular velocity (not to be confused with the driving frequency).</p>
-<pre><code class="language-python">def runge_kutta_step(theta, omega, t, dt, b, omega0_squared, A, Omega):
-    """Perform one step of RK4 integration for the forced damped pendulum."""
-    k1_theta = omega
-    k1_omega = -b * omega - omega0_squared * np.sin(theta) + A * np.cos(Omega * t)
+<pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+from scipy.integrate import solve_ivp
+import os
 
-    k2_theta = omega + 0.5 * dt * k1_omega
-    k2_omega = -b * (omega + 0.5 * dt * k1_omega) - omega0_squared * np.sin(theta + 0.5 * dt * k1_theta) + A * np.cos(Omega * (t + 0.5 * dt))
+# Common parameters
+g = 9.81  # gravitational acceleration (m/s^2)
+L = 1.0   # pendulum length (m)
+omega0_squared = g/L  # natural frequency squared
+omega0 = np.sqrt(omega0_squared)  # natural frequency
 
-    k3_theta = omega + 0.5 * dt * k2_omega
-    k3_omega = -b * (omega + 0.5 * dt * k2_omega) - omega0_squared * np.sin(theta + 0.5 * dt * k2_theta) + A * np.cos(Omega * (t + 0.5 * dt))
+# Define the differential equations for each scenario
+def simple_pendulum(t, y):
+    """ODE for simple pendulum motion (no damping, no external force)"""
+    theta, omega = y
+    dtheta_dt = omega
+    domega_dt = -omega0_squared * np.sin(theta)
+    return [dtheta_dt, domega_dt]
 
-    k4_theta = omega + dt * k3_omega
-    k4_omega = -b * (omega + dt * k3_omega) - omega0_squared * np.sin(theta + dt * k3_theta) + A * np.cos(Omega * (t + dt))
+def damped_pendulum(t, y, b=0.2):
+    """ODE for damped pendulum motion (with damping, no external force)"""
+    theta, omega = y
+    dtheta_dt = omega
+    domega_dt = -b * omega - omega0_squared * np.sin(theta)
+    return [dtheta_dt, domega_dt]
 
-    theta_new = theta + (dt / 6) * (k1_theta + 2 * k2_theta + 2 * k3_theta + k4_theta)
-    omega_new = omega + (dt / 6) * (k1_omega + 2 * k2_omega + 2 * k3_omega + k4_omega)
-
-    return theta_new, omega_new
+def forced_pendulum(t, y, A=0.5, Omega=0.667*omega0):
+    """ODE for forced pendulum motion (no damping, with external force)"""
+    theta, omega = y
+    dtheta_dt = omega
+    domega_dt = -omega0_squared * np.sin(theta) + A * np.cos(Omega * t)
+    return [dtheta_dt, domega_dt]
 </code></pre>
+<p>This implementation allows us to simulate the pendulum's behavior under different conditions and visualize both the time evolution and phase space trajectories.</p>
 <h3 id="phase-space-analysis">Phase Space Analysis</h3>
-<p>The phase space (<span class="arithmatex">\(\theta\)</span> vs. <span class="arithmatex">\(\omega\)</span>) provides valuable insights into the system's dynamics. For the damped undriven pendulum, trajectories spiral toward an equilibrium point. For the forced damped pendulum, the phase portrait can show limit cycles, strange attractors, or other complex structures.</p>
-<p><img alt="Phase portrait" src="../figures/phase_portrait.png"/></p>
-<p><em>Figure 9: Phase portrait showing the pendulum's behavior in the <span class="arithmatex">\(\theta\)</span>-<span class="arithmatex">\(\omega\)</span> plane for different parameter values.</em></p>
+<p>The phase portraits shown in Figure 2 provide valuable insights into the system's dynamics:</p>
+<ul>
+<li>
+<p><strong>Simple Pendulum</strong>: The closed orbit in phase space represents a system with constant energy. The shape is elliptical for small oscillations but becomes more distorted for larger amplitudes due to the nonlinearity of the sine term in the equation of motion.</p>
+</li>
+<li>
+<p><strong>Damped Pendulum</strong>: The spiral trajectory in phase space illustrates energy dissipation. The system gradually loses energy due to damping forces, causing the trajectory to spiral inward toward the equilibrium point at the origin.</p>
+</li>
+<li>
+<p><strong>Forced Pendulum</strong>: The complex structure in phase space reflects the continuous energy input from the external force. Depending on the parameters, this can lead to limit cycles (for periodic motion) or strange attractors (for chaotic motion).</p>
+</li>
+</ul>
 <h3 id="poincare-sections">Poincaré Sections</h3>
 <p>A Poincaré section is created by sampling the phase space at regular intervals synchronized with the driving force (e.g., once per driving period). This technique helps visualize the long-term behavior of the system and identify chaotic dynamics.</p>
 <p><img alt="Poincare section" src="../figures/poincare_section.png"/></p>
