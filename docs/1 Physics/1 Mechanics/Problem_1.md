@@ -1,8 +1,10 @@
 # Investigating the Range as a Function of the Angle of Projection
 
-## Introduction
+## Motivation
 
-In this solution, I explore the fascinating relationship between the angle of projection and the range of a projectile. Projectile motion represents one of the fundamental applications of Newtonian mechanics, combining principles of kinematics in both horizontal and vertical dimensions. This analysis will provide insights into how we can optimize the launch angle to achieve maximum range, and how other parameters influence this relationship.
+Projectile motion, while seemingly simple, offers a rich playground for exploring fundamental principles of physics. The problem is straightforward: analyze how the range of a projectile depends on its angle of projection. Yet, beneath this simplicity lies a complex and versatile framework. The equations governing projectile motion involve both linear and quadratic relationships, making them accessible yet deeply insightful.
+
+What makes this topic particularly compelling is the number of free parameters involved in these equations, such as initial velocity, gravitational acceleration, and launch height. These parameters give rise to a diverse set of solutions that can describe a wide array of real-world phenomena, from the arc of a soccer ball to the trajectory of a rocket.
 
 ## Theoretical Foundation
 
@@ -30,10 +32,6 @@ $v_x(t) = v_0\cos\theta$
 
 $y(t) = (v_0\sin\theta)t - \frac{1}{2}gt^2$
 $v_y(t) = v_0\sin\theta - gt$
-
-![Projectile motion trajectory diagram](figures/projectile_motion_diagram.png)
-
-*Figure 1: Diagram showing the trajectory of a projectile with initial velocity $v_0$ at angle $\theta$. The horizontal range $R$ is the distance traveled before returning to the initial height.*
 
 ### Time of Flight
 
@@ -74,27 +72,39 @@ The maximum range is:
 
 $R_{max} = \frac{v_0^2}{g}$
 
-### Effect of Parameter Variations
+## Visualization of Projectile Motion
 
-#### Initial Velocity
+### Effect of Initial Velocity
 
-The range is proportional to the square of the initial velocity. Doubling the initial velocity quadruples the range. This relationship can be visualized in the following graph:
+The range is proportional to the square of the initial velocity. Doubling the initial velocity quadruples the range. This relationship is visualized in the following figure:
 
-![Range vs Initial Velocity](figures/range_vs_velocity.png)
+![Projectile Motion: Same Angle, Different Velocities](figures/projectile_motion_part_a.png)
 
-*Figure 2: Graph showing the quadratic relationship between range and initial velocity for different projection angles.*
+*Figure 1: Trajectories of projectiles launched at a 45° angle with different initial velocities (30 m/s, 40 m/s, and 50 m/s). Note how the range increases with the square of the initial velocity.*
 
-#### Gravitational Acceleration
+In this figure, we can observe that:
+- All projectiles are launched at the same angle (45°)
+- The red trajectory corresponds to an initial velocity of 30 m/s with a range of 91.8 m
+- The purple trajectory corresponds to an initial velocity of 40 m/s with a range of 163 m
+- The green trajectory corresponds to an initial velocity of 50 m/s with a range of 255 m
 
-The range is inversely proportional to gravitational acceleration. This means projectiles on the Moon (where $g$ is approximately 1/6 that of Earth) would travel about 6 times farther with the same initial conditions.
+The ratio of ranges (91.8 : 163 : 255) approximately follows the ratio of the squares of velocities (900 : 1600 : 2500), confirming our theoretical prediction.
 
-#### Launch Height
+### Effect of Launch Angle
 
-If the projectile is launched from a height $h$ above the ground, the range formula becomes more complex:
+For a fixed initial velocity, the range varies with the sine of twice the launch angle, reaching its maximum at 45°. This is illustrated in the following figure:
 
-$R = v_0\cos\theta \cdot \left(\frac{v_0\sin\theta + \sqrt{(v_0\sin\theta)^2 + 2gh}}{g}\right)$
+![Projectile Motion: Same Velocity, Different Angles](figures/projectile_motion_part_b.png)
 
-In this case, the optimal angle for maximum range is less than 45°.
+*Figure 2: Trajectories of projectiles launched with the same initial velocity (50 m/s) at different angles (15°, 45°, and 75°). Note how the 45° angle provides the maximum range.*
+
+In this figure, we can observe that:
+- All projectiles have the same initial velocity (50 m/s)
+- The red trajectory corresponds to a 15° launch angle
+- The purple trajectory corresponds to a 45° launch angle with a range of 255 m
+- The green trajectory corresponds to a 75° launch angle
+
+Interestingly, the 15° and 75° angles (which are complementary angles that sum to 90°) result in the same range (128 m), which is less than the maximum range achieved at 45°. This demonstrates the symmetry in the range formula around 45°.
 
 ## Practical Applications
 
@@ -114,42 +124,33 @@ With air resistance, the optimal angle is typically less than 45° (often around
 
 ## Implementation: Computational Analysis
 
-### Simulation Algorithm
+I've created a Python script to simulate and visualize projectile motion. The script generates the figures shown above and can be found in the `scripts` directory. Here's a simplified version of the code used to generate these visualizations:
 
-To visualize how the range varies with the angle of projection, I developed a Python simulation. Here's the pseudocode:
+```python
+import numpy as np
+import matplotlib.pyplot as plt
 
-```
-function simulate_projectile(v0, theta, g, dt):
-    x = 0
-    y = 0
-    vx = v0 * cos(theta)
-    vy = v0 * sin(theta)
-    trajectory = [(x, y)]
+def plot_trajectory(v0, theta, g=9.8):
+    # Convert angle to radians
+    theta_rad = np.radians(theta)
     
-    while y >= 0:
-        x += vx * dt
-        y += vy * dt
-        vy -= g * dt
-        trajectory.append((x, y))
+    # Calculate time of flight
+    t_flight = 2 * v0 * np.sin(theta_rad) / g
     
-    return trajectory, x  # x is the range
+    # Generate time points
+    t = np.linspace(0, t_flight, 1000)
+    
+    # Calculate trajectory
+    x = v0 * np.cos(theta_rad) * t
+    y = v0 * np.sin(theta_rad) * t - 0.5 * g * t**2
+    
+    # Calculate range
+    R = v0**2 * np.sin(2*theta_rad) / g
+    
+    return x, y, R
 ```
 
-### Range vs. Angle Analysis
-
-Using this simulation, I calculated the range for angles from 0° to 90° in 1° increments. The results confirm our theoretical prediction that 45° yields the maximum range in the ideal case.
-
-![Range vs Angle](figures/range_vs_angle.png)
-
-*Figure 3: Graph showing how the range varies with the angle of projection. Note the symmetric curve with maximum at 45°.*
-
-### Parameter Exploration
-
-I extended the simulation to explore how different parameters affect the range-angle relationship:
-
-1. **Varying Initial Velocity**: Higher velocities increase the range but maintain the same optimal angle.
-2. **Including Air Resistance**: With air resistance, the curve becomes asymmetric, with the optimal angle shifting below 45°.
-3. **Different Launch Heights**: When launched from a height, the optimal angle decreases.
+This function calculates the trajectory and range of a projectile given its initial velocity and launch angle. The complete script includes additional code for plotting multiple trajectories and adding annotations.
 
 ## Limitations and Extensions
 
