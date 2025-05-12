@@ -88,7 +88,11 @@
 <ul>
 <li class="toctree-l4"><a class="reference internal" href="#numerical-integration-of-equations-of-motion">Numerical Integration of Equations of Motion</a>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="#trajectory-evolution-visualization">Trajectory Evolution Visualization</a>
+</li>
 <li class="toctree-l4"><a class="reference internal" href="#simulation-of-various-release-scenarios">Simulation of Various Release Scenarios</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#comprehensive-analysis-of-release-parameters">Comprehensive Analysis of Release Parameters</a>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="#sensitivity-analysis">Sensitivity Analysis</a>
 </li>
@@ -326,6 +330,10 @@
 <p>To accurately predict the trajectory of a released payload, I implemented a numerical integration of the equations of motion using the fourth-order Runge-Kutta method. This approach provides high accuracy for orbital mechanics problems and can account for various perturbations.</p>
 <p>The state vector of the payload is defined as <span class="arithmatex">\(\vec{X} = [x, y, z, v_x, v_y, v_z]^T\)</span>, and the equations of motion are expressed as a system of first-order differential equations:</p>
 <p><span class="arithmatex">\(\frac{d\vec{X}}{dt} = \begin{bmatrix} v_x \\ v_y \\ v_z \\ -\frac{GM}{r^3}x \\ -\frac{GM}{r^3}y \\ -\frac{GM}{r^3}z \end{bmatrix}\)</span></p>
+<h3 id="trajectory-evolution-visualization">Trajectory Evolution Visualization</h3>
+<p>To better understand how payload trajectories evolve over time, I created a visualization that tracks the position of a payload as it moves along its orbit. This helps illustrate the time-dependent nature of orbital motion and the varying speeds experienced at different points in the orbit.</p>
+<p><img alt="Trajectory evolution" src="../figures/trajectory_evolution.png"/></p>
+<p><em>Figure 7: Visualization of trajectory evolution over time, showing how a payload moves along its orbit. The payload experiences higher velocities at perigee (closest approach to Earth) and lower velocities at apogee (farthest point from Earth).</em></p>
 <p>The Python implementation of the Runge-Kutta integrator is as follows:</p>
 <pre><code class="language-python">def runge_kutta_step(state, dt, GM):
     """Perform one step of RK4 integration for orbital motion.
@@ -365,6 +373,11 @@
 </ul>
 <p><img alt="Simulation results" src="../figures/simulation_results.png"/></p>
 <p><em>Figure 4: Results from numerical simulations showing various payload trajectories for different release conditions. The trajectories are color-coded based on their type: elliptical (blue), parabolic (green), and hyperbolic (red).</em></p>
+<h3 id="comprehensive-analysis-of-release-parameters">Comprehensive Analysis of Release Parameters</h3>
+<p>To gain deeper insights into how different release parameters affect payload trajectories, I conducted a comprehensive analysis examining the effects of velocity magnitude, release angle, and altitude. This analysis helps mission planners understand the sensitivity of trajectories to various factors and optimize release conditions for specific mission objectives.</p>
+<p><img alt="Release parameter effects" src="../figures/release_parameter_effects.png"/></p>
+<p><em>Figure 5: Comprehensive analysis of how release parameters affect payload trajectories. Top left: Effect of velocity magnitude. Top right: Effect of release angle. Bottom left: Effect of release altitude. Bottom right: Phase space diagram showing the relationship between distance, velocity, and orbit type.</em></p>
+<p>The phase space diagram (bottom right) is particularly informative, as it maps the relationship between distance from Earth, velocity magnitude, and the resulting orbit type. The red line represents the escape boundary (E = 0), separating bound orbits (below) from escape trajectories (above). The green line represents circular orbits, which have the minimum velocity required for a stable orbit at each distance.</p>
 <h3 id="sensitivity-analysis">Sensitivity Analysis</h3>
 <p>I conducted a sensitivity analysis to understand how small changes in initial conditions affect the resulting trajectory. This analysis is crucial for mission planning, as it helps identify the precision requirements for payload release mechanisms.</p>
 <p>The results showed that:</p>
@@ -380,7 +393,7 @@
 </li>
 </ol>
 <p><img alt="Sensitivity analysis" src="../figures/sensitivity_analysis.png"/></p>
-<p><em>Figure 5: Sensitivity analysis showing how small variations in initial conditions affect the resulting trajectories. Each panel shows the effect of varying one parameter while keeping others constant.</em></p>
+<p><em>Figure 6: Sensitivity analysis showing how small variations in initial conditions affect the resulting trajectories. Each panel shows the effect of varying one parameter while keeping others constant.</em></p>
 <h2 id="practical-applications">Practical Applications</h2>
 <h3 id="satellite-deployment">Satellite Deployment</h3>
 <p>One of the most common applications of payload release near Earth is satellite deployment. Modern satellite deployment strategies include:</p>
@@ -468,7 +481,22 @@
 </ol>
 <h2 id="conclusion">Conclusion</h2>
 <p>Through this analysis, I've explored the rich dynamics of payload trajectories near Earth, from the fundamental physics governing their motion to practical applications in space missions. The trajectory of a released payload depends critically on its initial conditions, which must be carefully controlled to achieve the desired mission objectives.</p>
-<p>The computational tools developed in this solution provide a framework for simulating and analyzing various release scenarios, helping to inform mission planning and payload design. By understanding the sensitivity of trajectories to initial conditions and the effects of various perturbations, we can better predict and control the behavior of payloads in Earth's gravitational field.</p>
+<p>Key insights from this analysis include:</p>
+<ol>
+<li>
+<p><strong>Parameter Interdependence</strong>: The three key parameters (velocity magnitude, release angle, and altitude) are interdependent, with changes in one affecting the optimal values for the others.</p>
+</li>
+<li>
+<p><strong>Phase Space Mapping</strong>: The phase space diagram provides a powerful tool for mission planning, allowing engineers to visualize the full range of possible trajectories based on initial conditions.</p>
+</li>
+<li>
+<p><strong>Precision Requirements</strong>: Different mission types have different precision requirements, with orbital insertion generally requiring higher precision than escape trajectories.</p>
+</li>
+<li>
+<p><strong>Optimization Opportunities</strong>: By understanding the sensitivity landscape, mission planners can optimize release conditions to minimize propellant requirements and maximize mission success probability.</p>
+</li>
+</ol>
+<p>The computational tools and visualizations developed in this solution provide a comprehensive framework for simulating and analyzing various release scenarios, helping to inform mission planning and payload design. By understanding the sensitivity of trajectories to initial conditions and the effects of various perturbations, we can better predict and control the behavior of payloads in Earth's gravitational field.</p>
 <p>This knowledge is essential for a wide range of space activities, from satellite deployments and space station resupply missions to sample return operations and beyond. As space exploration continues to advance, the ability to precisely control and predict payload trajectories will remain a fundamental requirement for successful missions.</p>
 </div>
 </div><footer>

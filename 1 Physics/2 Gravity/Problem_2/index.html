@@ -72,6 +72,8 @@
 <ul>
 <li class="toctree-l4"><a class="reference internal" href="#escape-velocities-for-different-celestial-bodies">Escape Velocities for Different Celestial Bodies</a>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="#comparison-of-cosmic-velocities-across-the-solar-system">Comparison of Cosmic Velocities Across the Solar System</a>
+</li>
 <li class="toctree-l4"><a class="reference internal" href="#factors-affecting-cosmic-velocities">Factors Affecting Cosmic Velocities</a>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="#space-exploration-applications">Space Exploration Applications</a>
@@ -318,6 +320,22 @@
 </table>
 <p><img alt="Escape velocities comparison" src="../figures/escape_velocities_comparison.png"/></p>
 <p><em>Figure 2: Comparison of escape velocities for different celestial bodies in our solar system, showing how mass and radius affect the escape velocity.</em></p>
+<h3 id="comparison-of-cosmic-velocities-across-the-solar-system">Comparison of Cosmic Velocities Across the Solar System</h3>
+<p>To better understand the relationship between all three cosmic velocities, I've calculated and compared these values for the eight planets in our solar system:</p>
+<p><img alt="Cosmic velocities comparison across planets" src="../figures/cosmic_velocities_comparison_planets.png"/></p>
+<p><em>Figure 3: Comparison of all three cosmic velocities for each planet in our solar system. Note how the third cosmic velocity (interstellar escape) is significantly higher for inner planets due to their proximity to the Sun's gravitational field.</em></p>
+<p>This comparison reveals several interesting patterns:</p>
+<ol>
+<li>
+<p>The first and second cosmic velocities (orbital and escape velocities) are directly related to the planet's mass and radius, with gas giants having much higher values due to their enormous mass.</p>
+</li>
+<li>
+<p>The third cosmic velocity (interstellar escape) shows an inverse relationship with distance from the Sun - inner planets require much higher velocities to escape the solar system because they're deeper in the Sun's gravitational well.</p>
+</li>
+<li>
+<p>For the outer planets like Neptune and Uranus, the third cosmic velocity is dominated by the Sun's escape velocity component rather than the planet's own escape velocity.</p>
+</li>
+</ol>
 <h3 id="factors-affecting-cosmic-velocities">Factors Affecting Cosmic Velocities</h3>
 <p>Several factors influence the cosmic velocities for a given celestial body:</p>
 <ol>
@@ -333,9 +351,12 @@
 <li>
 <p><strong>Rotation of the celestial body</strong>: A body's rotation can provide an initial velocity boost, effectively reducing the additional velocity needed for escape (particularly relevant at the equator).</p>
 </li>
+<li>
+<p><strong>Distance from the Sun</strong>: For the third cosmic velocity, a planet's distance from the Sun significantly affects the velocity needed to escape the solar system, with inner planets requiring much higher velocities.</p>
+</li>
 </ol>
 <p><img alt="Altitude effect on escape velocity" src="../figures/altitude_effect.png"/></p>
-<p><em>Figure 3: Graph showing how escape velocity from Earth decreases with increasing altitude above the surface.</em></p>
+<p><em>Figure 4: Graph showing how escape velocity from Earth decreases with increasing altitude above the surface.</em></p>
 <h3 id="space-exploration-applications">Space Exploration Applications</h3>
 <h4 id="launching-satellites">Launching Satellites</h4>
 <p>To place a satellite in Earth orbit, we must accelerate it to the first cosmic velocity. For a low Earth orbit (LEO) at approximately 300 km altitude, this is about 7.7 km/s. However, due to atmospheric drag and the need to overcome gravity during ascent, the actual delta-v (change in velocity) required is typically 9-10 km/s.</p>
@@ -350,7 +371,7 @@
 <li>Theoretical concepts like antimatter drives or Bussard ramjets</li>
 </ul>
 <p><img alt="Interstellar mission concept" src="../figures/interstellar_mission_concept.png"/></p>
-<p><em>Figure 4: Conceptual illustration of an interstellar mission showing the trajectory beyond the solar system and the propulsion systems required to achieve third cosmic velocity.</em></p>
+<p><em>Figure 5: Conceptual illustration of an interstellar mission showing the trajectory beyond the solar system and the propulsion systems required to achieve third cosmic velocity.</em></p>
 <h2 id="computational-analysis">Computational Analysis</h2>
 <h3 id="calculating-cosmic-velocities">Calculating Cosmic Velocities</h3>
 <p>I implemented a Python function to calculate the three cosmic velocities for any celestial body:</p>
@@ -428,7 +449,7 @@
     return solution.t, solution.y[0], solution.y[1]
 </code></pre>
 <p><img alt="Trajectory simulations" src="../figures/trajectory_simulations.png"/></p>
-<p><em>Figure 5: Simulated trajectories for objects launched from Earth's surface at different velocities, showing bound orbits, escape trajectories, and hyperbolic paths.</em></p>
+<p><em>Figure 6: Simulated trajectories for objects launched at different velocities relative to Earth's escape velocity, demonstrating sub-orbital, orbital, and escape trajectories.</em></p>
 <h2 id="practical-examples">Practical Examples</h2>
 <h3 id="earth-based-launch-systems">Earth-Based Launch Systems</h3>
 <p>Launching from Earth requires overcoming both gravity and atmospheric drag. Current launch systems use multi-stage rockets to achieve the necessary velocities:</p>
