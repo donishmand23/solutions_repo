@@ -85,6 +85,22 @@ The escape velocity varies significantly across different celestial bodies, depe
 
 *Figure 2: Comparison of escape velocities for different celestial bodies in our solar system, showing how mass and radius affect the escape velocity.*
 
+### Comparison of Cosmic Velocities Across the Solar System
+
+To better understand the relationship between all three cosmic velocities, I've calculated and compared these values for the eight planets in our solar system:
+
+![Cosmic velocities comparison across planets](figures/cosmic_velocities_comparison_planets.png)
+
+*Figure 3: Comparison of all three cosmic velocities for each planet in our solar system. Note how the third cosmic velocity (interstellar escape) is significantly higher for inner planets due to their proximity to the Sun's gravitational field.*
+
+This comparison reveals several interesting patterns:
+
+1. The first and second cosmic velocities (orbital and escape velocities) are directly related to the planet's mass and radius, with gas giants having much higher values due to their enormous mass.
+
+2. The third cosmic velocity (interstellar escape) shows an inverse relationship with distance from the Sun - inner planets require much higher velocities to escape the solar system because they're deeper in the Sun's gravitational well.
+
+3. For the outer planets like Neptune and Uranus, the third cosmic velocity is dominated by the Sun's escape velocity component rather than the planet's own escape velocity.
+
 ### Factors Affecting Cosmic Velocities
 
 Several factors influence the cosmic velocities for a given celestial body:
@@ -97,9 +113,11 @@ Several factors influence the cosmic velocities for a given celestial body:
 
 4. **Rotation of the celestial body**: A body's rotation can provide an initial velocity boost, effectively reducing the additional velocity needed for escape (particularly relevant at the equator).
 
+5. **Distance from the Sun**: For the third cosmic velocity, a planet's distance from the Sun significantly affects the velocity needed to escape the solar system, with inner planets requiring much higher velocities.
+
 ![Altitude effect on escape velocity](figures/altitude_effect.png)
 
-*Figure 3: Graph showing how escape velocity from Earth decreases with increasing altitude above the surface.*
+*Figure 4: Graph showing how escape velocity from Earth decreases with increasing altitude above the surface.*
 
 ### Space Exploration Applications
 
@@ -122,7 +140,7 @@ Interstellar travel requires achieving at least the third cosmic velocity. Curre
 
 ![Interstellar mission concept](figures/interstellar_mission_concept.png)
 
-*Figure 4: Conceptual illustration of an interstellar mission showing the trajectory beyond the solar system and the propulsion systems required to achieve third cosmic velocity.*
+*Figure 5: Conceptual illustration of an interstellar mission showing the trajectory beyond the solar system and the propulsion systems required to achieve third cosmic velocity.*
 
 ## Computational Analysis
 
@@ -211,7 +229,7 @@ def simulate_trajectory(initial_velocity, angle_degrees, planet_mass, planet_rad
 
 ![Trajectory simulations](figures/trajectory_simulations.png)
 
-*Figure 5: Simulated trajectories for objects launched from Earth's surface at different velocities, showing bound orbits, escape trajectories, and hyperbolic paths.*
+*Figure 6: Simulated trajectories for objects launched at different velocities relative to Earth's escape velocity, demonstrating sub-orbital, orbital, and escape trajectories.*
 
 ## Practical Examples
 
