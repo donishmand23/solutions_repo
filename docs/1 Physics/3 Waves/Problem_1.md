@@ -173,19 +173,65 @@ The hexagonal arrangement produces a pattern with six-fold rotational symmetry. 
 - Radial nodal lines extending outward from the center
 - Concentric circular-like patterns of constructive and destructive interference
 
+### Comparative Analysis of Source Configurations
+
+To better understand how the number of sources affects the resulting interference patterns, I conducted a comparative analysis of different source configurations:
+
+![Source number comparison](figures/source_number_comparison.png)
+
+*Figure 5: Comparison of interference patterns produced by different numbers of sources arranged in regular polygons, from 2 sources (dipole) to 8 sources (octagon).*
+
+This comparison reveals several important trends:
+
+1. **Symmetry Inheritance**: Each pattern inherits the rotational symmetry of its source configuration
+2. **Complexity Scaling**: As the number of sources increases, the interference pattern becomes more intricate
+3. **Nodal Density**: Higher numbers of sources create more densely packed nodal lines
+4. **Central Reinforcement**: With even numbers of sources, the central region tends to show strong constructive interference
+5. **Transition to Circular Pattern**: As the number of sources increases, the pattern increasingly resembles concentric circles, approaching the limit of a continuous circular source
+
 ### Time Evolution
 
 To understand the dynamic nature of these interference patterns, I also analyzed how they evolve over time. The following animation shows the time evolution of the interference pattern for the square configuration over one complete wave period:
 
 ![Time evolution of interference pattern](figures/4_sided_interference_time_evolution.png)
 
-*Figure 5: Time evolution of the interference pattern for four sources arranged in a square. The pattern maintains its spatial structure while the amplitudes oscillate over time.*
+*Figure 6: Time evolution of the interference pattern for four sources arranged in a square. The pattern maintains its spatial structure while the amplitudes oscillate over time.*
 
 Key observations from the time evolution:
 
 1. The overall structure of the interference pattern (locations of nodes and antinodes) remains constant over time
 2. The amplitude at each point oscillates with time, with the phase of oscillation varying across the pattern
 3. The pattern appears to "breathe" or "pulse" as constructive interference regions alternate between positive and negative displacements
+
+### 3D Visualization of Interference Patterns
+
+To gain deeper insights into the wave displacement across the surface, I created 3D visualizations of the interference patterns:
+
+![3D interference pattern](figures/4_sided_3d_interference.png)
+
+*Figure 7: 3D visualization of the interference pattern for four sources arranged in a square, showing the actual surface displacement.*
+
+The 3D representation provides several additional insights:
+
+1. **Amplitude Variation**: The peaks and troughs clearly show the varying amplitude across the surface
+2. **Nodal Planes**: The zero-displacement nodal lines appear as flat planes intersecting the wave surface
+3. **Spatial Wavelength**: The distance between adjacent peaks reveals the effective wavelength in different directions
+4. **Decay with Distance**: The amplitude decay with distance from the sources is clearly visible
+
+### Cross-Sectional Analysis
+
+To quantitatively analyze the interference patterns, I examined cross-sections along the x and y axes:
+
+![Cross-section analysis](figures/4_sided_cross_section.png)
+
+*Figure 8: Cross-sectional analysis of the square configuration interference pattern, showing displacement along the x and y axes.*
+
+The cross-sectional plots reveal:
+
+1. **Oscillatory Nature**: The displacement oscillates between positive and negative values
+2. **Amplitude Envelope**: The overall amplitude decreases with distance from the center
+3. **Nodal Points**: Zero-crossings correspond to the nodal lines in the 2D pattern
+4. **Symmetry**: The horizontal and vertical cross-sections show similar patterns due to the square's symmetry
 
 ## Computational Implementation
 
@@ -337,6 +383,36 @@ The interference patterns observed in this study reveal several important charac
 
 4. **Source Number Effect**: As the number of sources increases, the interference pattern becomes more complex and structured. The hexagonal arrangement (6 sources) produces a more intricate pattern than the triangular arrangement (3 sources).
 
+### Effect of Wavelength Variation
+
+To understand how wavelength affects the interference patterns, I conducted a comparative analysis with varying wavelengths:
+
+![Wavelength comparison](figures/wavelength_comparison.png)
+
+*Figure 9: Comparison of interference patterns with different wavelengths for a square arrangement of sources.*
+
+This analysis reveals several important relationships:
+
+1. **Pattern Scaling**: The interference pattern scales proportionally with wavelength—longer wavelengths produce more widely spaced interference fringes
+2. **Detail Resolution**: Shorter wavelengths create more detailed patterns with finer nodal structures
+3. **Central Region**: The central interference maximum becomes more pronounced with longer wavelengths
+4. **Boundary Effects**: The pattern near the sources changes significantly with wavelength variation
+
+### Phase Relationship Effects
+
+The phase relationship between sources dramatically affects the resulting interference pattern. I analyzed this effect using a two-source configuration with varying phase differences:
+
+![Phase difference comparison](figures/phase_difference_comparison.png)
+
+*Figure 10: Effect of phase difference on two-source interference patterns, showing how the pattern changes as the phase difference varies from 0° to 270°.*
+
+Key observations from this analysis:
+
+1. **In-Phase Sources (0°)**: Create a symmetric pattern with constructive interference along the perpendicular bisector
+2. **90° Phase Difference**: Produces an asymmetric pattern with a shifted central maximum
+3. **Out-of-Phase Sources (180°)**: Generate a pattern with destructive interference along the perpendicular bisector
+4. **270° Phase Difference**: Creates an asymmetric pattern that is the mirror image of the 90° case
+
 ### Physical Interpretation
 
 The interference patterns observed can be physically interpreted as follows:
@@ -351,7 +427,7 @@ The interference patterns observed can be physically interpreted as follows:
 
 The computational results align well with experimental observations of water wave interference. In physical demonstrations using water tanks with multiple wave sources, similar patterns of constructive and destructive interference can be observed. The hyperbolic nodal lines and regions of enhanced amplitude match the theoretical predictions.
 
-## Applications and Extensions
+### Applications and Extensions
 
 ### Practical Applications
 
@@ -359,28 +435,50 @@ The study of interference patterns has numerous practical applications:
 
 1. **Acoustic Design**: Understanding wave interference helps in designing concert halls and sound systems to optimize sound distribution and minimize dead spots.
 
-2. **Antenna Arrays**: The principles of wave interference are used in designing phased array antennas for radar and telecommunications.
+2. **Antenna Arrays**: The principles of wave interference are used in designing phased array antennas for radar and telecommunications, where precise phase control enables beam steering and focusing.
 
-3. **Optical Instruments**: Interference patterns are fundamental to the operation of interferometers, spectrometers, and other optical instruments.
+3. **Optical Instruments**: Interference patterns are fundamental to the operation of interferometers, spectrometers, and other optical instruments that rely on wave superposition for measurement.
 
-4. **Breakwater Design**: Knowledge of wave interference can be applied to design coastal structures that minimize wave impact through destructive interference.
+4. **Breakwater Design**: Knowledge of wave interference can be applied to design coastal structures that minimize wave impact through destructive interference, protecting harbors and shorelines.
+
+5. **Holography**: The principles of wave interference are essential for creating and reconstructing holograms, which record the interference pattern between a reference beam and an object beam.
+
+6. **Quantum Wave Mechanics**: The interference patterns observed with water waves have direct analogies in quantum mechanics, where particle waves exhibit similar interference phenomena in double-slit experiments.
 
 ### Possible Extensions
 
 This analysis could be extended in several ways:
 
-1. **Non-identical Sources**: Investigating the effects of sources with different amplitudes, frequencies, or initial phases.
+1. **Non-identical Sources**: Investigating the effects of sources with different amplitudes, frequencies, or initial phases to model more realistic scenarios.
 
-2. **Non-regular Arrangements**: Examining interference patterns from sources arranged in non-regular patterns or random distributions.
+2. **Non-regular Arrangements**: Examining interference patterns from sources arranged in non-regular patterns or random distributions to understand more complex wave environments.
 
-3. **Obstacles and Boundaries**: Including the effects of obstacles or boundaries that reflect or absorb waves, creating more complex interference patterns.
+3. **Obstacles and Boundaries**: Including the effects of obstacles or boundaries that reflect or absorb waves, creating more complex interference patterns that model real-world environments.
 
 4. **3D Analysis**: Extending the analysis to three-dimensional wave propagation, such as sound waves in a room or electromagnetic waves in space.
+
+5. **Time-varying Source Properties**: Analyzing scenarios where source properties (amplitude, phase, or frequency) change over time, creating dynamic interference patterns.
+
+6. **Doppler Effects**: Incorporating the Doppler effect for moving sources or observers, which would introduce frequency shifts and changing interference patterns.
 
 ## Conclusion
 
 This analysis of interference patterns on a water surface provides valuable insights into the behavior of waves and the principle of superposition. By examining the patterns created by sources arranged in regular polygons, we can observe how the number and arrangement of sources affect the resulting interference patterns.
 
-The computational approach allows for a detailed visualization of these patterns, revealing the complex structures that emerge from the superposition of multiple waves. These patterns exhibit the symmetry of the source arrangement and show distinct regions of constructive and destructive interference.
+The key findings from this study include:
 
-Understanding wave interference is fundamental to many areas of physics and engineering, from acoustics and optics to quantum mechanics. This study provides a foundation for further exploration of wave phenomena and their applications in various fields.
+1. **Geometric Correspondence**: The symmetry of the interference pattern directly corresponds to the geometric arrangement of the sources, with regular polygons producing patterns with matching rotational symmetry.
+
+2. **Parameter Sensitivity**: The interference patterns are highly sensitive to changes in wavelength, phase relationships, and source configuration, allowing for precise control of wave interactions.
+
+3. **Spatial Structure**: The patterns exhibit well-defined nodal lines (destructive interference) and antinodal regions (constructive interference) that form predictable geometric structures based on path differences.
+
+4. **Temporal Stability**: While the amplitude at each point oscillates with time, the overall spatial structure of the interference pattern remains constant, maintaining the locations of nodes and antinodes.
+
+5. **Scaling Behavior**: The physical size of the interference pattern scales proportionally with wavelength, with longer wavelengths producing more widely spaced interference fringes.
+
+The computational approach and visualizations developed in this study allow for a detailed examination of these patterns, revealing the complex structures that emerge from the superposition of multiple waves. The 3D representations and cross-sectional analyses provide additional insights into the wave behavior that would be difficult to observe directly.
+
+Understanding wave interference is fundamental to many areas of physics and engineering, from acoustics and optics to quantum mechanics. The principles demonstrated in this water wave model apply universally to all wave phenomena, making it a powerful conceptual framework for understanding wave behavior across different physical domains.
+
+This study provides a foundation for further exploration of wave phenomena and their applications in various fields, offering both theoretical insights and practical tools for analyzing and predicting wave interference patterns.
