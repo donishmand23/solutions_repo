@@ -96,7 +96,13 @@ Where $r_i = \sqrt{(x - x_i)^2 + (y - y_i)^2}$ is the distance from source $i$ t
 
 ![Triangle interference pattern](figures/3_sided_polygon_interference.png)
 
-*Figure 2: Interference pattern produced by three point sources arranged in an equilateral triangle. The color represents the displacement amplitude, with red indicating constructive interference and blue indicating destructive interference.*
+*Figure 2: Interference pattern produced by three point sources arranged in an equilateral triangle. The color represents the displacement amplitude (-4 to +4 units), with higher values (yellow) indicating constructive interference and lower values (blue) indicating destructive interference.*
+
+To visualize how these waves propagate over time, I created an animation showing the dynamic interference pattern:
+
+![Triangle wave propagation](figures/3_sources_wave_propagation.gif)
+
+*Figure 2a: Animated visualization showing wave propagation from three sources arranged in a triangle. Note how the waves interact to create a complex, time-evolving interference pattern.*
 
 The triangular arrangement produces a pattern with three-fold rotational symmetry. The pattern shows:
 
@@ -128,7 +134,13 @@ Where $r_i = \sqrt{(x - x_i)^2 + (y - y_i)^2}$ is the distance from source $i$ t
 
 ![Square interference pattern](figures/4_sided_polygon_interference.png)
 
-*Figure 3: Interference pattern produced by four point sources arranged in a square. The pattern exhibits four-fold rotational symmetry with distinctive nodal lines.*
+*Figure 3: Interference pattern produced by four point sources arranged in a square. The pattern exhibits four-fold rotational symmetry with distinctive nodal lines. Displacement values are consistently scaled from -4 to +4 units.*
+
+I also created an animation showing how waves propagate from the four sources over time:
+
+![Square wave propagation](figures/4_sources_wave_propagation.gif)
+
+*Figure 3a: Animated visualization of wave propagation from four sources arranged in a square. This dynamic representation shows how the interference pattern evolves as waves spread outward from each source.*
 
 The square arrangement produces a pattern with four-fold rotational symmetry. The pattern shows:
 
@@ -163,7 +175,7 @@ Where $r_i = \sqrt{(x - x_i)^2 + (y - y_i)^2}$ is the distance from source $i$ t
 
 ![Hexagon interference pattern](figures/6_sided_polygon_interference.png)
 
-*Figure 4: Interference pattern produced by six point sources arranged in a regular hexagon. The pattern exhibits six-fold rotational symmetry with intricate nodal structures.*
+*Figure 4: Interference pattern produced by six point sources arranged in a regular hexagon. The pattern exhibits six-fold rotational symmetry and more complex nodal structures. Displacement values range from -4 to +4 units for consistent comparison with other configurations.*
 
 The hexagonal arrangement produces a pattern with six-fold rotational symmetry. The pattern shows:
 
@@ -225,6 +237,12 @@ To quantitatively analyze the interference patterns, I examined cross-sections a
 ![Cross-section analysis](figures/4_sided_cross_section.png)
 
 *Figure 8: Cross-sectional analysis of the square configuration interference pattern, showing displacement along the x and y axes.*
+
+To better understand how these cross-sections evolve over time, I created an animation showing both the 2D interference pattern and its corresponding 1D cross-section along the x-axis:
+
+![Cross-section animation](figures/cross_section_animation.gif)
+
+*Figure 8a: Animated visualization showing the time evolution of both the 2D interference pattern and its 1D cross-section. The red horizontal line indicates the cross-section location, with displacement values consistently scaled from -4 to +4 units.*
 
 The cross-sectional plots reveal:
 
@@ -404,7 +422,13 @@ The phase relationship between sources dramatically affects the resulting interf
 
 ![Phase difference comparison](figures/phase_difference_comparison.png)
 
-*Figure 10: Effect of phase difference on two-source interference patterns, showing how the pattern changes as the phase difference varies from 0° to 270°.*
+*Figure 10: Effect of phase difference on two-source interference patterns, showing how the pattern changes as the phase difference varies from 0° to 270°. Note the consistent displacement scale from -4 to +4 units.*
+
+To better visualize how the interference pattern changes continuously with phase difference, I created an animation showing the smooth transition through all phase angles:
+
+![Phase difference animation](figures/phase_difference_animation.gif)
+
+*Figure 11: Animated visualization showing how the two-source interference pattern evolves as the phase difference changes continuously from 0° to 360°.*
 
 Key observations from this analysis:
 
