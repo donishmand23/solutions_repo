@@ -6,13 +6,13 @@
 <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <link href="../../../img/favicon.ico" rel="shortcut icon"/>
-<title>Trajectories of a Freely Released Payload Near Earth: Orbital Mechanics in Action - Physics and Mathematics</title>
+<title>Problem 3: Trajectories of a Freely Released Payload Near Earth - Physics and Mathematics</title>
 <link href="../../../css/theme.css" rel="stylesheet"/>
 <link href="../../../css/theme_extra.css" rel="stylesheet"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" rel="stylesheet"/>
 <script>
         // Current page data
-        var mkdocs_page_name = "Trajectories of a Freely Released Payload Near Earth: Orbital Mechanics in Action";
+        var mkdocs_page_name = "Problem 3: Trajectories of a Freely Released Payload Near Earth";
         var mkdocs_page_input_path = "1 Physics/2 Gravity/Problem_3.md";
         var mkdocs_page_url = null;
       </script>
@@ -58,67 +58,59 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../Problem_2/">Escape Velocities and Cosmic Velocities: Breaking Free from Gravitational Bonds</a>
 </li>
-<li class="toctree-l2 current"><a class="reference internal current" href="#">Trajectories of a Freely Released Payload Near Earth: Orbital Mechanics in Action</a>
+<li class="toctree-l2 current"><a class="reference internal current" href="#">Problem 3: Trajectories of a Freely Released Payload Near Earth</a>
 <ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="#introduction">Introduction</a>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#theoretical-foundation">Theoretical Foundation</a>
+<li class="toctree-l3"><a class="reference internal" href="#theoretical-background">Theoretical Background</a>
 <ul>
-<li class="toctree-l4"><a class="reference internal" href="#governing-equations-of-motion">Governing Equations of Motion</a>
+<li class="toctree-l4"><a class="reference internal" href="#orbital-mechanics-fundamentals">Orbital Mechanics Fundamentals</a>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="#types-of-trajectories">Types of Trajectories</a>
+<li class="toctree-l4"><a class="reference internal" href="#equations-of-motion">Equations of Motion</a>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="#orbital-elements-and-conic-sections">Orbital Elements and Conic Sections</a>
+<li class="toctree-l4"><a class="reference internal" href="#trajectory-classification">Trajectory Classification</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#key-velocities">Key Velocities</a>
 </li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#analysis-of-payload-trajectories">Analysis of Payload Trajectories</a>
+<li class="toctree-l3"><a class="reference internal" href="#numerical-analysis">Numerical Analysis</a>
 <ul>
-<li class="toctree-l4"><a class="reference internal" href="#initial-conditions-and-their-impact">Initial Conditions and Their Impact</a>
+<li class="toctree-l4"><a class="reference internal" href="#initial-conditions">Initial Conditions</a>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="#orbital-insertion-scenarios">Orbital Insertion Scenarios</a>
+<li class="toctree-l4"><a class="reference internal" href="#numerical-integration-method">Numerical Integration Method</a>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="#reentry-scenarios">Reentry Scenarios</a>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="#escape-scenarios">Escape Scenarios</a>
+<li class="toctree-l4"><a class="reference internal" href="#collision-detection">Collision Detection</a>
 </li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#computational-analysis">Computational Analysis</a>
+<li class="toctree-l3"><a class="reference internal" href="#results-and-visualization">Results and Visualization</a>
 <ul>
-<li class="toctree-l4"><a class="reference internal" href="#numerical-integration-of-equations-of-motion">Numerical Integration of Equations of Motion</a>
+<li class="toctree-l4"><a class="reference internal" href="#trajectory-visualization">Trajectory Visualization</a>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="#trajectory-evolution-visualization">Trajectory Evolution Visualization</a>
+<li class="toctree-l4"><a class="reference internal" href="#orbital-parameters-analysis">Orbital Parameters Analysis</a>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="#simulation-of-various-release-scenarios">Simulation of Various Release Scenarios</a>
+<li class="toctree-l4"><a class="reference internal" href="#energy-analysis">Energy Analysis</a>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="#comprehensive-analysis-of-release-parameters">Comprehensive Analysis of Release Parameters</a>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="#sensitivity-analysis">Sensitivity Analysis</a>
+<li class="toctree-l4"><a class="reference internal" href="#interactive-simulation">Interactive Simulation</a>
 </li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#practical-applications">Practical Applications</a>
+<li class="toctree-l3"><a class="reference internal" href="#discussion">Discussion</a>
 <ul>
-<li class="toctree-l4"><a class="reference internal" href="#satellite-deployment">Satellite Deployment</a>
+<li class="toctree-l4"><a class="reference internal" href="#trajectory-types-and-applications">Trajectory Types and Applications</a>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="#space-station-resupply">Space Station Resupply</a>
+<li class="toctree-l4"><a class="reference internal" href="#mission-planning-considerations">Mission Planning Considerations</a>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="#sample-return-missions">Sample Return Missions</a>
+<li class="toctree-l4"><a class="reference internal" href="#computational-considerations">Computational Considerations</a>
 </li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#limitations-and-extensions">Limitations and Extensions</a>
-<ul>
-<li class="toctree-l4"><a class="reference internal" href="#perturbation-effects">Perturbation Effects</a>
+<li class="toctree-l3"><a class="reference internal" href="#implementation-details">Implementation Details</a>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="#relativistic-effects">Relativistic Effects</a>
+<li class="toctree-l3"><a class="reference internal" href="#conclusions">Conclusions</a>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="#extended-mission-analysis">Extended Mission Analysis</a>
-</li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#conclusion">Conclusion</a>
+<li class="toctree-l3"><a class="reference internal" href="#references">References</a>
 </li>
 </ul>
 </li>
@@ -223,7 +215,7 @@
 <li><a aria-label="Docs" class="icon icon-home" href="../../.."></a></li>
 <li class="breadcrumb-item">1 Physics</li>
 <li class="breadcrumb-item">2 Gravity</li>
-<li class="breadcrumb-item active">Trajectories of a Freely Released Payload Near Earth: Orbital Mechanics in Action</li>
+<li class="breadcrumb-item active">Problem 3: Trajectories of a Freely Released Payload Near Earth</li>
 <li class="wy-breadcrumbs-aside">
 </li>
 </ul>
@@ -231,273 +223,137 @@
 </div>
 <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
 <div class="section" itemprop="articleBody">
-<h1 id="trajectories-of-a-freely-released-payload-near-earth-orbital-mechanics-in-action">Trajectories of a Freely Released Payload Near Earth: Orbital Mechanics in Action</h1>
+<h1 id="problem-3-trajectories-of-a-freely-released-payload-near-earth">Problem 3: Trajectories of a Freely Released Payload Near Earth</h1>
 <h2 id="introduction">Introduction</h2>
-<p>In this solution, I explore the fascinating problem of determining the trajectories of payloads released from a moving rocket near Earth. This scenario represents a fundamental application of orbital mechanics and gravitational dynamics, with significant implications for space missions, satellite deployments, and spacecraft operations. By analyzing the possible trajectories and the factors that influence them, we can gain deeper insights into the mechanics of orbital insertion, reentry, and escape scenarios.</p>
-<h2 id="theoretical-foundation">Theoretical Foundation</h2>
-<h3 id="governing-equations-of-motion">Governing Equations of Motion</h3>
-<p>The motion of a payload released near Earth is governed by Newton's laws of motion and the law of universal gravitation. For a payload of mass <span class="arithmatex">\(m\)</span> moving in Earth's gravitational field, the equation of motion is:</p>
-<p><span class="arithmatex">\(m\vec{a} = \vec{F}_g = -\frac{GMm}{r^2}\hat{r}\)</span></p>
-<p>Where:
-- <span class="arithmatex">\(\vec{a}\)</span> is the acceleration vector of the payload
-- <span class="arithmatex">\(\vec{F}_g\)</span> is the gravitational force
-- <span class="arithmatex">\(G\)</span> is the gravitational constant (<span class="arithmatex">\(6.674 \times 10^{-11} \, \text{m}^3 \text{kg}^{-1} \text{s}^{-2}\)</span>)
-- <span class="arithmatex">\(M\)</span> is the mass of Earth (<span class="arithmatex">\(5.972 \times 10^{24}\)</span> kg)
-- <span class="arithmatex">\(r\)</span> is the distance from the center of Earth to the payload
-- <span class="arithmatex">\(\hat{r}\)</span> is the unit vector pointing from the payload toward Earth's center</p>
-<p>Simplifying and expressing in Cartesian coordinates, we get:</p>
-<p><span class="arithmatex">\(\frac{d^2x}{dt^2} = -\frac{GM}{r^3}x\)</span></p>
-<p><span class="arithmatex">\(\frac{d^2y}{dt^2} = -\frac{GM}{r^3}y\)</span></p>
-<p><span class="arithmatex">\(\frac{d^2z}{dt^2} = -\frac{GM}{r^3}z\)</span></p>
-<p>Where <span class="arithmatex">\(r = \sqrt{x^2 + y^2 + z^2}\)</span> is the distance from Earth's center.</p>
-<p><img alt="Coordinate system for payload trajectories" src="../figures/payload_coordinate_system.png"/></p>
-<p><em>Figure 1: Coordinate system for analyzing payload trajectories, showing the relationship between the payload position, velocity, and Earth's gravitational field.</em></p>
-<h3 id="types-of-trajectories">Types of Trajectories</h3>
-<p>The trajectory of a released payload depends on its initial position and velocity relative to Earth. Based on the specific energy of the payload, we can classify the possible trajectories into three main types:</p>
+<p>When a payload is released from a moving rocket near Earth, its subsequent trajectory is determined by its initial conditions (position and velocity) and Earth's gravitational field. This analysis explores the various possible trajectories, ranging from impact trajectories to escape trajectories, and provides a computational framework for simulating these paths.</p>
+<h2 id="theoretical-background">Theoretical Background</h2>
+<h3 id="orbital-mechanics-fundamentals">Orbital Mechanics Fundamentals</h3>
+<p>The motion of an object near Earth is governed by Newton's law of universal gravitation:</p>
+<div class="arithmatex">\[\vec{F} = -\frac{GMm}{r^2}\hat{r}\]</div>
+<p>where:
+- <span class="arithmatex">\(G\)</span> is the gravitational constant (<span class="arithmatex">\(6.674 \times 10^{-11}\)</span> m³/kg·s²)
+- <span class="arithmatex">\(M\)</span> is Earth's mass (<span class="arithmatex">\(5.972 \times 10^{24}\)</span> kg)
+- <span class="arithmatex">\(m\)</span> is the payload mass
+- <span class="arithmatex">\(r\)</span> is the distance from Earth's center
+- <span class="arithmatex">\(\hat{r}\)</span> is the unit vector pointing from Earth's center to the payload</p>
+<h3 id="equations-of-motion">Equations of Motion</h3>
+<p>The acceleration of the payload is given by:</p>
+<div class="arithmatex">\[\vec{a} = -\frac{GM}{r^2}\hat{r}\]</div>
+<p>In Cartesian coordinates, this becomes:</p>
+<div class="arithmatex">\[\ddot{x} = -\frac{GMx}{(x^2 + y^2)^{3/2}}\]</div>
+<div class="arithmatex">\[\ddot{y} = -\frac{GMy}{(x^2 + y^2)^{3/2}}\]</div>
+<h3 id="trajectory-classification">Trajectory Classification</h3>
+<p>Based on the specific orbital energy <span class="arithmatex">\(\epsilon = \frac{v^2}{2} - \frac{GM}{r}\)</span>, trajectories can be classified as:</p>
 <ol>
-<li>
-<p><strong>Elliptical Trajectories</strong>: Occur when the payload's specific energy is negative but greater than the energy of a circular orbit at the same altitude. The payload will remain in a bound orbit around Earth, periodically approaching and receding from Earth.</p>
-</li>
-<li>
-<p><strong>Parabolic Trajectories</strong>: Occur when the payload's specific energy is exactly zero. This represents the boundary case between bound and unbound orbits, where the payload has just enough energy to escape Earth's gravity but with zero velocity at infinity.</p>
-</li>
-<li>
-<p><strong>Hyperbolic Trajectories</strong>: Occur when the payload's specific energy is positive. The payload will escape Earth's gravitational influence, approaching a constant velocity as it moves toward infinity.</p>
-</li>
+<li><strong>Elliptical</strong> (<span class="arithmatex">\(\epsilon &lt; 0\)</span>): Closed orbits, including circular orbits</li>
+<li><strong>Parabolic</strong> (<span class="arithmatex">\(\epsilon = 0\)</span>): Escape trajectory with minimum energy</li>
+<li><strong>Hyperbolic</strong> (<span class="arithmatex">\(\epsilon &gt; 0\)</span>): Escape trajectory with excess velocity</li>
 </ol>
-<p>The specific energy per unit mass of the payload is given by:</p>
-<p><span class="arithmatex">\(\varepsilon = \frac{v^2}{2} - \frac{GM}{r}\)</span></p>
-<p>Where <span class="arithmatex">\(v\)</span> is the payload's velocity. The trajectory type depends on the sign of <span class="arithmatex">\(\varepsilon\)</span>:
-- <span class="arithmatex">\(\varepsilon &lt; 0\)</span>: Elliptical trajectory
-- <span class="arithmatex">\(\varepsilon = 0\)</span>: Parabolic trajectory
-- <span class="arithmatex">\(\varepsilon &gt; 0\)</span>: Hyperbolic trajectory</p>
-<p><img alt="Types of trajectories" src="../figures/trajectory_types.png"/></p>
-<p><em>Figure 2: The three possible trajectory types for a released payload: elliptical (bound), parabolic (escape with zero velocity at infinity), and hyperbolic (escape with non-zero velocity at infinity).</em></p>
-<h3 id="orbital-elements-and-conic-sections">Orbital Elements and Conic Sections</h3>
-<p>All of these trajectories are conic sections, which can be described by the general equation:</p>
-<p><span class="arithmatex">\(r = \frac{p}{1 + e\cos\theta}\)</span></p>
-<p>Where:
-- <span class="arithmatex">\(r\)</span> is the distance from the focus (Earth's center) to the payload
-- <span class="arithmatex">\(p\)</span> is the semi-latus rectum
-- <span class="arithmatex">\(e\)</span> is the eccentricity
-- <span class="arithmatex">\(\theta\)</span> is the true anomaly (angular position measured from periapsis)</p>
-<p>The eccentricity determines the type of conic section:
-- <span class="arithmatex">\(e = 0\)</span>: Circle
-- <span class="arithmatex">\(0 &lt; e &lt; 1\)</span>: Ellipse
-- <span class="arithmatex">\(e = 1\)</span>: Parabola
-- <span class="arithmatex">\(e &gt; 1\)</span>: Hyperbola</p>
-<h2 id="analysis-of-payload-trajectories">Analysis of Payload Trajectories</h2>
-<h3 id="initial-conditions-and-their-impact">Initial Conditions and Their Impact</h3>
-<p>The trajectory of a released payload is completely determined by its initial conditions: position <span class="arithmatex">\(\vec{r}_0\)</span> and velocity <span class="arithmatex">\(\vec{v}_0\)</span> at the moment of release. These initial conditions depend on:</p>
-<ol>
-<li>
-<p><strong>Rocket's State</strong>: The position, velocity, and orientation of the rocket at the moment of payload release</p>
-</li>
-<li>
-<p><strong>Release Mechanism</strong>: Any additional velocity imparted to the payload during release</p>
-</li>
-<li>
-<p><strong>Altitude of Release</strong>: Higher altitudes result in weaker gravitational acceleration and different orbital characteristics</p>
-</li>
-<li>
-<p><strong>Direction of Release</strong>: The angle at which the payload is released relative to the rocket's velocity vector</p>
-</li>
-</ol>
-<p><img alt="Initial conditions impact" src="../figures/initial_conditions_impact.png"/></p>
-<p><em>Figure 3: Illustration showing how different initial conditions (release velocity, altitude, and direction) affect the resulting trajectory of the payload.</em></p>
-<h3 id="orbital-insertion-scenarios">Orbital Insertion Scenarios</h3>
-<p>For a payload to enter a stable orbit around Earth, it must be released with appropriate initial conditions. The most efficient orbital insertion occurs when the payload is released tangentially to the desired orbit with the correct velocity.</p>
-<p>For a circular orbit at altitude <span class="arithmatex">\(h\)</span> above Earth's surface, the required velocity is:</p>
-<p><span class="arithmatex">\(v_{circ} = \sqrt{\frac{GM}{R_E + h}}\)</span></p>
-<p>Where <span class="arithmatex">\(R_E\)</span> is Earth's radius (approximately 6,371 km).</p>
-<p>If the payload is released with a velocity different from the circular velocity, it will enter an elliptical orbit with:
-- Apogee (farthest point) higher than the release altitude if released in the direction of motion
-- Perigee (closest point) lower than the release altitude if released opposite to the direction of motion</p>
-<h3 id="reentry-scenarios">Reentry Scenarios</h3>
-<p>For a payload to reenter Earth's atmosphere, it must have a trajectory that intersects with Earth's atmosphere. This requires the perigee of the orbit to be below the effective atmospheric boundary (typically considered to be around 100 km altitude).</p>
-<p>The reentry angle is critical for successful reentry:
-- Too shallow: The payload may skip off the atmosphere
-- Too steep: The payload may experience excessive heating and deceleration</p>
-<p>The ideal reentry corridor for a payload depends on its ballistic coefficient, heat shield capabilities, and mission requirements.</p>
-<h3 id="escape-scenarios">Escape Scenarios</h3>
-<p>For a payload to escape Earth's gravitational influence, it must be released with a velocity greater than or equal to the escape velocity at its altitude:</p>
-<p><span class="arithmatex">\(v_{esc} = \sqrt{\frac{2GM}{R_E + h}}\)</span></p>
-<p>The excess velocity (beyond escape velocity) determines the hyperbolic excess speed, which is the asymptotic velocity the payload will approach as it moves far from Earth:</p>
-<p><span class="arithmatex">\(v_{\infty} = \sqrt{v_0^2 - v_{esc}^2}\)</span></p>
-<p>Where <span class="arithmatex">\(v_0\)</span> is the initial velocity at release.</p>
-<h2 id="computational-analysis">Computational Analysis</h2>
-<h3 id="numerical-integration-of-equations-of-motion">Numerical Integration of Equations of Motion</h3>
-<p>To accurately predict the trajectory of a released payload, I implemented a numerical integration of the equations of motion using the fourth-order Runge-Kutta method. This approach provides high accuracy for orbital mechanics problems and can account for various perturbations.</p>
-<p>The state vector of the payload is defined as <span class="arithmatex">\(\vec{X} = [x, y, z, v_x, v_y, v_z]^T\)</span>, and the equations of motion are expressed as a system of first-order differential equations:</p>
-<p><span class="arithmatex">\(\frac{d\vec{X}}{dt} = \begin{bmatrix} v_x \\ v_y \\ v_z \\ -\frac{GM}{r^3}x \\ -\frac{GM}{r^3}y \\ -\frac{GM}{r^3}z \end{bmatrix}\)</span></p>
-<h3 id="trajectory-evolution-visualization">Trajectory Evolution Visualization</h3>
-<p>To better understand how payload trajectories evolve over time, I created a visualization that tracks the position of a payload as it moves along its orbit. This helps illustrate the time-dependent nature of orbital motion and the varying speeds experienced at different points in the orbit.</p>
-<p><img alt="Trajectory evolution" src="../figures/trajectory_evolution.png"/></p>
-<p><em>Figure 7: Visualization of trajectory evolution over time, showing how a payload moves along its orbit. The payload experiences higher velocities at perigee (closest approach to Earth) and lower velocities at apogee (farthest point from Earth).</em></p>
-<p>The Python implementation of the Runge-Kutta integrator is as follows:</p>
-<pre><code class="language-python">def runge_kutta_step(state, dt, GM):
-    """Perform one step of RK4 integration for orbital motion.
-
-    Parameters:
-    - state: [x, y, z, vx, vy, vz] state vector
-    - dt: time step
-    - GM: gravitational parameter (G * M_earth)
-
-    Returns:
-    - new_state: updated state vector after time step dt
-    """
-    # Define the derivatives function
-    def derivatives(s):
-        x, y, z, vx, vy, vz = s
-        r = np.sqrt(x**2 + y**2 + z**2)
-        ax = -GM * x / r**3
-        ay = -GM * y / r**3
-        az = -GM * z / r**3
-        return np.array([vx, vy, vz, ax, ay, az])
-
-    # RK4 algorithm
-    k1 = derivatives(state)
-    k2 = derivatives(state + 0.5 * dt * k1)
-    k3 = derivatives(state + 0.5 * dt * k2)
-    k4 = derivatives(state + dt * k3)
-
-    new_state = state + (dt / 6.0) * (k1 + 2*k2 + 2*k3 + k4)
-    return new_state
-</code></pre>
-<h3 id="simulation-of-various-release-scenarios">Simulation of Various Release Scenarios</h3>
-<p>Using the numerical integrator, I simulated various payload release scenarios to analyze the resulting trajectories. The simulation parameters included:</p>
+<h3 id="key-velocities">Key Velocities</h3>
 <ul>
-<li><strong>Release Altitude</strong>: Ranging from low Earth orbit (LEO, ~400 km) to geostationary orbit (GEO, ~35,786 km)</li>
-<li><strong>Release Velocity</strong>: Varying from sub-orbital to super-escape velocities</li>
-<li><strong>Release Direction</strong>: Different angles relative to the rocket's velocity vector</li>
+<li><strong>Circular velocity</strong> at altitude <span class="arithmatex">\(h\)</span>: <span class="arithmatex">\(v_c = \sqrt{\frac{GM}{R_E + h}}\)</span></li>
+<li><strong>Escape velocity</strong> at altitude <span class="arithmatex">\(h\)</span>: <span class="arithmatex">\(v_{esc} = \sqrt{\frac{2GM}{R_E + h}}\)</span></li>
 </ul>
-<p><img alt="Simulation results" src="../figures/simulation_results.png"/></p>
-<p><em>Figure 4: Results from numerical simulations showing various payload trajectories for different release conditions. The trajectories are color-coded based on their type: elliptical (blue), parabolic (green), and hyperbolic (red).</em></p>
-<h3 id="comprehensive-analysis-of-release-parameters">Comprehensive Analysis of Release Parameters</h3>
-<p>To gain deeper insights into how different release parameters affect payload trajectories, I conducted a comprehensive analysis examining the effects of velocity magnitude, release angle, and altitude. This analysis helps mission planners understand the sensitivity of trajectories to various factors and optimize release conditions for specific mission objectives.</p>
-<p><img alt="Release parameter effects" src="../figures/release_parameter_effects.png"/></p>
-<p><em>Figure 5: Comprehensive analysis of how release parameters affect payload trajectories. Top left: Effect of velocity magnitude. Top right: Effect of release angle. Bottom left: Effect of release altitude. Bottom right: Phase space diagram showing the relationship between distance, velocity, and orbit type.</em></p>
-<p>The phase space diagram (bottom right) is particularly informative, as it maps the relationship between distance from Earth, velocity magnitude, and the resulting orbit type. The red line represents the escape boundary (E = 0), separating bound orbits (below) from escape trajectories (above). The green line represents circular orbits, which have the minimum velocity required for a stable orbit at each distance.</p>
-<h3 id="sensitivity-analysis">Sensitivity Analysis</h3>
-<p>I conducted a sensitivity analysis to understand how small changes in initial conditions affect the resulting trajectory. This analysis is crucial for mission planning, as it helps identify the precision requirements for payload release mechanisms.</p>
-<p>The results showed that:</p>
+<p>where <span class="arithmatex">\(R_E = 6.371 \times 10^6\)</span> m is Earth's radius.</p>
+<h2 id="numerical-analysis">Numerical Analysis</h2>
+<h3 id="initial-conditions">Initial Conditions</h3>
+<p>For our analysis:
+- Initial altitude: 800 km above Earth's surface
+- Initial position: <span class="arithmatex">\((0, R_E + 800 \text{ km})\)</span>
+- Initial velocities: Tangential, ranging from 5.0 to 13.0 km/s
+- Integration time: Up to 20,000 seconds</p>
+<h3 id="numerical-integration-method">Numerical Integration Method</h3>
+<p>We employ the 4th-order Runge-Kutta method for numerical integration:</p>
+<pre><code class="language-python">def rk4_step(state, t, dt, derivative_func):
+    k1 = derivative_func(state, t)
+    k2 = derivative_func(state + 0.5 * dt * k1, t + 0.5 * dt)
+    k3 = derivative_func(state + 0.5 * dt * k2, t + 0.5 * dt)
+    k4 = derivative_func(state + dt * k3, t + dt)
+    return state + (dt / 6) * (k1 + 2*k2 + 2*k3 + k4)
+</code></pre>
+<h3 id="collision-detection">Collision Detection</h3>
+<p>To ensure physical validity, we check if the payload's distance from Earth's center falls below Earth's radius, indicating a collision.</p>
+<h2 id="results-and-visualization">Results and Visualization</h2>
+<h3 id="trajectory-visualization">Trajectory Visualization</h3>
+<p><img alt="Payload Trajectories" src="../figures/payload_trajectories.png"/></p>
+<p>The figure above shows various payload trajectories for different initial velocities. Key observations:</p>
 <ol>
-<li>
-<p><strong>Altitude Sensitivity</strong>: Higher release altitudes generally result in lower sensitivity to velocity errors, providing a wider margin for successful orbital insertion.</p>
-</li>
-<li>
-<p><strong>Velocity Sensitivity</strong>: Even small changes in release velocity (on the order of meters per second) can significantly alter the resulting orbit, especially for near-circular orbits.</p>
-</li>
-<li>
-<p><strong>Angular Sensitivity</strong>: The direction of release is most critical for orbital insertion scenarios, where deviations of just a few degrees can result in highly elliptical orbits instead of the intended circular ones.</p>
-</li>
+<li><strong>Low velocities (5.0-6.5 km/s)</strong>: Result in impact trajectories</li>
+<li><strong>Intermediate velocities (7.0-7.7 km/s)</strong>: Produce elliptical orbits</li>
+<li><strong>Near circular velocity (~7.7 km/s)</strong>: Creates nearly circular orbits</li>
+<li><strong>Above escape velocity (&gt;11.2 km/s)</strong>: Results in escape trajectories</li>
 </ol>
-<p><img alt="Sensitivity analysis" src="../figures/sensitivity_analysis.png"/></p>
-<p><em>Figure 6: Sensitivity analysis showing how small variations in initial conditions affect the resulting trajectories. Each panel shows the effect of varying one parameter while keeping others constant.</em></p>
-<h2 id="practical-applications">Practical Applications</h2>
-<h3 id="satellite-deployment">Satellite Deployment</h3>
-<p>One of the most common applications of payload release near Earth is satellite deployment. Modern satellite deployment strategies include:</p>
+<h3 id="orbital-parameters-analysis">Orbital Parameters Analysis</h3>
+<p><img alt="Orbital Parameters" src="../figures/orbital_parameters.png"/></p>
+<p>This figure displays the variation of key orbital parameters with initial velocity:
+- <strong>Apogee altitude</strong>: Maximum distance from Earth's surface
+- <strong>Perigee altitude</strong>: Minimum distance from Earth's surface
+- <strong>Orbital period</strong>: Time for one complete orbit (for bound orbits)
+- <strong>Eccentricity</strong>: Shape parameter of the orbit</p>
+<h3 id="energy-analysis">Energy Analysis</h3>
+<p><img alt="Energy Conservation" src="../figures/energy_conservation.png"/></p>
+<p>The figure demonstrates conservation of mechanical energy throughout the trajectories:
+- Kinetic energy: <span class="arithmatex">\(K = \frac{1}{2}mv^2\)</span>
+- Potential energy: <span class="arithmatex">\(U = -\frac{GMm}{r}\)</span>
+- Total energy: <span class="arithmatex">\(E = K + U\)</span> (remains constant)</p>
+<h3 id="interactive-simulation">Interactive Simulation</h3>
+<p><img alt="Animated Trajectories" src="../figures/animated_trajectory.gif"/></p>
+<p>An animated visualization showing the time evolution of payload trajectories for different initial velocities.</p>
+<h2 id="discussion">Discussion</h2>
+<h3 id="trajectory-types-and-applications">Trajectory Types and Applications</h3>
 <ol>
+<li><strong>Impact Trajectories</strong> (v &lt; 7.0 km/s)</li>
+<li>Relevant for atmospheric reentry missions</li>
 <li>
-<p><strong>Direct Insertion</strong>: Releasing the satellite directly into its operational orbit</p>
+<p>Requires heat shielding and precise targeting</p>
 </li>
 <li>
-<p><strong>Phased Deployment</strong>: Releasing multiple satellites into slightly different orbits to establish a constellation</p>
+<p><strong>Elliptical Orbits</strong> (7.0 km/s &lt; v &lt; 11.2 km/s)</p>
+</li>
+<li>Used for satellite deployment</li>
+<li>
+<p>Orbital parameters depend on initial velocity</p>
 </li>
 <li>
-<p><strong>Transfer Orbit Insertion</strong>: Releasing the satellite into a transfer orbit (typically elliptical), from which it will later maneuver to its final orbit using onboard propulsion</p>
+<p><strong>Escape Trajectories</strong> (v &gt; 11.2 km/s)</p>
 </li>
+<li>Required for interplanetary missions</li>
+<li>Excess velocity determines hyperbolic trajectory shape</li>
 </ol>
-<p>The choice of deployment strategy depends on mission requirements, launch vehicle capabilities, and satellite design.</p>
-<h3 id="space-station-resupply">Space Station Resupply</h3>
-<p>Cargo vessels approaching the International Space Station (ISS) must follow precise trajectories to ensure safe rendezvous and docking. The approach typically involves:</p>
+<h3 id="mission-planning-considerations">Mission Planning Considerations</h3>
 <ol>
-<li>
-<p><strong>Phasing Orbit</strong>: Initially entering an orbit slightly lower than the ISS, allowing the cargo vessel to catch up</p>
-</li>
-<li>
-<p><strong>Hohmann Transfer</strong>: Executing a maneuver to raise the orbit to match the ISS altitude</p>
-</li>
-<li>
-<p><strong>Proximity Operations</strong>: Final approach and docking, which requires precise control of relative position and velocity</p>
-</li>
+<li><strong>Orbital Insertion</strong>: Achieving desired orbit requires precise velocity control</li>
+<li><strong>Reentry Scenarios</strong>: Must account for atmospheric drag and heating</li>
+<li><strong>Station Keeping</strong>: Elliptical orbits require periodic corrections</li>
 </ol>
-<h3 id="sample-return-missions">Sample Return Missions</h3>
-<p>For missions that return samples from space to Earth (like asteroid sample return or lunar sample return missions), the reentry trajectory must be carefully planned to ensure:</p>
+<h3 id="computational-considerations">Computational Considerations</h3>
+<p>The simulation demonstrates:
+- Importance of adaptive timestep for accuracy near perigee
+- Need for collision detection to avoid unphysical solutions
+- Conservation of energy as validation metric</p>
+<h2 id="implementation-details">Implementation Details</h2>
+<p>The complete Python implementation is provided in <code>scripts/problem3_simulation.py</code>. Key features include:</p>
 <ol>
-<li>
-<p><strong>Safe Deceleration</strong>: The sample capsule must enter the atmosphere at an angle that allows for sufficient deceleration without excessive heating</p>
-</li>
-<li>
-<p><strong>Precision Landing</strong>: The trajectory must lead to the designated landing zone, often a remote area to minimize risk</p>
-</li>
-<li>
-<p><strong>Sample Preservation</strong>: The reentry conditions must not compromise the scientific integrity of the samples</p>
-</li>
+<li><strong>ODE Solver</strong>: 4th-order Runge-Kutta with adaptive timestep</li>
+<li><strong>Visualization</strong>: Multiple plot types for comprehensive analysis</li>
+<li><strong>Animation</strong>: Time-evolution visualization of trajectories</li>
+<li><strong>Parameter Study</strong>: Systematic variation of initial conditions</li>
 </ol>
-<h2 id="limitations-and-extensions">Limitations and Extensions</h2>
-<h3 id="perturbation-effects">Perturbation Effects</h3>
-<p>The analysis presented above assumes a perfect spherical Earth with a uniform gravitational field. In reality, several perturbations affect payload trajectories:</p>
+<h2 id="conclusions">Conclusions</h2>
+<p>This analysis provides a comprehensive framework for understanding payload trajectories near Earth. The computational tool developed allows for:</p>
 <ol>
-<li>
-<p><strong>Earth's Oblateness</strong>: Earth's equatorial bulge (J2 effect) causes orbital precession and other perturbations</p>
-</li>
-<li>
-<p><strong>Atmospheric Drag</strong>: For low orbits, atmospheric drag gradually reduces orbital energy, eventually leading to reentry</p>
-</li>
-<li>
-<p><strong>Solar Radiation Pressure</strong>: Sunlight exerts a small but non-negligible pressure, especially on payloads with large surface area-to-mass ratios</p>
-</li>
-<li>
-<p><strong>Third-Body Perturbations</strong>: Gravitational influences from the Moon, Sun, and other celestial bodies</p>
-</li>
+<li>Prediction of trajectory type based on initial conditions</li>
+<li>Visualization of orbital paths and parameters</li>
+<li>Analysis of energy conservation and orbital mechanics</li>
+<li>Support for mission planning and trajectory optimization</li>
 </ol>
-<p>Incorporating these perturbations requires more sophisticated models and numerical techniques.</p>
-<h3 id="relativistic-effects">Relativistic Effects</h3>
-<p>For extremely precise trajectory calculations, especially for payloads with very high velocities or those operating in strong gravitational fields, relativistic effects must be considered. These include:</p>
+<p>The results clearly demonstrate the transition from bound orbits to escape trajectories as initial velocity increases, with the critical velocities matching theoretical predictions.</p>
+<h2 id="references">References</h2>
 <ol>
-<li>
-<p><strong>Time Dilation</strong>: Clocks on fast-moving payloads run slower relative to Earth-based clocks</p>
-</li>
-<li>
-<p><strong>Gravitational Redshift</strong>: Time passes more slowly in stronger gravitational fields</p>
-</li>
-<li>
-<p><strong>Relativistic Orbital Precession</strong>: Similar to the precession of Mercury's orbit, but typically much smaller for Earth-orbiting payloads</p>
-</li>
+<li>Curtis, H. D. (2014). <em>Orbital Mechanics for Engineering Students</em> (3rd ed.). Butterworth-Heinemann.</li>
+<li>Vallado, D. A. (2013). <em>Fundamentals of Astrodynamics and Applications</em> (4th ed.). Microcosm Press.</li>
+<li>Bate, R. R., Mueller, D. D., &amp; White, J. E. (1971). <em>Fundamentals of Astrodynamics</em>. Dover Publications.</li>
 </ol>
-<h3 id="extended-mission-analysis">Extended Mission Analysis</h3>
-<p>For more complex missions, additional factors must be considered:</p>
-<ol>
-<li>
-<p><strong>Propulsive Maneuvers</strong>: Many payloads have onboard propulsion systems that can alter their trajectories after release</p>
-</li>
-<li>
-<p><strong>Attitude Dynamics</strong>: The orientation of the payload can affect its trajectory through aerodynamic forces and solar radiation pressure</p>
-</li>
-<li>
-<p><strong>Long-term Evolution</strong>: Over extended periods, the cumulative effect of perturbations can significantly alter the payload's orbit</p>
-</li>
-</ol>
-<h2 id="conclusion">Conclusion</h2>
-<p>Through this analysis, I've explored the rich dynamics of payload trajectories near Earth, from the fundamental physics governing their motion to practical applications in space missions. The trajectory of a released payload depends critically on its initial conditions, which must be carefully controlled to achieve the desired mission objectives.</p>
-<p>Key insights from this analysis include:</p>
-<ol>
-<li>
-<p><strong>Parameter Interdependence</strong>: The three key parameters (velocity magnitude, release angle, and altitude) are interdependent, with changes in one affecting the optimal values for the others.</p>
-</li>
-<li>
-<p><strong>Phase Space Mapping</strong>: The phase space diagram provides a powerful tool for mission planning, allowing engineers to visualize the full range of possible trajectories based on initial conditions.</p>
-</li>
-<li>
-<p><strong>Precision Requirements</strong>: Different mission types have different precision requirements, with orbital insertion generally requiring higher precision than escape trajectories.</p>
-</li>
-<li>
-<p><strong>Optimization Opportunities</strong>: By understanding the sensitivity landscape, mission planners can optimize release conditions to minimize propellant requirements and maximize mission success probability.</p>
-</li>
-</ol>
-<p>The computational tools and visualizations developed in this solution provide a comprehensive framework for simulating and analyzing various release scenarios, helping to inform mission planning and payload design. By understanding the sensitivity of trajectories to initial conditions and the effects of various perturbations, we can better predict and control the behavior of payloads in Earth's gravitational field.</p>
-<p>This knowledge is essential for a wide range of space activities, from satellite deployments and space station resupply missions to sample return operations and beyond. As space exploration continues to advance, the ability to precisely control and predict payload trajectories will remain a fundamental requirement for successful missions.</p>
 </div>
 </div><footer>
 <div aria-label="Footer Navigation" class="rst-footer-buttons" role="navigation">
