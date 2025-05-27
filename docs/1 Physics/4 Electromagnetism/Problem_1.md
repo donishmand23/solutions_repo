@@ -1,151 +1,276 @@
-# Problem 1: Equivalent Resistance Using Graph Theory
+# Problem 1: Simulating the Effects of the Lorentz Force
 
 ## Introduction
 
-In electrical circuit analysis, determining the equivalent resistance between two points is a fundamental problem. Traditional approaches involve identifying series and parallel combinations of resistors and applying the corresponding reduction rules. However, as circuits become more complex, this approach becomes cumbersome and error-prone.
+The Lorentz force is one of the fundamental forces in physics, describing how charged particles interact with electromagnetic fields. This force, expressed as **F = q(E + v × B)**, governs the motion of charged particles in electric and magnetic fields and is essential for understanding phenomena in plasma physics, particle accelerators, mass spectrometers, and many other applications.
 
-Graph theory provides an elegant alternative framework for analyzing electrical circuits. By representing a circuit as a graph where nodes correspond to junctions and edges represent resistors, we can apply systematic algorithms to determine the equivalent resistance regardless of circuit complexity.
+This solution presents a comprehensive simulation framework for visualizing and analyzing charged particle trajectories under various electromagnetic field configurations.
 
-This solution explores the application of graph theory to solve equivalent resistance problems, demonstrating how this approach can handle circuits that are difficult to analyze using conventional methods.
+## Theoretical Background
 
-## Theoretical Foundation
+### The Lorentz Force Equation
 
-### Circuit Representation as a Graph
+The Lorentz force on a charged particle is given by:
 
-An electrical circuit can be represented as a weighted graph G = (V, E), where:
-- V is the set of vertices (nodes) representing junctions in the circuit
-- E is the set of edges representing resistors
-- Each edge e ∈ E has a weight w(e) corresponding to the resistance value
+$$\mathbf{F} = q(\mathbf{E} + \mathbf{v} \times \mathbf{B})$$
 
-In this representation:
-- Series resistors correspond to consecutive edges in the graph
-- Parallel resistors correspond to multiple edges between the same pair of vertices
+where:
+- $q$ is the particle charge (C)
+- $\mathbf{E}$ is the electric field (V/m)
+- $\mathbf{v}$ is the particle velocity (m/s)
+- $\mathbf{B}$ is the magnetic field (T)
 
-![Graph Representation](figures/graph_representation.png)
+### Equation of Motion
 
-### Reduction Rules
+Using Newton's second law, the equation of motion becomes:
 
-The equivalent resistance between two nodes can be determined by iteratively applying two fundamental reduction rules:
+$$m\frac{d\mathbf{v}}{dt} = q(\mathbf{E} + \mathbf{v} \times \mathbf{B})$$
 
-1. **Series Reduction**: If resistors R₁, R₂, ..., Rₙ are in series, they can be replaced by a single equivalent resistor:
-   
-   R<sub>eq</sub> = R₁ + R₂ + ... + Rₙ
+This can be rewritten as a system of first-order differential equations:
 
-2. **Parallel Reduction**: If resistors R₁, R₂, ..., Rₙ are in parallel, they can be replaced by a single equivalent resistor:
-   
-   1/R<sub>eq</sub> = 1/R₁ + 1/R₂ + ... + 1/Rₙ
+$$\frac{d\mathbf{r}}{dt} = \mathbf{v}$$
 
-In graph terms:
-- Series reduction corresponds to contracting an edge and adjusting the weight of the resulting edge
-- Parallel reduction corresponds to replacing multiple edges between two vertices with a single edge
+$$\frac{d\mathbf{v}}{dt} = \frac{q}{m}(\mathbf{E} + \mathbf{v} \times \mathbf{B})$$
 
-![Series and Parallel Reduction](figures/series_parallel_reduction.png)
+### Key Physical Parameters
 
-## Methodology
+1. **Cyclotron Frequency**: $\omega_c = \frac{qB}{m}$
+   - Determines the rotation frequency in a magnetic field
 
-### Graph-Based Algorithm for Equivalent Resistance
+2. **Larmor Radius**: $r_L = \frac{mv_\perp}{qB}$
+   - The radius of circular motion in a uniform magnetic field
 
-We propose the following algorithm to determine the equivalent resistance between two nodes in a circuit:
+3. **Drift Velocity**: $\mathbf{v}_D = \frac{\mathbf{E} \times \mathbf{B}}{B^2}$
+   - The drift velocity in crossed E and B fields
 
-1. Represent the circuit as a weighted graph G = (V, E)
-2. Identify the source node s and target node t
-3. While |V| > 2:
-   a. Identify series or parallel patterns in the graph
-   b. Apply the corresponding reduction rule
-   c. Update the graph
-4. Return the weight of the edge connecting s and t
+## Applications of the Lorentz Force
 
-This algorithm systematically reduces the graph until only the source and target nodes remain, with a single edge representing the equivalent resistance between them.
+### 1. Particle Accelerators
 
-### Handling Complex Circuits
+Particle accelerators use electromagnetic fields to accelerate and guide charged particles. Key components include:
 
-For circuits that cannot be reduced using only series and parallel combinations, additional techniques are required:
+- **Cyclotrons**: Use a uniform magnetic field and alternating electric field to accelerate particles in a spiral path
+- **Synchrotrons**: Use time-varying magnetic fields to maintain particles in a fixed circular path while accelerating
+- **Linear Accelerators**: Use electric fields to accelerate particles in a straight line
 
-1. **Y-Δ Transformation**: Convert a Y-shaped subcircuit to a Δ-shaped subcircuit or vice versa
-2. **Node Elimination**: Systematically eliminate nodes using Gaussian elimination
-3. **Kirchhoff's Laws**: Apply Kirchhoff's voltage and current laws to derive a system of equations
+### 2. Mass Spectrometers
 
-These techniques extend the graph-based approach to handle arbitrary circuit topologies.
+Mass spectrometers separate ions by their mass-to-charge ratio using the Lorentz force:
+- Ions are accelerated through an electric field
+- They enter a magnetic field region where they follow curved paths
+- The radius of curvature depends on m/q ratio: $r = \frac{mv}{qB}$
 
-## Analysis
+### 3. Plasma Confinement
 
-### Step-by-Step Reduction Example
+Magnetic confinement fusion devices use the Lorentz force to confine hot plasma:
+- **Tokamaks**: Use toroidal and poloidal magnetic fields
+- **Stellarators**: Use complex 3D magnetic field configurations
+- **Magnetic mirrors**: Use converging magnetic field lines
 
-Consider a complex circuit with multiple resistors arranged in a non-trivial configuration. We can apply our graph-based algorithm to determine the equivalent resistance:
+### 4. Magnetron Sputtering
 
-![Graph Reduction Steps](figures/graph_reduction_steps.png)
+Used in thin film deposition, magnetrons use crossed E and B fields to trap electrons near the target surface, enhancing ionization efficiency.
 
-1. **Step 1**: Represent the circuit as a weighted graph
-2. **Step 2**: Identify and remove redundant edges
-3. **Step 3**: Combine series resistors
-4. **Step 4**: Calculate the final equivalent resistance
+## Simulation Implementation
 
-This systematic approach allows us to handle circuits that would be challenging to analyze using conventional methods.
+### Numerical Method
 
-### Comparison with Traditional Methods
-
-The graph-based approach offers several advantages over traditional circuit analysis methods:
-
-1. **Systematic**: Provides a clear, step-by-step procedure for circuit reduction
-2. **Generalizable**: Applies to circuits of arbitrary complexity
-3. **Automatable**: Can be implemented as a computer algorithm
-4. **Intuitive**: Provides a visual representation of the circuit structure
-
-However, it also has limitations:
-
-1. **Computational Complexity**: For very large circuits, the algorithm may become computationally intensive
-2. **Special Cases**: Certain circuit configurations may require additional transformation techniques
-
-## Results
-
-### Application to Complex Circuits
-
-We applied our graph-based algorithm to a complex circuit with multiple interconnected resistors:
-
-![Complex Circuit](figures/complex_circuit.png)
-
-The algorithm successfully reduced the circuit to determine an equivalent resistance of 12.7Ω between nodes A and F, demonstrating the effectiveness of the graph-based approach for complex circuit analysis.
-
-### Computational Implementation
-
-The graph-based algorithm can be efficiently implemented using standard graph data structures and algorithms:
+We use the 4th-order Runge-Kutta (RK4) method for solving the differential equations:
 
 ```python
-def calculate_equivalent_resistance(graph, source, target):
-    # Create a copy of the graph to avoid modifying the original
-    G = graph.copy()
-    
-    # Continue reducing the graph until only source and target nodes remain
-    while len(G.nodes) > 2:
-        # Identify and reduce series connections
-        series_reduced = reduce_series(G)
-        
-        # Identify and reduce parallel connections
-        parallel_reduced = reduce_parallel(G)
-        
-        # If no reductions were made, apply more advanced techniques
-        if not (series_reduced or parallel_reduced):
-            # Apply Y-Delta transformation or node elimination
-            advanced_reduction(G)
-    
-    # Return the weight of the edge connecting source and target
-    return G[source][target]['weight']
+def rk4_step(state, t, dt, derivative_func):
+    k1 = derivative_func(state, t)
+    k2 = derivative_func(state + 0.5 * dt * k1, t + 0.5 * dt)
+    k3 = derivative_func(state + 0.5 * dt * k2, t + 0.5 * dt)
+    k4 = derivative_func(state + dt * k3, t + dt)
+    return state + (dt / 6) * (k1 + 2*k2 + 2*k3 + k4)
 ```
 
-This implementation provides a practical tool for analyzing complex circuits using graph theory principles.
+### Field Configurations
 
-## Conclusion
+The simulation implements three main field configurations:
 
-Graph theory offers a powerful framework for analyzing electrical circuits and determining equivalent resistance. By representing circuits as weighted graphs and applying systematic reduction rules, we can handle complex configurations that would be challenging to analyze using conventional methods.
+1. **Uniform Magnetic Field Only**
+   - $\mathbf{E} = 0$
+   - $\mathbf{B} = B_0\hat{z}$
+   - Results in circular or helical motion
 
-The graph-based approach provides several advantages, including systematicity, generalizability, and automation potential. While it may have limitations for very large circuits or special cases, these can be addressed through additional techniques such as Y-Δ transformation and node elimination.
+2. **Combined Electric and Magnetic Fields**
+   - $\mathbf{E} = E_0\hat{x}$
+   - $\mathbf{B} = B_0\hat{z}$
+   - Produces drift motion with cycloidal paths
 
-Future work could explore extensions to AC circuits, non-linear components, and optimization of the algorithm for large-scale circuit analysis.
+3. **Crossed Electric and Magnetic Fields**
+   - $\mathbf{E} = E_0\hat{x}$
+   - $\mathbf{B} = B_0\hat{y}$
+   - Creates E×B drift perpendicular to both fields
 
-## References
+## Results and Visualization
 
-1. Deo, N. (2017). Graph Theory with Applications to Engineering and Computer Science. Dover Publications.
-2. Nilsson, J. W., & Riedel, S. A. (2015). Electric Circuits (10th ed.). Pearson.
-3. Chen, W. K. (2003). Graph Theory and Its Engineering Applications. World Scientific.
-4. Gross, J. L., & Yellen, J. (2005). Graph Theory and Its Applications (2nd ed.). Chapman and Hall/CRC.
-5. Sedra, A. S., & Smith, K. C. (2014). Microelectronic Circuits (7th ed.). Oxford University Press.
+### 1. Uniform Magnetic Field
+
+![Uniform Magnetic Field Trajectories](figures/uniform_magnetic_field.png)
+
+In a uniform magnetic field, charged particles follow helical paths. The figure shows:
+- Circular motion in the plane perpendicular to B
+- Constant velocity parallel to B
+- Radius determined by the Larmor radius formula
+
+Key observations:
+- Positive and negative charges rotate in opposite directions
+- Higher velocities result in larger Larmor radii
+- The cyclotron frequency is independent of velocity
+
+### 2. Combined Electric and Magnetic Fields
+
+![Combined E and B Fields](figures/combined_fields.png)
+
+When both E and B fields are present (E ⊥ B), particles exhibit:
+- Cycloidal motion (combination of circular and drift motion)
+- E×B drift velocity perpendicular to both fields
+- Energy gain/loss depending on charge sign
+
+The trajectory can be decomposed into:
+- Circular motion at the cyclotron frequency
+- Drift motion with velocity v_D = E×B/B²
+
+### 3. Crossed Electric and Magnetic Fields
+
+![Crossed Fields Configuration](figures/crossed_fields.png)
+
+In crossed field configurations:
+- Particles drift in the E×B direction
+- No net energy gain (E·v_drift = 0)
+- Used in velocity selectors and magnetrons
+
+### 4. Parameter Study
+
+![Parameter Effects on Trajectories](figures/parameter_study.png)
+
+This figure demonstrates how various parameters affect particle trajectories:
+
+**Effect of Charge-to-Mass Ratio (q/m):**
+- Higher q/m ratios result in tighter spirals
+- Cyclotron frequency increases with q/m
+
+**Effect of Initial Velocity:**
+- Perpendicular velocity determines Larmor radius
+- Parallel velocity affects pitch of helix
+
+**Effect of Field Strengths:**
+- Stronger B fields create tighter spirals
+- E field strength affects drift velocity
+
+### 5. Animated Trajectories
+
+![Animated Particle Motion](figures/particle_animation.gif)
+
+The animation demonstrates:
+- Real-time particle motion
+- Phase relationships between particles
+- Energy conservation throughout motion
+
+## Physical Phenomena Analysis
+
+### Larmor Radius Measurement
+
+![Larmor Radius Analysis](figures/larmor_radius_analysis.png)
+
+The simulation confirms the theoretical Larmor radius:
+- Measured radius matches $r_L = \frac{mv_\perp}{qB}$
+- Linear relationship with perpendicular velocity
+- Inverse relationship with magnetic field strength
+
+### Drift Velocity Verification
+
+![Drift Velocity Measurement](figures/drift_velocity.png)
+
+For crossed E and B fields, the measured drift velocity matches theory:
+- $v_D = \frac{E \times B}{B^2}$
+- Independent of particle charge and mass
+- Perpendicular to both E and B
+
+## Practical Applications Discussion
+
+### Cyclotron Design
+
+The simulation helps understand cyclotron operation:
+- Particles gain energy each half-revolution
+- Radius increases with energy: $r = \frac{\sqrt{2mE_k}}{qB}$
+- Frequency remains constant (for non-relativistic particles)
+
+Design considerations:
+- Magnetic field strength determines maximum energy
+- Dee voltage affects acceleration rate
+- Extraction occurs at maximum radius
+
+### Magnetic Traps
+
+The simulation principles apply to magnetic confinement:
+- Particles follow field lines in helical paths
+- Magnetic mirrors reflect particles at high-field regions
+- Drift motion can lead to particle loss
+
+Key parameters:
+- Mirror ratio determines confinement efficiency
+- Field curvature causes additional drifts
+- Collision effects (not simulated) affect confinement time
+
+### Mass Spectrometry
+
+The simulation demonstrates mass separation principles:
+- Different m/q ratios follow different radius paths
+- Resolution depends on field uniformity
+- Time-of-flight differences enable separation
+
+## Extensions and Future Work
+
+### 1. Non-Uniform Fields
+
+The simulation can be extended to include:
+- Magnetic bottles (converging field lines)
+- Quadrupole fields for focusing
+- Time-varying fields for acceleration
+
+### 2. Relativistic Effects
+
+For high-energy particles, relativistic corrections are needed:
+- Lorentz factor: $\gamma = \frac{1}{\sqrt{1-v^2/c^2}}$
+- Modified cyclotron frequency: $\omega_c = \frac{qB}{\gamma m}$
+- Synchrotron radiation effects
+
+### 3. Collective Effects
+
+Multi-particle simulations could include:
+- Space charge effects
+- Plasma oscillations
+- Beam instabilities
+
+### 4. Field Perturbations
+
+Real devices have field imperfections:
+- Fringe fields at boundaries
+- Multipole components
+- Time-varying perturbations
+
+## Conclusions
+
+This comprehensive simulation framework successfully demonstrates the effects of the Lorentz force on charged particle motion. The implementation:
+
+1. Accurately reproduces theoretical predictions for particle trajectories
+2. Visualizes complex 3D motion in various field configurations
+3. Provides insights into practical applications like accelerators and spectrometers
+4. Offers a foundation for exploring more complex scenarios
+
+The simulation serves as both an educational tool and a starting point for more sophisticated particle dynamics studies. The modular design allows easy extension to include additional physics and field configurations.
+
+## Code Implementation
+
+The complete Python implementation is provided in `scripts/lorentz_force_simulation.py`. The code features:
+- Object-oriented design for particle and field management
+- Efficient RK4 integration with adaptive timestep
+- Comprehensive visualization capabilities
+- Parameter sweep functionality
+- Animation generation for dynamic visualization
+
+Users can modify parameters, add new field configurations, and extend the physics model as needed for specific applications.
