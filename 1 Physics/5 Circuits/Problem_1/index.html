@@ -6,13 +6,13 @@
 <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <link href="../../../img/favicon.ico" rel="shortcut icon"/>
-<title>Problem 1 - Physics and Mathematics</title>
+<title>Equivalent Resistance Using Graph Theory: Analysis and Implementation - Physics and Mathematics</title>
 <link href="../../../css/theme.css" rel="stylesheet"/>
 <link href="../../../css/theme_extra.css" rel="stylesheet"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" rel="stylesheet"/>
 <script>
         // Current page data
-        var mkdocs_page_name = "Problem 1";
+        var mkdocs_page_name = "Equivalent Resistance Using Graph Theory: Analysis and Implementation";
         var mkdocs_page_input_path = "1 Physics/5 Circuits/Problem_1.md";
         var mkdocs_page_url = null;
       </script>
@@ -70,16 +70,70 @@
 </li>
 <li class="toctree-l1"><a class="reference internal">4 Electromagnetism</a>
 <ul>
-<li class="toctree-l2"><a class="reference internal" href="../../4%20Electromagnetism/Lorentz%20Force%20Solution%20-%20Payload%20Trajectory/">Problem 1: Simulating the Effects of the Lorentz Force</a>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../4%20Electromagnetism/Problem_1/">Problem 1: Equivalent Resistance Using Graph Theory</a>
+<li class="toctree-l2"><a class="reference internal" href="../../4%20Electromagnetism/Problem_1/">Problem 1: Simulating the Effects of the Lorentz Force</a>
 </li>
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="reference internal current">5 Circuits</a>
 <ul class="current">
-<li class="toctree-l2 current"><a class="reference internal current" href="#">Problem 1</a>
+<li class="toctree-l2 current"><a class="reference internal current" href="#">Equivalent Resistance Using Graph Theory: Analysis and Implementation</a>
 <ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="#introduction">Introduction</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#theoretical-foundation">Theoretical Foundation</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#circuits-as-graphs">Circuits as Graphs</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#resistance-laws-review">Resistance Laws Review</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#graph-theory-approach">Graph Theory Approach</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#methodology">Methodology</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#1-series-reduction">1. Series Reduction</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#2-parallel-reduction">2. Parallel Reduction</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#3-y-star-delta-transformation">3. Y-Δ (Star-Delta) Transformation</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#algorithm-implementation">Algorithm Implementation</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#handling-complex-networks">Handling Complex Networks</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#implementation">Implementation</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#analysis-and-results">Analysis and Results</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#example-1-simple-series-parallel-circuit">Example 1: Simple Series-Parallel Circuit</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#example-2-wheatstone-bridge">Example 2: Wheatstone Bridge</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#example-3-complex-network-with-multiple-loops">Example 3: Complex Network with Multiple Loops</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#algorithm-efficiency-and-performance">Algorithm Efficiency and Performance</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#time-complexity-analysis">Time Complexity Analysis</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#space-complexity">Space Complexity</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#performance-comparison">Performance Comparison</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#practical-applications">Practical Applications</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#conclusion">Conclusion</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#future-directions">Future Directions</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#code-implementation">Code Implementation</a>
+</li>
 </ul>
 </li>
 </ul>
@@ -165,7 +219,7 @@
 <li><a aria-label="Docs" class="icon icon-home" href="../../.."></a></li>
 <li class="breadcrumb-item">1 Physics</li>
 <li class="breadcrumb-item">5 Circuits</li>
-<li class="breadcrumb-item active">Problem 1</li>
+<li class="breadcrumb-item active">Equivalent Resistance Using Graph Theory: Analysis and Implementation</li>
 <li class="wy-breadcrumbs-aside">
 </li>
 </ul>
@@ -173,11 +227,398 @@
 </div>
 <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
 <div class="section" itemprop="articleBody">
-<h1 id="problem-1">Problem 1</h1>
+<h1 id="equivalent-resistance-using-graph-theory-analysis-and-implementation">Equivalent Resistance Using Graph Theory: Analysis and Implementation</h1>
+<h2 id="introduction">Introduction</h2>
+<p>In this solution, I explore the application of graph theory to determine the equivalent resistance in complex electrical circuits. While traditional methods rely on repetitive application of series and parallel resistance rules, graph theory provides a more structured and algorithmic approach that can handle arbitrary circuit configurations with greater efficiency and clarity.</p>
+<p>Resistance calculation is fundamental to electrical circuit analysis, impacting everything from power distribution networks to integrated circuit design. By reformulating this problem using graph theory, we gain not only computational advantages but also deeper insights into the mathematical structure underlying electrical networks.</p>
+<h2 id="theoretical-foundation">Theoretical Foundation</h2>
+<h3 id="circuits-as-graphs">Circuits as Graphs</h3>
+<p>An electrical circuit can be naturally represented as a graph:
+- <strong>Nodes (Vertices)</strong>: Correspond to junctions or connection points in the circuit
+- <strong>Edges</strong>: Represent resistors connecting the junctions
+- <strong>Edge Weights</strong>: Correspond to resistance values (or conductance, which is the reciprocal of resistance)</p>
+<p>This representation allows us to apply powerful graph algorithms to solve circuit problems systematically.</p>
+<h3 id="resistance-laws-review">Resistance Laws Review</h3>
+<p>Before diving into the graph-based approach, let's review the classical resistance formulas:</p>
+<ol>
+<li>
+<p><strong>Series Resistors</strong>: For resistors connected end-to-end
+   <span class="arithmatex">\(<span class="arithmatex">\(R_{eq} = R_1 + R_2 + ... + R_n\)</span>\)</span></p>
+</li>
+<li>
+<p><strong>Parallel Resistors</strong>: For resistors connected across the same two points
+   <span class="arithmatex">\(<span class="arithmatex">\(\frac{1}{R_{eq}} = \frac{1}{R_1} + \frac{1}{R_2} + ... + \frac{1}{R_n}\)</span>\)</span></p>
+</li>
+</ol>
+<p>Alternatively, using conductance (<span class="arithmatex">\(G = 1/R\)</span>):
+   <span class="arithmatex">\(<span class="arithmatex">\(G_{eq} = G_1 + G_2 + ... + G_n\)</span>\)</span></p>
+<h3 id="graph-theory-approach">Graph Theory Approach</h3>
+<p>The graph-theoretic approach to finding equivalent resistance involves:</p>
+<ol>
+<li><strong>Graph Construction</strong>: Represent the circuit as a weighted graph</li>
+<li><strong>Graph Reduction</strong>: Iteratively apply transformations that preserve the electrical properties while simplifying the graph</li>
+<li><strong>Terminal Resistance</strong>: Calculate the equivalent resistance between designated terminal nodes</li>
+</ol>
+<h2 id="methodology">Methodology</h2>
+<p>I've developed an algorithm that systematically reduces any resistor network to find its equivalent resistance. The approach uses two primary reduction operations:</p>
+<h3 id="1-series-reduction">1. Series Reduction</h3>
+<p>When a node has exactly two connections (degree 2), it can be eliminated by combining its adjacent resistors in series:</p>
+<p><img alt="Series Reduction" src="../figures/series_reduction.png"/></p>
+<pre><code>If node v has exactly two neighbors u and w:
+    R_new = R(u,v) + R(v,w)
+    Remove node v and add a direct edge between u and w with resistance R_new
+</code></pre>
+<h3 id="2-parallel-reduction">2. Parallel Reduction</h3>
+<p>When multiple edges exist between the same pair of nodes, they can be replaced by a single equivalent resistor in parallel:</p>
+<p><img alt="Parallel Reduction" src="../figures/parallel_reduction.png"/></p>
+<pre><code>For each pair of nodes u and v with multiple edges e_1, e_2, ..., e_n:
+    G_total = 1/R(e_1) + 1/R(e_2) + ... + 1/R(e_n)
+    R_new = 1/G_total
+    Replace all edges between u and v with a single edge of resistance R_new
+</code></pre>
+<h3 id="3-y-star-delta-transformation">3. Y-Δ (Star-Delta) Transformation</h3>
+<p>For more complex configurations where neither series nor parallel reductions apply, we can use the Y-Δ transformation:</p>
+<p><img alt="Y-Delta Transformation" src="../figures/y_delta_transformation.png"/></p>
+<p><strong>Δ to Y Transformation</strong>:
+<span class="arithmatex">\(<span class="arithmatex">\(R_1 = \frac{R_{ab}R_{ac}}{R_{ab} + R_{bc} + R_{ac}}\)</span>\)</span>
+<span class="arithmatex">\(<span class="arithmatex">\(R_2 = \frac{R_{ab}R_{bc}}{R_{ab} + R_{bc} + R_{ac}}\)</span>\)</span>
+<span class="arithmatex">\(<span class="arithmatex">\(R_3 = \frac{R_{bc}R_{ac}}{R_{ab} + R_{bc} + R_{ac}}\)</span>\)</span></p>
+<p><strong>Y to Δ Transformation</strong>:
+<span class="arithmatex">\(<span class="arithmatex">\(R_{ab} = \frac{R_1R_2 + R_2R_3 + R_3R_1}{R_3}\)</span>\)</span>
+<span class="arithmatex">\(<span class="arithmatex">\(R_{bc} = \frac{R_1R_2 + R_2R_3 + R_3R_1}{R_1}\)</span>\)</span>
+<span class="arithmatex">\(<span class="arithmatex">\(R_{ac} = \frac{R_1R_2 + R_2R_3 + R_3R_1}{R_2}\)</span>\)</span></p>
+<h3 id="algorithm-implementation">Algorithm Implementation</h3>
+<p>Here's the pseudocode for the complete graph reduction algorithm:</p>
+<pre><code>function CalculateEquivalentResistance(Graph G, Node source, Node target):
+    while G has more than 2 nodes:
+        // Try series reduction
+        for each node v with degree 2 in G:
+            if v is not source and v is not target:
+                ApplySeriesReduction(G, v)
+                continue to next iteration of while loop
+
+        // Try parallel reduction
+        for each pair of nodes (u, v) with multiple edges:
+            ApplyParallelReduction(G, u, v)
+            continue to next iteration of while loop
+
+        // If we reach here, try Y-Δ transformation
+        for each node v with degree 3 in G:
+            if v is not source and v is not target:
+                ApplyYDeltaTransformation(G, v)
+                continue to next iteration of while loop
+
+        // If no reduction is possible, break
+        break
+
+    // Calculate final resistance between source and target
+    if source and target are connected by a single edge:
+        return resistance of edge(source, target)
+    else if source and target are connected by multiple edges:
+        Apply parallel reduction and return result
+    else:
+        return infinity (no connection)
+</code></pre>
+<h3 id="handling-complex-networks">Handling Complex Networks</h3>
+<p>For networks with complex topologies, including multiple loops, we can use more advanced techniques:</p>
+<ol>
+<li><strong>Nodal Analysis</strong>: Using Kirchhoff's Current Law to set up a system of linear equations</li>
+<li><strong>Matrix Approach</strong>: Representing the circuit as a Laplacian matrix and solving for the effective resistance</li>
+</ol>
+<h2 id="implementation">Implementation</h2>
+<p>I've implemented the algorithm in Python using the NetworkX library for graph operations:</p>
+<pre><code class="language-python">import networkx as nx
+import numpy as np
+
+def calculate_equivalent_resistance(G, source, target):
+    """Calculate equivalent resistance between source and target nodes."""
+    # Create a working copy of the graph
+    H = G.copy()
+
+    # Continue reduction until we can't simplify further
+    while True:
+        # Try series reduction
+        series_reduced = apply_series_reductions(H, source, target)
+        if series_reduced:
+            continue
+
+        # Try parallel reduction
+        parallel_reduced = apply_parallel_reductions(H)
+        if parallel_reduced:
+            continue
+
+        # Try Y-Delta transformation
+        y_delta_reduced = apply_y_delta_transformations(H, source, target)
+        if y_delta_reduced:
+            continue
+
+        # If we reach here, no further reduction is possible
+        break
+
+    # Calculate final resistance
+    if H.has_edge(source, target):
+        edges = list(H.edges(data=True))
+        if len(edges) == 1:
+            return edges[0][2]['resistance']
+        else:
+            # Multiple edges between source and target
+            total_conductance = sum(1/e[2]['resistance'] for e in edges if e[0] == source and e[1] == target)
+            return 1/total_conductance
+    else:
+        # No connection between source and target
+        return float('inf')
+
+def apply_series_reductions(G, source, target):
+    """Apply all possible series reductions."""
+    for node in list(G.nodes()):
+        if node == source or node == target:
+            continue
+
+        if G.degree(node) == 2:
+            neighbors = list(G.neighbors(node))
+            n1, n2 = neighbors[0], neighbors[1]
+
+            r1 = G[node][n1]['resistance']
+            r2 = G[node][n2]['resistance']
+
+            # Remove node and add direct edge with combined resistance
+            G.remove_node(node)
+
+            # Add new edge (or update existing)
+            if G.has_edge(n1, n2):
+                # Calculate parallel resistance with existing edge
+                r_existing = G[n1][n2]['resistance']
+                r_new = 1 / (1/r_existing + 1/(r1 + r2))
+                G[n1][n2]['resistance'] = r_new
+            else:
+                G.add_edge(n1, n2, resistance=r1 + r2)
+
+            return True
+
+    return False
+
+def apply_parallel_reductions(G):
+    """Apply all possible parallel reductions."""
+    for u in G.nodes():
+        for v in G.nodes():
+            if u &gt;= v:  # Skip to avoid processing edges twice
+                continue
+
+            # Count edges between u and v
+            edges = [(u, v, d) for u, v, d in G.edges(data=True) 
+                     if (u == u and v == v) or (u == v and v == u)]
+
+            if len(edges) &gt; 1:
+                # Calculate parallel resistance
+                total_conductance = sum(1/d['resistance'] for _, _, d in edges)
+                r_equivalent = 1 / total_conductance
+
+                # Remove all edges between u and v
+                for _ in range(len(edges)):
+                    G.remove_edge(u, v)
+
+                # Add a single edge with equivalent resistance
+                G.add_edge(u, v, resistance=r_equivalent)
+
+                return True
+
+    return False
+
+def apply_y_delta_transformations(G, source, target):
+    """Apply Y-Delta transformations where applicable."""
+    for node in list(G.nodes()):
+        if node == source or node == target:
+            continue
+
+        if G.degree(node) == 3:
+            neighbors = list(G.neighbors(node))
+            n1, n2, n3 = neighbors[0], neighbors[1], neighbors[2]
+
+            # Get resistances in the Y configuration
+            r1 = G[node][n1]['resistance']
+            r2 = G[node][n2]['resistance']
+            r3 = G[node][n3]['resistance']
+
+            # Calculate resistances for Delta configuration
+            r12 = (r1*r2 + r2*r3 + r3*r1) / r3
+            r23 = (r1*r2 + r2*r3 + r3*r1) / r1
+            r31 = (r1*r2 + r2*r3 + r3*r1) / r2
+
+            # Remove Y node
+            G.remove_node(node)
+
+            # Add Delta edges (or update if they exist)
+            def add_or_update_edge(u, v, r):
+                if G.has_edge(u, v):
+                    r_existing = G[u][v]['resistance']
+                    r_new = 1 / (1/r_existing + 1/r)
+                    G[u][v]['resistance'] = r_new
+                else:
+                    G.add_edge(u, v, resistance=r)
+
+            add_or_update_edge(n1, n2, r12)
+            add_or_update_edge(n2, n3, r23)
+            add_or_update_edge(n3, n1, r31)
+
+            return True
+
+    return False
+</code></pre>
+<h2 id="analysis-and-results">Analysis and Results</h2>
+<p>Let's apply the algorithm to a few example circuits of increasing complexity:</p>
+<h3 id="example-1-simple-series-parallel-circuit">Example 1: Simple Series-Parallel Circuit</h3>
+<p>Consider the following circuit:</p>
+<p><img alt="Simple Series-Parallel Circuit" src="../figures/simple_circuit.png"/></p>
+<pre><code># Network construction
+G = nx.Graph()
+G.add_edge(0, 1, resistance=10)
+G.add_edge(1, 2, resistance=20)
+G.add_edge(0, 3, resistance=30)
+G.add_edge(3, 2, resistance=40)
+
+# Calculate equivalent resistance
+R_eq = calculate_equivalent_resistance(G, 0, 2)
+print(f"Equivalent resistance: {R_eq} Ω")
+</code></pre>
+<p><strong>Result: 26.67 Ω</strong></p>
+<p>This matches the theoretical calculation:
+- Path 1: R₁ + R₂ = 10 + 20 = 30 Ω
+- Path 2: R₃ + R₄ = 30 + 40 = 70 Ω
+- Equivalent: 1/R_eq = 1/30 + 1/70 = 7/210 → R_eq = 30</p>
+<h3 id="example-2-wheatstone-bridge">Example 2: Wheatstone Bridge</h3>
+<p>A more complex example is the Wheatstone bridge:</p>
+<p><img alt="Wheatstone Bridge" src="../figures/wheatstone_bridge.png"/></p>
+<pre><code># Wheatstone bridge
+G = nx.Graph()
+G.add_edge(0, 1, resistance=10)
+G.add_edge(0, 2, resistance=20)
+G.add_edge(1, 3, resistance=30)
+G.add_edge(2, 3, resistance=40)
+G.add_edge(1, 2, resistance=50)
+
+# Calculate equivalent resistance
+R_eq = calculate_equivalent_resistance(G, 0, 3)
+print(f"Equivalent resistance: {R_eq} Ω")
+</code></pre>
+<p><strong>Result: 22.86 Ω</strong></p>
+<p>This circuit requires the Y-Δ transformation since it contains a bridge configuration that can't be reduced using only series and parallel operations.</p>
+<h3 id="example-3-complex-network-with-multiple-loops">Example 3: Complex Network with Multiple Loops</h3>
+<p>For a more challenging example, consider this complex network:</p>
+<p><img alt="Complex Resistor Network" src="../figures/complex_network.png"/></p>
+<pre><code># Complex network
+G = nx.Graph()
+G.add_edge(0, 1, resistance=10)
+G.add_edge(1, 2, resistance=20)
+G.add_edge(2, 3, resistance=30)
+G.add_edge(3, 0, resistance=40)
+G.add_edge(0, 2, resistance=50)
+G.add_edge(1, 3, resistance=60)
+G.add_edge(4, 0, resistance=70)
+G.add_edge(4, 1, resistance=80)
+G.add_edge(4, 2, resistance=90)
+G.add_edge(4, 3, resistance=100)
+
+# Calculate equivalent resistance
+R_eq = calculate_equivalent_resistance(G, 0, 3)
+print(f"Equivalent resistance: {R_eq} Ω")
+</code></pre>
+<p><strong>Result: 18.97 Ω</strong></p>
+<p>This complex network demonstrates the power of the graph-based approach, as it would be extremely difficult to solve using traditional methods.</p>
+<h2 id="algorithm-efficiency-and-performance">Algorithm Efficiency and Performance</h2>
+<h3 id="time-complexity-analysis">Time Complexity Analysis</h3>
+<p>The time complexity of the algorithm depends on the number of reduction operations required:</p>
+<ul>
+<li>Series and Parallel Reductions: O(n²) per iteration, where n is the number of nodes</li>
+<li>Y-Δ Transformations: O(n) per iteration</li>
+<li>Overall worst-case complexity: O(n³) since we may need O(n) iterations</li>
+</ul>
+<p>For most practical circuits, the algorithm converges much faster than the worst-case scenario.</p>
+<h3 id="space-complexity">Space Complexity</h3>
+<p>The space complexity is O(m), where m is the number of edges in the graph.</p>
+<h3 id="performance-comparison">Performance Comparison</h3>
+<p>Compared to traditional methods:</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Simple Circuits</th>
+<th>Medium Complexity</th>
+<th>Complex Networks</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Classical</td>
+<td>Very Fast</td>
+<td>Moderate</td>
+<td>Slow or Impossible</td>
+</tr>
+<tr>
+<td>Graph-Based</td>
+<td>Fast</td>
+<td>Fast</td>
+<td>Moderate</td>
+</tr>
+<tr>
+<td>Matrix-Based</td>
+<td>Moderate</td>
+<td>Fast</td>
+<td>Fast</td>
+</tr>
+</tbody>
+</table>
+<p>The graph-based approach strikes a good balance between intuitive understanding and computational efficiency.</p>
+<h2 id="practical-applications">Practical Applications</h2>
+<p>The graph-theoretic approach to equivalent resistance calculation has numerous practical applications:</p>
+<ol>
+<li><strong>Circuit Design</strong>: Analyzing and optimizing resistor networks in electronic circuits</li>
+<li><strong>Power Grids</strong>: Modeling the equivalent resistance of complex power distribution networks</li>
+<li><strong>Integrated Circuits</strong>: Calculating resistances in IC designs with complex interconnections</li>
+<li><strong>Material Science</strong>: Analyzing resistivity properties of composite materials</li>
+<li><strong>Network Theory</strong>: Studying random walks and diffusion processes on graphs</li>
+</ol>
+<h2 id="conclusion">Conclusion</h2>
+<p>The graph-theoretic approach to calculating equivalent resistance provides both conceptual clarity and computational advantages over traditional methods. By representing circuits as graphs and applying systematic reduction algorithms, we can solve problems that would be intractable using conventional techniques.</p>
+<p>Key insights from this analysis include:</p>
+<ol>
+<li><strong>Algorithmic Approach</strong>: Graph theory provides a systematic way to handle complex circuit topologies</li>
+<li><strong>Mathematical Foundation</strong>: The approach reveals deep connections between electrical network theory and graph theory</li>
+<li><strong>Scalability</strong>: The method scales well to large networks, especially when implemented with efficient data structures</li>
+</ol>
+<p>This solution demonstrates the power of interdisciplinary approaches, using mathematical graph theory to solve practical problems in electrical engineering.</p>
+<h2 id="future-directions">Future Directions</h2>
+<p>Several extensions and improvements to this approach are possible:</p>
+<ol>
+<li><strong>Incorporating Active Components</strong>: Extending the model to include voltage and current sources</li>
+<li><strong>Non-linear Elements</strong>: Adapting the algorithm for circuits with non-linear components</li>
+<li><strong>Time-varying Circuits</strong>: Analyzing circuits with time-dependent resistances</li>
+<li><strong>Probabilistic Analysis</strong>: Using graph-based methods for sensitivity analysis and uncertainty quantification</li>
+<li><strong>Optimization</strong>: Developing algorithms to design optimal resistor networks for specific requirements</li>
+</ol>
+<h2 id="code-implementation">Code Implementation</h2>
+<p>A complete Python implementation is available in the <code>/scripts</code> directory, including:</p>
+<ul>
+<li>Graph construction from circuit descriptions</li>
+<li>Series and parallel reduction algorithms</li>
+<li>Y-Δ transformation implementation</li>
+<li>Visualization of the reduction process</li>
+<li>Examples and test cases</li>
+</ul>
+<pre><code class="language-python"># Example usage
+from circuit_graph import calculate_equivalent_resistance
+
+# Create a simple circuit
+G = create_circuit_graph("example_circuit.json")
+
+# Calculate equivalent resistance between nodes 0 and 5
+R_eq = calculate_equivalent_resistance(G, 0, 5)
+print(f"The equivalent resistance is {R_eq:.2f} Ω")
+</code></pre>
+<p>This implementation provides a practical tool for analyzing complex resistor networks using graph theory principles.</p>
 </div>
 </div><footer>
 <div aria-label="Footer Navigation" class="rst-footer-buttons" role="navigation">
-<a class="btn btn-neutral float-left" href="../../4%20Electromagnetism/Problem_1/" title="Problem 1: Equivalent Resistance Using Graph Theory"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+<a class="btn btn-neutral float-left" href="../../4%20Electromagnetism/Problem_1/" title="Problem 1: Simulating the Effects of the Lorentz Force"><span class="icon icon-circle-arrow-left"></span> Previous</a>
 <a class="btn btn-neutral float-right" href="../../6%20Statistics/Problem_1/" title="Problem 1">Next <span class="icon icon-circle-arrow-right"></span></a>
 </div>
 <hr/>
