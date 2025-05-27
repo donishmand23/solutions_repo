@@ -6,13 +6,13 @@
 <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <link href="../../../img/favicon.ico" rel="shortcut icon"/>
-<title>Problem 2 - Physics and Mathematics</title>
+<title>Problem 2: Estimating Pi using Monte Carlo Methods - Physics and Mathematics</title>
 <link href="../../../css/theme.css" rel="stylesheet"/>
 <link href="../../../css/theme_extra.css" rel="stylesheet"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" rel="stylesheet"/>
 <script>
         // Current page data
-        var mkdocs_page_name = "Problem 2";
+        var mkdocs_page_name = "Problem 2: Estimating Pi using Monte Carlo Methods";
         var mkdocs_page_input_path = "1 Physics/6 Statistics/Problem_2.md";
         var mkdocs_page_url = null;
       </script>
@@ -84,8 +84,44 @@
 <ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../Problem_1/">Problem 1: Exploring the Central Limit Theorem through Simulations</a>
 </li>
-<li class="toctree-l2 current"><a class="reference internal current" href="#">Problem 2</a>
+<li class="toctree-l2 current"><a class="reference internal current" href="#">Problem 2: Estimating Pi using Monte Carlo Methods</a>
 <ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="#introduction">Introduction</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#theoretical-foundation">Theoretical Foundation</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#part-1-circle-based-method">Part 1: Circle-Based Method</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#part-2-buffons-needle-method">Part 2: Buffon's Needle Method</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#implementation">Implementation</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#results-and-discussion">Results and Discussion</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#circle-based-method">Circle-Based Method</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#buffons-needle-method">Buffon's Needle Method</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#evolution-of-estimates">Evolution of Estimates</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#comparison-of-methods">Comparison of Methods</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#analysis">Analysis</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#convergence-rate">Convergence Rate</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#computational-efficiency">Computational Efficiency</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#practical-considerations">Practical Considerations</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#conclusion">Conclusion</a>
+</li>
 </ul>
 </li>
 </ul>
@@ -163,7 +199,7 @@
 <li><a aria-label="Docs" class="icon icon-home" href="../../.."></a></li>
 <li class="breadcrumb-item">1 Physics</li>
 <li class="breadcrumb-item">6 Statistics</li>
-<li class="breadcrumb-item active">Problem 2</li>
+<li class="breadcrumb-item active">Problem 2: Estimating Pi using Monte Carlo Methods</li>
 <li class="wy-breadcrumbs-aside">
 </li>
 </ul>
@@ -171,7 +207,90 @@
 </div>
 <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
 <div class="section" itemprop="articleBody">
-<h1 id="problem-2">Problem 2</h1>
+<h1 id="problem-2-estimating-pi-using-monte-carlo-methods">Problem 2: Estimating Pi using Monte Carlo Methods</h1>
+<h2 id="introduction">Introduction</h2>
+<p>Monte Carlo methods are computational algorithms that rely on repeated random sampling to obtain numerical results. One elegant application of these methods is estimating the mathematical constant π (pi). This solution explores two distinct Monte Carlo approaches to approximating π: the circle-based method and Buffon's Needle method.</p>
+<h2 id="theoretical-foundation">Theoretical Foundation</h2>
+<h3 id="part-1-circle-based-method">Part 1: Circle-Based Method</h3>
+<p>The circle-based approach leverages the relationship between the area of a circle and the area of its enclosing square. For a unit circle (radius = 1) inscribed within a 2×2 square:</p>
+<ul>
+<li>Area of the circle: <span class="arithmatex">\(A_{circle} = πr^2 = π\)</span></li>
+<li>Area of the square: <span class="arithmatex">\(A_{square} = 4\)</span></li>
+<li>Ratio: <span class="arithmatex">\(\frac{A_{circle}}{A_{square}} = \frac{π}{4}\)</span></li>
+</ul>
+<p>Thus, if we randomly generate points within the square, the probability of a point falling inside the circle equals the ratio of areas:</p>
+<p><span class="arithmatex">\(P(\text{point inside circle}) = \frac{A_{circle}}{A_{square}} = \frac{π}{4}\)</span></p>
+<p>Rearranging this equation gives us:</p>
+<p><span class="arithmatex">\(π ≈ 4 \times \frac{\text{Number of points inside circle}}{\text{Total number of points}}\)</span></p>
+<h3 id="part-2-buffons-needle-method">Part 2: Buffon's Needle Method</h3>
+<p>Buffon's Needle problem, first posed by Georges-Louis Leclerc, Comte de Buffon in the 18th century, offers another approach to estimating π. The problem involves dropping needles randomly onto a surface with parallel lines and calculating the probability of a needle crossing a line.</p>
+<p>For needles of length <span class="arithmatex">\(L\)</span> dropped on a plane with parallel lines spaced distance <span class="arithmatex">\(D\)</span> apart (where <span class="arithmatex">\(L ≤ D\)</span>), the probability of a needle crossing a line is:</p>
+<p><span class="arithmatex">\(P(\text{crossing}) = \frac{2L}{πD}\)</span></p>
+<p>Rearranging this equation allows us to estimate π:</p>
+<p><span class="arithmatex">\(π ≈ \frac{2L \times \text{Number of needles}}{D \times \text{Number of crossings}}\)</span></p>
+<h2 id="implementation">Implementation</h2>
+<p>Both methods were implemented in Python using NumPy for numerical operations and Matplotlib for visualization. The implementations include:</p>
+<ol>
+<li>Generating random samples (points or needles)</li>
+<li>Counting events (points inside the circle or needles crossing lines)</li>
+<li>Calculating π estimates</li>
+<li>Visualizing the results and convergence behavior</li>
+</ol>
+<h2 id="results-and-discussion">Results and Discussion</h2>
+<h3 id="circle-based-method">Circle-Based Method</h3>
+<p><img alt="Circle Method" src="../figures/circle_method.png"/>
+<em>Figure 1: Monte Carlo estimation of π using the circle method. Blue points are inside the unit circle, gray points are outside.</em></p>
+<p>The circle method provides an intuitive visual representation of the process. As more points are generated, the ratio of points inside the circle to total points converges to π/4.</p>
+<p><img alt="Circle Method Convergence" src="../figures/circle_method_convergence.png"/>
+<em>Figure 2: Convergence of the circle-based method as the number of points increases.</em></p>
+<p>The left panel shows how the estimate approaches the true value of π as more points are used. The right panel confirms that the error decreases at a rate proportional to <span class="arithmatex">\(1/\sqrt{n}\)</span>, which is characteristic of Monte Carlo methods.</p>
+<h3 id="buffons-needle-method">Buffon's Needle Method</h3>
+<p><img alt="Buffon's Needle Method" src="../figures/buffon_method.png"/>
+<em>Figure 3: Buffon's Needle experiment. Red needles cross a line, blue needles do not cross any line.</em></p>
+<p>Buffon's Needle approach offers a geometrically interesting perspective on estimating π. The probability of a needle crossing a line depends on π, allowing us to estimate its value from experimental data.</p>
+<p><img alt="Buffon's Method Convergence" src="../figures/buffon_method_convergence.png"/>
+<em>Figure 4: Convergence of Buffon's Needle method as the number of needles increases.</em></p>
+<p>Similar to the circle method, Buffon's Needle approach exhibits <span class="arithmatex">\(1/\sqrt{n}\)</span> convergence, though with notably higher variance, especially at lower sample sizes.</p>
+<h3 id="evolution-of-estimates">Evolution of Estimates</h3>
+<p><img alt="Circle Method Evolution" src="../figures/circle_method_animation.gif"/>
+<em>Figure 5: Animation showing the evolution of the circle method estimate as more points are added.</em></p>
+<p>The animation demonstrates how the estimate fluctuates initially but stabilizes as more points are sampled, approaching the true value of π.</p>
+<p><img alt="Buffon's Method Evolution" src="../figures/buffon_method_evolution.png"/>
+<em>Figure 6: Evolution of Buffon's Needle method estimate as more needles are dropped.</em></p>
+<p>The static visualization shows both the physical arrangement of needles and the convergence of the estimate as the sample size increases.</p>
+<h3 id="comparison-of-methods">Comparison of Methods</h3>
+<p><img alt="Method Comparison" src="../figures/method_comparison.png"/>
+<em>Figure 7: Comparison of error convergence between the two methods.</em></p>
+<p>The comparison reveals that:</p>
+<ol>
+<li>Both methods follow the expected <span class="arithmatex">\(1/\sqrt{n}\)</span> error reduction rate</li>
+<li>The circle method generally provides more accurate estimates with less variance</li>
+<li>Buffon's Needle method exhibits higher variability, especially at lower sample sizes</li>
+</ol>
+<h2 id="analysis">Analysis</h2>
+<h3 id="convergence-rate">Convergence Rate</h3>
+<p>Both methods demonstrate the expected Monte Carlo convergence rate of <span class="arithmatex">\(O(1/\sqrt{n})\)</span>, where <span class="arithmatex">\(n\)</span> is the number of samples. This means that to reduce the error by a factor of 10, approximately 100 times more samples are needed.</p>
+<p>The empirical results confirm this theoretical expectation, as shown in the error plots where the observed errors closely follow the <span class="arithmatex">\(1/\sqrt{n}\)</span> trend line.</p>
+<h3 id="computational-efficiency">Computational Efficiency</h3>
+<p>The circle method is computationally more efficient for several reasons:</p>
+<ol>
+<li>Simpler calculations (only distance comparisons are needed)</li>
+<li>Lower variance in estimates</li>
+<li>More stable convergence, especially with smaller sample sizes</li>
+</ol>
+<p>Buffon's Needle method, while mathematically elegant, requires more complex geometry calculations and exhibits higher variance in its estimates.</p>
+<h3 id="practical-considerations">Practical Considerations</h3>
+<p>For practical applications requiring π estimation (which are rare given that π is known to trillions of digits), the circle method would be preferred due to its:</p>
+<ol>
+<li>Faster convergence to accurate estimates</li>
+<li>Lower computational overhead</li>
+<li>More stable behavior with smaller sample sizes</li>
+</ol>
+<p>However, Buffon's Needle method provides valuable insights into geometric probability and serves as an excellent educational tool for understanding the relationship between physical processes and mathematical constants.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>This exploration of Monte Carlo methods for estimating π demonstrates the power and versatility of statistical simulation techniques. Both approaches—the circle method and Buffon's Needle method—successfully converge to π as the number of samples increases, following the characteristic <span class="arithmatex">\(1/\sqrt{n}\)</span> convergence rate of Monte Carlo methods.</p>
+<p>The circle method generally provides more accurate and stable estimates with the same number of samples, making it the preferred approach for practical applications. However, Buffon's Needle method offers a fascinating connection between geometric probability and π, making it valuable from theoretical and educational perspectives.</p>
+<p>These methods illustrate how randomness can be harnessed to solve deterministic problems, a counterintuitive yet powerful concept in computational mathematics. While modern computing has made these methods obsolete for calculating π itself (which is known to trillions of digits), the underlying principles remain fundamental to Monte Carlo techniques used throughout science, engineering, and finance.</p>
 </div>
 </div><footer>
 <div aria-label="Footer Navigation" class="rst-footer-buttons" role="navigation">
