@@ -128,279 +128,341 @@ For networks with complex topologies, including multiple loops, we can use more 
 
 ## Implementation
 
-I've implemented the algorithm in Python using the NetworkX library for graph operations:
+I've implemented a comprehensive graph-based circuit solver in Python using the NetworkX library for graph operations. The implementation includes series and parallel reductions, as well as Y-Δ transformations for handling complex circuit topologies.
+
+### Core Algorithm
+
+The core algorithm iteratively applies reduction operations until the circuit is simplified to a single equivalent resistor between the terminals:
 
 ```python
 import networkx as nx
+import matplotlib.pyplot as plt
 import numpy as np
+import os
+from copy import deepcopy
 
-def calculate_equivalent_resistance(G, source, target):
-    """Calculate equivalent resistance between source and target nodes."""
-    # Create a working copy of the graph
-    H = G.copy()
+def simplify_circuit(G, source="B+", target="B-"):
+    """Simplify a circuit by applying series, parallel, and Y-Delta reductions."""
+    # Draw initial circuit
+    draw_graph(G, 0, "Initial Circuit")
     
-    # Continue reduction until we can't simplify further
+    total_steps = 0
     while True:
         # Try series reduction
-        series_reduced = apply_series_reductions(H, source, target)
-        if series_reduced:
-            continue
-            
+        series_changed, series_steps = combine_series(G, source, target)
+        total_steps += series_steps
+        
         # Try parallel reduction
-        parallel_reduced = apply_parallel_reductions(H)
-        if parallel_reduced:
-            continue
-            
+        parallel_changed, parallel_steps = combine_parallel(G)
+        total_steps += parallel_steps
+        
         # Try Y-Delta transformation
-        y_delta_reduced = apply_y_delta_transformations(H, source, target)
-        if y_delta_reduced:
-            continue
-            
-        # If we reach here, no further reduction is possible
-        break
+        y_delta_changed, y_delta_steps = apply_y_delta(G, source, target)
+        total_steps += y_delta_steps
+        
+        # If no reductions were made, we're done
+        if not (series_changed or parallel_changed or y_delta_changed):
+            break
     
-    # Calculate final resistance
-    if H.has_edge(source, target):
-        edges = list(H.edges(data=True))
-        if len(edges) == 1:
-            return edges[0][2]['resistance']
-        else:
-            # Multiple edges between source and target
-            total_conductance = sum(1/e[2]['resistance'] for e in edges if e[0] == source and e[1] == target)
-            return 1/total_conductance
-    else:
-        # No connection between source and target
-        return float('inf')
+    return total_steps
+```
 
-def apply_series_reductions(G, source, target):
-    """Apply all possible series reductions."""
+### Series Reduction Implementation
+
+The series reduction function identifies nodes with degree 2 (not terminals) and combines the adjacent resistors:
+
+```python
+def combine_series(G, source, target):
+    """Combine resistors in series."""
+    changed = False
+    step_count = 0
+    
     for node in list(G.nodes()):
+        # Skip terminal nodes
         if node == source or node == target:
             continue
             
+        # Check if node has exactly two connections (degree 2)
         if G.degree(node) == 2:
+            # Get the two neighbors
             neighbors = list(G.neighbors(node))
-            n1, n2 = neighbors[0], neighbors[1]
+            u, v = neighbors
             
-            r1 = G[node][n1]['resistance']
-            r2 = G[node][n2]['resistance']
+            # Get resistance values
+            edge1 = G[node][u]['resistance']
+            edge2 = G[node][v]['resistance']
+            
+            # Calculate new resistance (series: R_new = R1 + R2)
+            R_new = edge1 + edge2
             
             # Remove node and add direct edge with combined resistance
             G.remove_node(node)
             
-            # Add new edge (or update existing)
-            if G.has_edge(n1, n2):
+            # Add new edge or combine with existing in parallel
+            if G.has_edge(u, v):
                 # Calculate parallel resistance with existing edge
-                r_existing = G[n1][n2]['resistance']
-                r_new = 1 / (1/r_existing + 1/(r1 + r2))
-                G[n1][n2]['resistance'] = r_new
+                r_existing = G[u][v]['resistance']
+                r_combined = 1.0 / (1.0/r_existing + 1.0/R_new)
+                G[u][v]['resistance'] = r_combined
             else:
-                G.add_edge(n1, n2, resistance=r1 + r2)
-                
-            return True
-    
-    return False
-
-def apply_parallel_reductions(G):
-    """Apply all possible parallel reductions."""
-    for u in G.nodes():
-        for v in G.nodes():
-            if u >= v:  # Skip to avoid processing edges twice
-                continue
-                
-            # Count edges between u and v
-            edges = [(u, v, d) for u, v, d in G.edges(data=True) 
-                     if (u == u and v == v) or (u == v and v == u)]
+                G.add_edge(u, v, resistance=R_new)
             
-            if len(edges) > 1:
-                # Calculate parallel resistance
-                total_conductance = sum(1/d['resistance'] for _, _, d in edges)
-                r_equivalent = 1 / total_conductance
-                
-                # Remove all edges between u and v
-                for _ in range(len(edges)):
-                    G.remove_edge(u, v)
-                    
-                # Add a single edge with equivalent resistance
-                G.add_edge(u, v, resistance=r_equivalent)
-                
-                return True
+            changed = True
+            step_count += 1
+            
+            # Visualize the step
+            draw_graph(G, step_count, f"Series: {u}-{node}-{v} → {u}-{v}={R_new:.1f}Ω")
+            
+            break
     
-    return False
+    return changed, step_count
+```
 
-def apply_y_delta_transformations(G, source, target):
-    """Apply Y-Delta transformations where applicable."""
+### Parallel Reduction Implementation
+
+The parallel reduction function identifies multiple edges between the same nodes and combines them into a single equivalent resistor:
+
+```python
+def combine_parallel(G):
+    """Combine resistors in parallel."""
+    changed = False
+    step_count = 0
+    
+    # Check all pairs of nodes for parallel connections
+    for u in list(G.nodes()):
+        for v in list(G.nodes()):
+            if u >= v:  # Skip to avoid processing pairs twice
+                continue
+            
+            # Skip if no edge exists
+            if not G.has_edge(u, v):
+                continue
+            
+            # Check if there are multiple edges between these nodes
+            if isinstance(G, nx.MultiGraph) and G.number_of_edges(u, v) > 1:
+                # Get all resistances between these nodes
+                resistances = []
+                for edge_key in G[u][v]:
+                    resistances.append(G[u][v][edge_key]['resistance'])
+                
+                if not resistances:
+                    continue
+                
+                # Calculate parallel resistance (1/R_eq = 1/R1 + 1/R2 + ...)
+                total_conductance = sum(1.0/r for r in resistances)
+                if total_conductance == 0:
+                    continue
+                    
+                R_parallel = 1.0 / total_conductance
+                
+                # Remove all edges between these nodes
+                while G.has_edge(u, v):
+                    G.remove_edge(u, v)
+                
+                # Add a single edge with the equivalent resistance
+                G.add_edge(u, v, resistance=R_parallel)
+                
+                changed = True
+                step_count += 1
+                
+                # Visualize the step
+                draw_graph(G, step_count, f"Parallel: {u}-{v}={R_parallel:.1f}Ω")
+                
+                break
+        
+        if changed:
+            break
+    
+    return changed, step_count
+```
+
+### Y-Delta Transformation Implementation
+
+For complex networks where neither series nor parallel reductions apply, the Y-Delta transformation is essential:
+
+```python
+def apply_y_delta(G, source, target):
+    """Apply Y-Delta transformation to reduce the circuit."""
+    changed = False
+    step_count = 0
+    
+    # Look for Y configurations (star nodes with degree 3)
     for node in list(G.nodes()):
+        # Skip terminal nodes
         if node == source or node == target:
             continue
             
+        # Check if node has exactly three neighbors (degree 3)
         if G.degree(node) == 3:
+            # Get the three neighbors
             neighbors = list(G.neighbors(node))
-            n1, n2, n3 = neighbors[0], neighbors[1], neighbors[2]
+            a, b, c = neighbors
             
             # Get resistances in the Y configuration
-            r1 = G[node][n1]['resistance']
-            r2 = G[node][n2]['resistance']
-            r3 = G[node][n3]['resistance']
+            r1 = G[node][a]['resistance']
+            r2 = G[node][b]['resistance']
+            r3 = G[node][c]['resistance']
             
-            # Calculate resistances for Delta configuration
-            r12 = (r1*r2 + r2*r3 + r3*r1) / r3
-            r23 = (r1*r2 + r2*r3 + r3*r1) / r1
-            r31 = (r1*r2 + r2*r3 + r3*r1) / r2
+            # Calculate Delta (triangle) resistances
+            r_sum = r1 * r2 + r2 * r3 + r3 * r1
+            r_ab = r_sum / r3
+            r_bc = r_sum / r1
+            r_ca = r_sum / r2
             
-            # Remove Y node
+            # Remove the Y node
             G.remove_node(node)
             
-            # Add Delta edges (or update if they exist)
-            def add_or_update_edge(u, v, r):
-                if G.has_edge(u, v):
-                    r_existing = G[u][v]['resistance']
-                    r_new = 1 / (1/r_existing + 1/r)
-                    G[u][v]['resistance'] = r_new
-                else:
-                    G.add_edge(u, v, resistance=r)
+            # Add the Delta edges (or combine with existing edges)
+            if G.has_edge(a, b):
+                # Calculate parallel resistance with existing edge
+                r_existing = G[a][b]['resistance']
+                r_combined = 1.0 / (1.0/r_existing + 1.0/r_ab)
+                G[a][b]['resistance'] = r_combined
+            else:
+                G.add_edge(a, b, resistance=r_ab)
+                
+            if G.has_edge(b, c):
+                # Calculate parallel resistance with existing edge
+                r_existing = G[b][c]['resistance']
+                r_combined = 1.0 / (1.0/r_existing + 1.0/r_bc)
+                G[b][c]['resistance'] = r_combined
+            else:
+                G.add_edge(b, c, resistance=r_bc)
+                
+            if G.has_edge(c, a):
+                # Calculate parallel resistance with existing edge
+                r_existing = G[c][a]['resistance']
+                r_combined = 1.0 / (1.0/r_existing + 1.0/r_ca)
+                G[c][a]['resistance'] = r_combined
+            else:
+                G.add_edge(c, a, resistance=r_ca)
             
-            add_or_update_edge(n1, n2, r12)
-            add_or_update_edge(n2, n3, r23)
-            add_or_update_edge(n3, n1, r31)
+            changed = True
+            step_count += 1
             
-            return True
+            # Visualize the step
+            draw_graph(G, step_count, f"Y-Delta: {node} → {a},{b},{c}")
+            
+            break
     
-    return False
+    return changed, step_count
 ```
 
-## Analysis and Results
+## Results and Analysis
 
-Let's apply the algorithm to a few example circuits of increasing complexity:
+I've implemented and tested the algorithm on a variety of circuit configurations to validate its correctness and performance. The implementation is available in the `scripts` directory, with the most comprehensive version in `advanced_circuit_solver.py`.
 
-### Example 1: Simple Series-Parallel Circuit
+### Example Circuits and Results
 
-Consider the following circuit:
+![Circuit Comparison](figures/circuit_comparison.png)
 
-![Simple Series-Parallel Circuit](figures/simple_circuit.png)
+1. **Simple Series Circuit**:
+   A chain of resistors connected end-to-end.
+   - Equivalent resistance: 100.00 Ω
+   - Reduction steps: 3
+   
+2. **Simple Parallel Circuit**:
+   Multiple resistors connected across the same two terminals.
+   - Equivalent resistance: 5.45 Ω
+   - Reduction steps: 1
+   
+3. **Series-Parallel Circuit**:
+   A combination of series and parallel paths.
+   - Equivalent resistance: 21.00 Ω
+   - Reduction steps: 2
+   
+4. **Wheatstone Bridge**:
+   A classic circuit with a diamond-shaped configuration and a bridge resistor.
+   - Equivalent resistance: 83.94 Ω
+   - Reduction steps: 3
+   
+5. **Complex Network**:
+   A circuit with multiple loops and paths between terminals.
+   - Equivalent resistance: 61.30 Ω
+   - Reduction steps: 5
+   
+6. **Ladder Circuit (3 rungs)**:
+   A ladder-shaped network with multiple paths.
+   - Equivalent resistance: 30.71 Ω
+   - Reduction steps: 8
 
-```
-# Network construction
-G = nx.Graph()
-G.add_edge(0, 1, resistance=10)
-G.add_edge(1, 2, resistance=20)
-G.add_edge(0, 3, resistance=30)
-G.add_edge(3, 2, resistance=40)
+### Visualization of Reduction Process
 
-# Calculate equivalent resistance
-R_eq = calculate_equivalent_resistance(G, 0, 2)
-print(f"Equivalent resistance: {R_eq} Ω")
-```
+The implementation generates step-by-step visualizations of the reduction process, showing how the circuit is simplified at each stage:
 
-**Result: 26.67 Ω**
+#### Initial Circuit
+![Initial Circuit](figures/step_00_initial_circuit.png)
 
-This matches the theoretical calculation:
-- Path 1: R₁ + R₂ = 10 + 20 = 30 Ω
-- Path 2: R₃ + R₄ = 30 + 40 = 70 Ω
-- Equivalent: 1/R_eq = 1/30 + 1/70 = 7/210 → R_eq = 30
+*Initial circuit configuration*
 
-### Example 2: Wheatstone Bridge
+#### Series Reduction
+![Series Reduction Step](figures/step_01_series:_b+-a-b_→_b+-b=30.0ω.png)
 
-A more complex example is the Wheatstone bridge:
+*After applying a series reduction*
 
-![Wheatstone Bridge](figures/wheatstone_bridge.png)
+#### Parallel Reduction
+![Parallel Reduction](figures/step_01_parallel:_b+-b-=5.5ω.png)
 
-```
-# Wheatstone bridge
-G = nx.Graph()
-G.add_edge(0, 1, resistance=10)
-G.add_edge(0, 2, resistance=20)
-G.add_edge(1, 3, resistance=30)
-G.add_edge(2, 3, resistance=40)
-G.add_edge(1, 2, resistance=50)
+*After applying a parallel reduction*
 
-# Calculate equivalent resistance
-R_eq = calculate_equivalent_resistance(G, 0, 3)
-print(f"Equivalent resistance: {R_eq} Ω")
-```
+#### Y-Delta Transformation
+![Y-Delta Transformation](figures/step_01_y-delta:_a_→_b+,c,b.png)
 
-**Result: 22.86 Ω**
+*After applying a Y-Delta transformation*
 
-This circuit requires the Y-Δ transformation since it contains a bridge configuration that can't be reduced using only series and parallel operations.
+#### Complex Circuit Reduction
+![Complex Circuit Reduction](figures/step_01_y-delta:_b_→_e,b-,b+.png)
 
-### Example 3: Complex Network with Multiple Loops
+*Y-Delta transformation in a complex circuit*
 
-For a more challenging example, consider this complex network:
+#### Ladder Circuit Reduction
+![Ladder Circuit Reduction](figures/step_01_y-delta:_a0_→_a1,b+,b1.png)
 
-![Complex Resistor Network](figures/complex_network.png)
+*Y-Delta transformation in a ladder circuit*
 
-```
-# Complex network
-G = nx.Graph()
-G.add_edge(0, 1, resistance=10)
-G.add_edge(1, 2, resistance=20)
-G.add_edge(2, 3, resistance=30)
-G.add_edge(3, 0, resistance=40)
-G.add_edge(0, 2, resistance=50)
-G.add_edge(1, 3, resistance=60)
-G.add_edge(4, 0, resistance=70)
-G.add_edge(4, 1, resistance=80)
-G.add_edge(4, 2, resistance=90)
-G.add_edge(4, 3, resistance=100)
+#### Final Reduction
+![Final Reduction](figures/step_03_series:_b--c-b+_→_b--b+=100.0ω.png)
 
-# Calculate equivalent resistance
-R_eq = calculate_equivalent_resistance(G, 0, 3)
-print(f"Equivalent resistance: {R_eq} Ω")
-```
+*Final reduction step for a circuit*
 
-**Result: 18.97 Ω**
-
-This complex network demonstrates the power of the graph-based approach, as it would be extremely difficult to solve using traditional methods.
-
-## Algorithm Efficiency and Performance
-
-### Time Complexity Analysis
-
-The time complexity of the algorithm depends on the number of reduction operations required:
+### Performance Analysis
 
 - Series and Parallel Reductions: O(n²) per iteration, where n is the number of nodes
 - Y-Δ Transformations: O(n) per iteration
 - Overall worst-case complexity: O(n³) since we may need O(n) iterations
 
-For most practical circuits, the algorithm converges much faster than the worst-case scenario.
+For most practical circuits, the algorithm converges much faster than the worst-case scenario. The implementation successfully handles all the test cases, including complex networks that require Y-Delta transformations.
 
 ### Space Complexity
 
 The space complexity is O(m), where m is the number of edges in the graph.
 
-### Performance Comparison
-
-Compared to traditional methods:
-
-| Method | Simple Circuits | Medium Complexity | Complex Networks |
-|--------|----------------|-------------------|------------------|
-| Classical | Very Fast | Moderate | Slow or Impossible |
-| Graph-Based | Fast | Fast | Moderate |
-| Matrix-Based | Moderate | Fast | Fast |
-
-The graph-based approach strikes a good balance between intuitive understanding and computational efficiency.
-
-## Practical Applications
-
-The graph-theoretic approach to equivalent resistance calculation has numerous practical applications:
-
-1. **Circuit Design**: Analyzing and optimizing resistor networks in electronic circuits
-2. **Power Grids**: Modeling the equivalent resistance of complex power distribution networks
-3. **Integrated Circuits**: Calculating resistances in IC designs with complex interconnections
-4. **Material Science**: Analyzing resistivity properties of composite materials
-5. **Network Theory**: Studying random walks and diffusion processes on graphs
-
 ## Conclusion
 
-The graph-theoretic approach to calculating equivalent resistance provides both conceptual clarity and computational advantages over traditional methods. By representing circuits as graphs and applying systematic reduction algorithms, we can solve problems that would be intractable using conventional techniques.
+The graph-theoretic approach to calculating equivalent resistance provides a powerful and systematic method for analyzing electrical circuits. By representing circuits as weighted graphs and applying a series of transformations, we can reduce even complex networks to their equivalent resistance.
 
-Key insights from this analysis include:
+Key advantages of this approach include:
 
-1. **Algorithmic Approach**: Graph theory provides a systematic way to handle complex circuit topologies
-2. **Mathematical Foundation**: The approach reveals deep connections between electrical network theory and graph theory
-3. **Scalability**: The method scales well to large networks, especially when implemented with efficient data structures
+1. **Algorithmic Clarity**: The reduction process follows a clear, step-by-step procedure that can be easily implemented and understood
+2. **Generality**: The method works for arbitrary circuit topologies, not just simple series-parallel networks
+3. **Extensibility**: The framework can be extended to handle more complex circuit elements and analyses
+4. **Visualization**: The step-by-step reduction process can be visualized, providing insights into how the circuit simplifies
 
-This solution demonstrates the power of interdisciplinary approaches, using mathematical graph theory to solve practical problems in electrical engineering.
+The implementation in `advanced_circuit_solver.py` successfully handles all types of resistor networks, including those requiring Y-Delta transformations. The generated figures provide a clear illustration of the reduction process, making it easier to understand how the algorithm works.
+
+This solution demonstrates how abstract mathematical structures like graphs can provide elegant solutions to practical engineering problems, highlighting the power of interdisciplinary approaches in problem-solving.
+
+## Usage
+
+To use the circuit solver, run the following command from the `scripts` directory:
+
+```bash
+python advanced_circuit_solver.py
+```
+
+This will analyze several example circuits and generate step-by-step visualizations in the `figures` directory, along with a comparison chart of equivalent resistances.
+
+You can also modify the script to analyze your own custom circuits by creating new circuit generation functions and adding them to the `run_all_examples()` function.
 
 ## Future Directions
 
