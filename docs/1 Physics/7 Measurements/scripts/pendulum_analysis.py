@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 """
-Pendulum Analysis Script
+Real-Life Pendulum Analysis Script
 This script generates visualizations for the measurement of Earth's gravitational 
-acceleration using a simple pendulum experiment.
+acceleration using a simple pendulum made from everyday objects (USB charger, necklace, keys).
 """
 
 import numpy as np
 import matplotlib.pyplot as plt
 import os
-from matplotlib.patches import Rectangle, Circle
+from matplotlib.patches import Rectangle, Circle, FancyBboxPatch
 from matplotlib.animation import FuncAnimation
 import pandas as pd
 import seaborn as sns
@@ -65,410 +65,631 @@ def calculate_g_uncertainty(g, delta_L, L, delta_T, T):
     Returns:
         Uncertainty in g
     """
-    # Using the error propagation formula: 
-    # Δg = g * sqrt((ΔL/L)² + (2*ΔT/T)²)
-    return g * np.sqrt((delta_L/L)**2 + (2*delta_T/T)**2)
+    relative_uncertainty = np.sqrt((delta_L / L)**2 + (2 * delta_T / T)**2)
+    return g * relative_uncertainty
 
-def generate_sample_data():
-    """Generate realistic sample data for a pendulum experiment.
+def generate_realistic_data():
+    """Generate realistic sample data for real-life pendulum experiments.
     
     Returns:
-        Dictionary containing experimental data
+        Dictionary containing experimental data for different pendulum types
     """
-    # Experimental parameters
-    L = 1.0  # meter
-    delta_L = 0.005  # 5 mm uncertainty in length
     
-    # True period for this pendulum length (with small random offset to simulate real-world conditions)
-    true_period = pendulum_period(L, TRUE_G) * (1 + np.random.normal(0, 0.005))
-    
-    # Simulate 10 measurements of 10 oscillations each with timing errors
-    n_measurements = 10
-    
-    # Timing uncertainty (human reaction time ~ 0.1-0.2s)
-    reaction_time_error = 0.15  # seconds
-    
-    # Simulate measurements with random errors
-    T10_measurements = []
-    for _ in range(n_measurements):
-        # Add random error to represent timing uncertainty
-        error = np.random.normal(0, reaction_time_error)
-        # Time for 10 oscillations (with error)
-        T10 = 10 * true_period + error
-        T10_measurements.append(T10)
-    
-    # Calculate statistics
-    T10_mean = np.mean(T10_measurements)
-    T10_std = np.std(T10_measurements, ddof=1)  # Sample standard deviation
-    T10_uncertainty = T10_std / np.sqrt(n_measurements)  # Standard error of the mean
-    
-    # Calculate the period and its uncertainty
-    T = T10_mean / 10
-    delta_T = T10_uncertainty / 10
-    
-    # Calculate g and its uncertainty
-    g_measured = calculate_g(T, L)
-    delta_g = calculate_g_uncertainty(g_measured, delta_L, L, delta_T, T)
-    
-    # Return all the data
-    return {
-        'L': L,
-        'delta_L': delta_L,
-        'T10_measurements': T10_measurements,
-        'T10_mean': T10_mean,
-        'T10_std': T10_std,
-        'T10_uncertainty': T10_uncertainty,
-        'T': T,
-        'delta_T': delta_T,
-        'g': g_measured,
-        'delta_g': delta_g
+    # Define three different pendulum setups
+    pendulums = {
+        'USB Charger': {
+            'length': 0.85,  # 85 cm USB cable
+            'length_uncertainty': 0.001,  # 1 mm ruler uncertainty
+            'description': 'USB charger cable with charger head as bob'
+        },
+        'Necklace': {
+            'length': 0.45,  # 45 cm necklace
+            'length_uncertainty': 0.001,  # 1 mm ruler uncertainty
+            'description': 'Chain necklace with pendant'
+        },
+        'Keys on String': {
+            'length': 0.65,  # 65 cm string with keys
+            'length_uncertainty': 0.001,  # 1 mm ruler uncertainty
+            'description': 'Keys attached to string/lanyard'
+        }
     }
+    
+    data = {}
+    
+    for name, setup in pendulums.items():
+        L = setup['length']
+        delta_L = setup['length_uncertainty']
+        
+        # Calculate theoretical period
+        theoretical_T = pendulum_period(L, TRUE_G)
+        
+        # Generate 10 realistic measurements with some variation
+        # Simulate measurement errors and human timing variations
+        measurement_error = np.random.normal(0, 0.05, 10)  # ±50ms timing variation
+        times_10_oscillations = (theoretical_T * 10) + measurement_error
+        
+        # Calculate individual periods
+        periods = times_10_oscillations / 10
+        
+        # Calculate statistics
+        mean_period = np.mean(periods)
+        std_period = np.std(periods, ddof=1)  # Sample standard deviation
+        std_error = std_period / np.sqrt(10)  # Standard error of the mean
+        
+        # Calculate g and its uncertainty
+        g_calculated = calculate_g(mean_period, L)
+        g_uncertainty = calculate_g_uncertainty(g_calculated, delta_L, L, std_error, mean_period)
+        
+        data[name] = {
+            'length': L,
+            'length_uncertainty': delta_L,
+            'times_10_oscillations': times_10_oscillations,
+            'periods': periods,
+            'mean_period': mean_period,
+            'std_period': std_period,
+            'std_error': std_error,
+            'g_calculated': g_calculated,
+            'g_uncertainty': g_uncertainty,
+            'description': setup['description']
+        }
+    
+    return data
 
-def plot_pendulum_setup():
-    """Create a visual illustration of the pendulum setup."""
-    fig, ax = plt.subplots(figsize=(10, 12))
+def plot_real_pendulum_setup():
+    """Create a visual illustration of real-life pendulum setups."""
     
-    # Draw the support
-    support_width = 3
-    support_height = 0.5
-    support = Rectangle((-support_width/2, 0), support_width, support_height, 
-                       color='saddlebrown', alpha=0.7)
-    ax.add_patch(support)
+    fig, axes = plt.subplots(1, 3, figsize=(15, 8))
+    fig.suptitle('Real-Life Pendulum Setups Using Everyday Objects', fontsize=16, fontweight='bold')
     
-    # Pendulum parameters
-    L = 5  # pendulum length in arbitrary units
-    theta_max = np.pi/12  # maximum angle (15 degrees)
+    setups = [
+        ('USB Charger Pendulum', 'USB cable + charger head'),
+        ('Necklace Pendulum', 'Chain necklace + pendant'),
+        ('Keys Pendulum', 'String/lanyard + keys')
+    ]
     
-    # Draw the string
-    theta = theta_max * np.sin(np.pi/4)  # angle at which to draw the pendulum
-    x_end = L * np.sin(theta)
-    y_end = -L * np.cos(theta)
-    ax.plot([0, x_end], [support_height, y_end], 'k-', linewidth=2)
+    for i, (title, description) in enumerate(setups):
+        ax = axes[i]
+        ax.set_xlim(-2, 2)
+        ax.set_ylim(-3, 1)
+        ax.set_aspect('equal')
+        
+        # Draw support point
+        support = Rectangle((-0.2, 0.8), 0.4, 0.2, fill=True, color='brown', alpha=0.8)
+        ax.add_patch(support)
+        ax.plot(0, 0.9, 'ko', markersize=8)  # Attachment point
+        
+        if i == 0:  # USB Charger
+            # Draw USB cable (wavy line)
+            y_cable = np.linspace(0.9, -1.5, 50)
+            x_cable = 0.1 * np.sin(10 * y_cable) * np.exp((y_cable - 0.9) / 2)
+            ax.plot(x_cable, y_cable, 'k-', linewidth=3, alpha=0.7)
+            
+            # Draw USB charger head
+            charger = FancyBboxPatch((-0.3, -1.8), 0.6, 0.4, 
+                                   boxstyle="round,pad=0.05", 
+                                   facecolor='white', edgecolor='black', linewidth=2)
+            ax.add_patch(charger)
+            ax.text(0, -1.6, 'USB', ha='center', va='center', fontweight='bold', fontsize=8)
+            
+        elif i == 1:  # Necklace
+            # Draw chain (series of small circles)
+            chain_y = np.linspace(0.9, -1.2, 20)
+            for y in chain_y:
+                ax.plot(0, y, 'o', color='gold', markersize=3, alpha=0.8)
+            
+            # Draw pendant
+            pendant = Circle((0, -1.5), 0.15, fill=True, color='gold', alpha=0.8)
+            ax.add_patch(pendant)
+            ax.plot(0, -1.5, 'o', color='darkred', markersize=8)  # Gem
+            
+        else:  # Keys
+            # Draw string/lanyard
+            ax.plot([0, 0], [0.9, -1.3], 'k-', linewidth=2)
+            
+            # Draw keys
+            key_positions = [(-0.2, -1.5), (0, -1.6), (0.2, -1.4)]
+            for x, y in key_positions:
+                # Key body
+                key_body = Rectangle((x-0.1, y-0.05), 0.2, 0.1, 
+                                   fill=True, color='silver', alpha=0.8)
+                ax.add_patch(key_body)
+                # Key teeth
+                ax.plot([x+0.1, x+0.15], [y, y], 'k-', linewidth=2)
+                ax.plot([x+0.1, x+0.15], [y-0.03, y-0.03], 'k-', linewidth=2)
+        
+        # Add measurement arrow and label
+        if i == 0:
+            ax.annotate('', xy=(1.2, 0.9), xytext=(1.2, -1.6),
+                       arrowprops=dict(arrowstyle='<->', color='red', lw=2))
+            ax.text(1.4, -0.35, 'L = 0.85 m', rotation=90, va='center', 
+                   fontsize=10, color='red', fontweight='bold')
+        elif i == 1:
+            ax.annotate('', xy=(1.2, 0.9), xytext=(1.2, -1.5),
+                       arrowprops=dict(arrowstyle='<->', color='red', lw=2))
+            ax.text(1.4, -0.3, 'L = 0.45 m', rotation=90, va='center', 
+                   fontsize=10, color='red', fontweight='bold')
+        else:
+            ax.annotate('', xy=(1.2, 0.9), xytext=(1.2, -1.5),
+                       arrowprops=dict(arrowstyle='<->', color='red', lw=2))
+            ax.text(1.4, -0.3, 'L = 0.65 m', rotation=90, va='center', 
+                   fontsize=10, color='red', fontweight='bold')
+        
+        ax.set_title(title, fontweight='bold', fontsize=12)
+        ax.text(0, -2.5, description, ha='center', va='center', 
+               fontsize=10, style='italic', wrap=True)
+        ax.axis('off')
     
-    # Draw the bob
-    bob_radius = 0.4
-    bob = Circle((x_end, y_end), bob_radius, color='blue', alpha=0.7)
-    ax.add_patch(bob)
-    
-    # Add annotations
-    ax.annotate('Support', xy=(-0.5, support_height + 0.2), fontsize=12)
-    ax.annotate('String', xy=(x_end/2 + 0.5, -L/2), fontsize=12)
-    ax.annotate('Bob', xy=(x_end + bob_radius + 0.2, y_end), fontsize=12)
-    ax.annotate(f'L = {L} units', xy=(-3, -L/2), fontsize=12)
-    ax.annotate(r'$\theta < 15°$', xy=(1.5, -1), fontsize=12)
-    
-    # Add a dashed line to show the rest position
-    ax.plot([0, 0], [support_height, -(L+bob_radius)], 'k--', alpha=0.5)
-    
-    # Add arrows to show oscillation
-    arrow_y = -L * 0.8
-    ax.annotate('', xy=(theta_max*L*0.8, arrow_y), xytext=(-theta_max*L*0.8, arrow_y),
-                arrowprops=dict(arrowstyle='<->', color='red', lw=2))
-    
-    # Set axis properties
-    ax.set_xlim(-3, 3)
-    ax.set_ylim(-(L+2), 1)
-    ax.set_aspect('equal')
-    ax.axis('off')
-    
-    # Add title
-    ax.set_title('Simple Pendulum Setup', fontsize=16)
-    
-    # Save the figure
     plt.tight_layout()
-    plt.savefig(os.path.join(figures_dir, 'pendulum_setup.png'), dpi=300, bbox_inches='tight')
+    plt.savefig(os.path.join(figures_dir, 'pendulum_setup.png'), 
+                dpi=300, bbox_inches='tight', facecolor='white')
     plt.close()
 
-def create_pendulum_animation():
-    """Create an animation of a simple pendulum motion."""
-    # Create a static pendulum visualization instead of an animation
-    # to avoid potential compatibility issues
+def create_measurement_protocol_figure():
+    """Create a figure showing the measurement protocol."""
     
-    fig, ax = plt.subplots(figsize=(10, 8))
+    fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2, figsize=(12, 10))
+    fig.suptitle('Real-Life Pendulum Measurement Protocol', fontsize=16, fontweight='bold')
     
-    # Draw the support
-    support_width = 3
-    support_height = 0.5
-    support = Rectangle((-support_width/2, 0), support_width, support_height, 
-                       color='saddlebrown', alpha=0.7)
-    ax.add_patch(support)
+    # Step 1: Length measurement
+    ax1.set_xlim(0, 10)
+    ax1.set_ylim(0, 6)
     
-    # Pendulum parameters
-    L = 5  # pendulum length in arbitrary units
-    theta_max = np.pi/12  # maximum angle (15 degrees)
+    # Draw ruler
+    ruler = Rectangle((1, 2), 8, 0.5, fill=True, color='yellow', alpha=0.7)
+    ax1.add_patch(ruler)
     
-    # Positions for multiple pendulum instances
-    num_positions = 5
-    thetas = np.linspace(theta_max, -theta_max, num_positions)
+    # Draw ruler markings
+    for i in range(9):
+        ax1.plot([1 + i, 1 + i], [2, 2.5], 'k-', linewidth=1)
+        if i % 2 == 0:
+            ax1.text(1 + i, 1.7, f'{i*10}', ha='center', fontsize=8)
     
-    # Draw pendulum at different positions
-    for i, theta in enumerate(thetas):
-        x_end = L * np.sin(theta)
-        y_end = -L * np.cos(theta)
-        
-        # Draw string with decreasing opacity
-        alpha = 0.3 + 0.7 * (1 - i/(num_positions-1))
-        ax.plot([0, x_end], [support_height, y_end], 'k-', linewidth=2, alpha=alpha)
-        
-        # Draw bob
-        bob_radius = 0.4
-        if i == 0 or i == num_positions-1:
-            bob_color = 'red'
-            bob_alpha = 0.7
-        elif i == num_positions//2:
-            bob_color = 'blue'
-            bob_alpha = 0.9
-        else:
-            bob_color = 'gray'
-            bob_alpha = 0.5
-        
-        bob = Circle((x_end, y_end), bob_radius, color=bob_color, alpha=bob_alpha)
-        ax.add_patch(bob)
+    # Draw pendulum length
+    ax1.plot([2, 2], [2.5, 5], 'r-', linewidth=3, alpha=0.8)
+    ax1.plot(2, 5, 'ko', markersize=8)  # Support point
+    ax1.plot(2, 2.5, 'bs', markersize=10)  # Bob
     
-    # Add a dashed line to show the rest position
-    ax.plot([0, 0], [support_height, -(L+bob_radius)], 'k--', alpha=0.5)
+    ax1.text(5, 4, 'Measure length L\nwith ruler\n(±1 mm precision)', 
+             ha='center', va='center', fontsize=10, 
+             bbox=dict(boxstyle="round,pad=0.3", facecolor='lightblue'))
     
-    # Add arrows to show oscillation
-    arrow_y = -L * 0.8
-    ax.annotate('', xy=(theta_max*L*0.8, arrow_y), xytext=(-theta_max*L*0.8, arrow_y),
-                arrowprops=dict(arrowstyle='<->', color='red', lw=2))
+    ax1.set_title('Step 1: Length Measurement', fontweight='bold')
+    ax1.axis('off')
     
-    # Add an annotation for the period
-    ax.text(0, -L-1, "One complete oscillation = Period T", 
-           ha='center', fontsize=12, bbox=dict(facecolor='white', alpha=0.7))
+    # Step 2: Timing setup
+    ax2.set_xlim(0, 10)
+    ax2.set_ylim(0, 6)
     
-    # Set axis properties
-    ax.set_xlim(-3, 3)
-    ax.set_ylim(-(L+2), 1)
-    ax.set_aspect('equal')
-    ax.axis('off')
+    # Draw smartphone
+    phone = Rectangle((4, 2), 2, 3, fill=True, color='black', alpha=0.8)
+    ax2.add_patch(phone)
+    screen = Rectangle((4.2, 2.5), 1.6, 2, fill=True, color='lightblue', alpha=0.9)
+    ax2.add_patch(screen)
     
-    # Add title
-    ax.set_title('Simple Pendulum Motion', fontsize=16)
+    # Stopwatch display
+    ax2.text(5, 3.5, '00:20.14', ha='center', va='center', 
+             fontsize=14, fontweight='bold', color='red')
+    ax2.text(5, 3, 'STOPWATCH', ha='center', va='center', 
+             fontsize=8, fontweight='bold')
     
-    # Save the figure
+    ax2.text(5, 1, 'Use smartphone\nstopwatch for timing\n10 oscillations', 
+             ha='center', va='center', fontsize=10,
+             bbox=dict(boxstyle="round,pad=0.3", facecolor='lightgreen'))
+    
+    ax2.set_title('Step 2: Timing Setup', fontweight='bold')
+    ax2.axis('off')
+    
+    # Step 3: Oscillation measurement
+    ax3.set_xlim(0, 10)
+    ax3.set_ylim(0, 6)
+    
+    # Draw pendulum positions
+    positions = [(3, 4), (5, 3), (7, 4)]  # Left, center, right
+    colors = ['red', 'blue', 'red']
+    labels = ['Start', 'Bottom', 'End']
+    
+    for i, ((x, y), color, label) in enumerate(zip(positions, colors, labels)):
+        ax3.plot([5, x], [5, y], '--', color=color, alpha=0.6, linewidth=2)
+        ax3.plot(x, y, 'o', color=color, markersize=8)
+        ax3.text(x, y-0.5, label, ha='center', fontsize=8, color=color, fontweight='bold')
+    
+    ax3.plot(5, 5, 'ko', markersize=8)  # Support point
+    
+    # Draw arc showing oscillation
+    theta = np.linspace(-0.5, 0.5, 50)
+    arc_x = 5 + 2 * np.sin(theta)
+    arc_y = 5 - 2 * np.cos(theta)
+    ax3.plot(arc_x, arc_y, 'g-', linewidth=2, alpha=0.7)
+    
+    ax3.text(5, 1.5, 'Measure time for\n10 complete oscillations\n(< 15° amplitude)', 
+             ha='center', va='center', fontsize=10,
+             bbox=dict(boxstyle="round,pad=0.3", facecolor='lightyellow'))
+    
+    ax3.set_title('Step 3: Oscillation Measurement', fontweight='bold')
+    ax3.axis('off')
+    
+    # Step 4: Data collection
+    ax4.set_xlim(0, 10)
+    ax4.set_ylim(0, 6)
+    
+    # Draw data table
+    table_data = [
+        ['Trial', 'Time (s)'],
+        ['1', '20.14'],
+        ['2', '20.13'],
+        ['3', '20.28'],
+        ['...', '...'],
+        ['10', '20.07']
+    ]
+    
+    for i, row in enumerate(table_data):
+        for j, cell in enumerate(row):
+            rect = Rectangle((2 + j*2, 4.5 - i*0.5), 2, 0.5, 
+                           fill=True, color='white', edgecolor='black')
+            ax4.add_patch(rect)
+            ax4.text(3 + j*2, 4.75 - i*0.5, cell, ha='center', va='center', 
+                    fontsize=9, fontweight='bold' if i == 0 else 'normal')
+    
+    ax4.text(5, 1, 'Repeat measurement\n10 times for\nstatistical analysis', 
+             ha='center', va='center', fontsize=10,
+             bbox=dict(boxstyle="round,pad=0.3", facecolor='lightcoral'))
+    
+    ax4.set_title('Step 4: Data Collection', fontweight='bold')
+    ax4.axis('off')
+    
     plt.tight_layout()
-    plt.savefig(os.path.join(figures_dir, 'pendulum_motion.png'), dpi=300, bbox_inches='tight')
+    plt.savefig(os.path.join(figures_dir, 'measurement_protocol.png'), 
+                dpi=300, bbox_inches='tight', facecolor='white')
     plt.close()
 
 def plot_measurement_data(data):
-    """Plot the experimental measurements and results."""
-    # Create a DataFrame for the T10 measurements
-    measurements_df = pd.DataFrame({
-        'Measurement': range(1, len(data['T10_measurements'])+1),
-        'T10 (s)': data['T10_measurements']
-    })
+    """Plot the experimental measurements and results for all pendulum types."""
     
-    # Create a figure with two subplots
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(15, 7))
+    fig, axes = plt.subplots(2, 3, figsize=(18, 12))
+    fig.suptitle('Real-Life Pendulum Measurement Results', fontsize=16, fontweight='bold')
     
-    # Plot the T10 measurements
-    sns.barplot(x='Measurement', y='T10 (s)', data=measurements_df, ax=ax1, color='skyblue')
+    pendulum_names = list(data.keys())
+    colors = ['blue', 'green', 'red']
     
-    # Add horizontal line for the mean
-    ax1.axhline(y=data['T10_mean'], color='red', linestyle='--', 
-               label=f'Mean: {data["T10_mean"]:.3f} s')
-    
-    # Add standard deviation range
-    ax1.axhspan(data['T10_mean'] - data['T10_std'], 
-              data['T10_mean'] + data['T10_std'], 
-              alpha=0.2, color='red', 
-              label=f'Std Dev: {data["T10_std"]:.3f} s')
-    
-    # Set plot properties
-    ax1.set_xlabel('Measurement Number')
-    ax1.set_ylabel('Time for 10 Oscillations (s)')
-    ax1.set_title('T10 Measurements')
-    ax1.legend()
-    
-    # Create data for histogram
-    g_values = []
-    for T10 in data['T10_measurements']:
+    for i, (name, color) in enumerate(zip(pendulum_names, colors)):
+        pendulum_data = data[name]
+        
+        # Top row: Time measurements
+        ax_top = axes[0, i]
+        measurements = range(1, 11)
+        times = pendulum_data['times_10_oscillations']
+        mean_time = np.mean(times)
+        
+        ax_top.scatter(measurements, times, color=color, s=60, alpha=0.7, edgecolors='black')
+        ax_top.axhline(y=mean_time, color=color, linestyle='--', linewidth=2, alpha=0.8)
+        ax_top.fill_between([0.5, 10.5], mean_time - pendulum_data['std_period']*10, 
+                           mean_time + pendulum_data['std_period']*10, 
+                           alpha=0.2, color=color)
+        
+        ax_top.set_xlabel('Measurement Number')
+        ax_top.set_ylabel('Time for 10 Oscillations (s)')
+        ax_top.set_title(f'{name}\nTime Measurements')
+        ax_top.grid(True, alpha=0.3)
+        ax_top.set_xlim(0.5, 10.5)
+        
+        # Add statistics text
+        stats_text = f'Mean: {mean_time:.3f} s\nStd: {pendulum_data["std_period"]*10:.3f} s'
+        ax_top.text(0.02, 0.98, stats_text, transform=ax_top.transAxes, 
+                   verticalalignment='top', bbox=dict(boxstyle='round', facecolor='white', alpha=0.8))
+        
+        # Bottom row: Calculated g values
+        ax_bottom = axes[1, i]
+        
         # Calculate g for each individual measurement
-        T = T10 / 10
-        g = calculate_g(T, data['L'])
-        g_values.append(g)
-    
-    # Plot histogram of g values
-    sns.histplot(g_values, kde=True, ax=ax2, color='skyblue')
-    
-    # Add vertical line for the mean g
-    ax2.axvline(x=data['g'], color='red', linestyle='--', 
-               label=f'Mean g: {data["g"]:.3f} m/s²')
-    
-    # Add vertical line for true g
-    ax2.axvline(x=TRUE_G, color='green', linestyle='--', 
-               label=f'True g: {TRUE_G:.3f} m/s²')
-    
-    # Add uncertainty range
-    ax2.axvspan(data['g'] - data['delta_g'], 
-              data['g'] + data['delta_g'], 
-              alpha=0.2, color='red', 
-              label=f'Uncertainty: {data["delta_g"]:.3f} m/s²')
-    
-    # Set plot properties
-    ax2.set_xlabel('Gravitational Acceleration (m/s²)')
-    ax2.set_ylabel('Frequency')
-    ax2.set_title('Distribution of g Measurements')
-    ax2.legend()
+        individual_g = [calculate_g(t/10, pendulum_data['length']) for t in times]
+        
+        ax_bottom.scatter(measurements, individual_g, color=color, s=60, alpha=0.7, edgecolors='black')
+        ax_bottom.axhline(y=pendulum_data['g_calculated'], color=color, linestyle='--', linewidth=2, alpha=0.8)
+        ax_bottom.axhline(y=TRUE_G, color='black', linestyle='-', linewidth=2, alpha=0.8, label='True g = 9.81 m/s²')
+        
+        # Error bars for uncertainty
+        ax_bottom.fill_between([0.5, 10.5], 
+                              pendulum_data['g_calculated'] - pendulum_data['g_uncertainty'],
+                              pendulum_data['g_calculated'] + pendulum_data['g_uncertainty'],
+                              alpha=0.3, color=color)
+        
+        ax_bottom.set_xlabel('Measurement Number')
+        ax_bottom.set_ylabel('Calculated g (m/s²)')
+        ax_bottom.set_title(f'Calculated g Values\nL = {pendulum_data["length"]:.3f} m')
+        ax_bottom.grid(True, alpha=0.3)
+        ax_bottom.set_xlim(0.5, 10.5)
+        ax_bottom.set_ylim(9.5, 10.2)
+        
+        if i == 0:
+            ax_bottom.legend()
+        
+        # Add results text
+        results_text = f'g = {pendulum_data["g_calculated"]:.3f} ± {pendulum_data["g_uncertainty"]:.3f} m/s²'
+        ax_bottom.text(0.02, 0.02, results_text, transform=ax_bottom.transAxes, 
+                      verticalalignment='bottom', 
+                      bbox=dict(boxstyle='round', facecolor='white', alpha=0.8))
     
     plt.tight_layout()
-    plt.savefig(os.path.join(figures_dir, 'pendulum_measurements.png'), dpi=300)
+    plt.savefig(os.path.join(figures_dir, 'pendulum_measurements.png'), 
+                dpi=300, bbox_inches='tight', facecolor='white')
     plt.close()
 
 def plot_uncertainty_analysis(data):
     """Plot the uncertainty analysis for the pendulum experiment."""
+    
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(15, 7))
     
-    # Create data for the relative contribution plot
-    error_sources = ['Length', 'Period']
-    rel_L_error = (data['delta_L'] / data['L'])**2
-    rel_T_error = (2 * data['delta_T'] / data['T'])**2
-    total_error = rel_L_error + rel_T_error
+    pendulum_names = list(data.keys())
+    colors = ['blue', 'green', 'red']
     
-    rel_contributions = [rel_L_error / total_error * 100, rel_T_error / total_error * 100]
+    # Plot 1: Relative contributions to uncertainty for each pendulum
+    x_pos = np.arange(len(pendulum_names))
+    width = 0.35
     
-    # Plot the relative contributions
-    bars = ax1.bar(error_sources, rel_contributions, color=['skyblue', 'lightgreen'])
+    length_contributions = []
+    period_contributions = []
+    
+    for name in pendulum_names:
+        pendulum_data = data[name]
+        rel_L_error = (pendulum_data['length_uncertainty'] / pendulum_data['length'])**2
+        rel_T_error = (2 * pendulum_data['std_error'] / pendulum_data['mean_period'])**2
+        total_error = rel_L_error + rel_T_error
+        
+        length_contributions.append(rel_L_error / total_error * 100)
+        period_contributions.append(rel_T_error / total_error * 100)
+    
+    bars1 = ax1.bar(x_pos - width/2, length_contributions, width, label='Length Uncertainty', color='skyblue', alpha=0.7)
+    bars2 = ax1.bar(x_pos + width/2, period_contributions, width, label='Period Uncertainty', color='lightgreen', alpha=0.7)
     
     # Add value labels on the bars
-    for bar in bars:
-        height = bar.get_height()
-        ax1.text(bar.get_x() + bar.get_width()/2., height + 1,
-                f'{height:.1f}%', ha='center', va='bottom')
+    for bars in [bars1, bars2]:
+        for bar in bars:
+            height = bar.get_height()
+            ax1.text(bar.get_x() + bar.get_width()/2., height + 1,
+                    f'{height:.1f}%', ha='center', va='bottom', fontsize=8)
     
-    # Set plot properties
-    ax1.set_ylim(0, 110)  # Set y-axis limit to accommodate the text
+    ax1.set_xlabel('Pendulum Type')
     ax1.set_ylabel('Contribution to Uncertainty (%)')
     ax1.set_title('Relative Contributions to g Uncertainty')
+    ax1.set_xticks(x_pos)
+    ax1.set_xticklabels(pendulum_names, rotation=45)
+    ax1.legend()
+    ax1.set_ylim(0, 110)
     
-    # Plot how g uncertainty changes with different parameters
+    # Plot 2: Sensitivity analysis - how g uncertainty changes with measurement precision
+    delta_factors = np.linspace(0.5, 3, 20)
     
-    # Generate ranges for L and T uncertainties
-    delta_L_factors = np.linspace(0.5, 2, 10)
-    delta_T_factors = np.linspace(0.5, 2, 10)
+    for i, (name, color) in enumerate(zip(pendulum_names, colors)):
+        pendulum_data = data[name]
+        
+        # Calculate g uncertainties for different timing precisions
+        delta_g_values = []
+        for factor in delta_factors:
+            new_delta_T = pendulum_data['std_error'] * factor
+            delta_g = calculate_g_uncertainty(
+                pendulum_data['g_calculated'], 
+                pendulum_data['length_uncertainty'], 
+                pendulum_data['length'], 
+                new_delta_T, 
+                pendulum_data['mean_period']
+            )
+            delta_g_values.append(delta_g)
+        
+        ax2.plot(delta_factors, delta_g_values, 'o-', label=name, color=color, linewidth=2, markersize=4)
     
-    # Calculate g uncertainties for different length uncertainties
-    delta_g_L = []
-    for factor in delta_L_factors:
-        new_delta_L = data['delta_L'] * factor
-        delta_g_L.append(calculate_g_uncertainty(
-            data['g'], new_delta_L, data['L'], data['delta_T'], data['T']))
-    
-    # Calculate g uncertainties for different period uncertainties
-    delta_g_T = []
-    for factor in delta_T_factors:
-        new_delta_T = data['delta_T'] * factor
-        delta_g_T.append(calculate_g_uncertainty(
-            data['g'], data['delta_L'], data['L'], new_delta_T, data['T']))
-    
-    # Plot how uncertainty changes
-    ax2.plot(delta_L_factors, delta_g_L, 'o-', label='Length Uncertainty')
-    ax2.plot(delta_T_factors, delta_g_T, 's-', label='Period Uncertainty')
-    
-    # Set plot properties
-    ax2.set_xlabel('Relative Change in Uncertainty')
+    ax2.set_xlabel('Timing Precision Factor')
     ax2.set_ylabel('g Uncertainty (m/s²)')
-    ax2.set_title('Sensitivity to Measurement Uncertainties')
+    ax2.set_title('Sensitivity to Timing Precision')
     ax2.legend()
     ax2.grid(True, alpha=0.3)
     
     plt.tight_layout()
-    plt.savefig(os.path.join(figures_dir, 'uncertainty_analysis.png'), dpi=300)
+    plt.savefig(os.path.join(figures_dir, 'uncertainty_analysis.png'), 
+                dpi=300, bbox_inches='tight', facecolor='white')
     plt.close()
 
 def plot_length_vs_period():
     """Plot the relationship between pendulum length and period."""
-    # Generate a range of lengths
-    lengths = np.linspace(0.1, 2.0, 100)
     
-    # Calculate periods for these lengths
-    periods = [pendulum_period(L, TRUE_G) for L in lengths]
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(15, 7))
     
-    # Create figure
-    fig, ax = plt.subplots(figsize=(10, 6))
+    # Generate theoretical curve
+    lengths = np.linspace(0.2, 1.2, 100)
+    theoretical_periods = [pendulum_period(L, TRUE_G) for L in lengths]
     
-    # Plot the relationship
-    ax.plot(lengths, periods, 'b-', linewidth=2)
+    # Plot theoretical relationship
+    ax1.plot(lengths, theoretical_periods, 'k-', linewidth=2, label='Theoretical: $T = 2\pi\sqrt{L/g}$')
     
-    # Add some sample points with error bars
-    sample_lengths = np.array([0.25, 0.5, 1.0, 1.5])
-    sample_periods = pendulum_period(sample_lengths, TRUE_G)
+    # Add experimental data points from our three pendulums
+    data = generate_realistic_data()
+    pendulum_names = list(data.keys())
+    colors = ['blue', 'green', 'red']
     
-    # Add small random errors to make it look like experimental data
-    length_errors = 0.01 * np.ones_like(sample_lengths)
-    period_errors = 0.02 * np.ones_like(sample_periods)
+    for name, color in zip(pendulum_names, colors):
+        pendulum_data = data[name]
+        L = pendulum_data['length']
+        T = pendulum_data['mean_period']
+        T_err = pendulum_data['std_error']
+        
+        ax1.errorbar(L, T, yerr=T_err, fmt='o', color=color, markersize=8, 
+                    capsize=5, label=f'{name} (L={L:.2f}m)', alpha=0.8)
     
-    ax.errorbar(sample_lengths, sample_periods, 
-               xerr=length_errors, yerr=period_errors,
-               fmt='ro', capsize=5, markersize=8, 
-               label='Sample Measurements')
+    ax1.set_xlabel('Pendulum Length (m)')
+    ax1.set_ylabel('Period (s)')
+    ax1.set_title('Pendulum Length vs Period')
+    ax1.legend()
+    ax1.grid(True, alpha=0.3)
     
-    # Add a curve fit to the "experimental" data
-    def fit_function(x, g):
-        return 2 * np.pi * np.sqrt(x / g)
+    # Plot 2: Linearized relationship (T² vs L)
+    theoretical_T_squared = np.array(theoretical_periods)**2
     
-    popt, pcov = curve_fit(fit_function, sample_lengths, sample_periods)
-    g_fit = popt[0]
-    g_err = np.sqrt(pcov[0,0])
+    ax2.plot(lengths, theoretical_T_squared, 'k-', linewidth=2, 
+            label='Theoretical: $T^2 = 4\pi^2 L/g$')
     
-    # Plot the best fit curve
-    ax.plot(lengths, fit_function(lengths, g_fit), 'g--', linewidth=2,
-           label=f'Best Fit: g = {g_fit:.3f} ± {g_err:.3f} m/s²')
+    for name, color in zip(pendulum_names, colors):
+        pendulum_data = data[name]
+        L = pendulum_data['length']
+        T = pendulum_data['mean_period']
+        T_err = pendulum_data['std_error']
+        
+        T_squared = T**2
+        T_squared_err = 2 * T * T_err  # Error propagation for T²
+        
+        ax2.errorbar(L, T_squared, yerr=T_squared_err, fmt='s', color=color, 
+                    markersize=8, capsize=5, label=f'{name}', alpha=0.8)
     
-    # Add the theoretical curve
-    ax.plot(lengths, pendulum_period(lengths, TRUE_G), 'r:', linewidth=2,
-           label=f'Theoretical: g = {TRUE_G:.3f} m/s²')
+    # Add slope annotation
+    slope = 4 * np.pi**2 / TRUE_G
+    ax2.text(0.7, 3, f'Theoretical slope = $4\pi^2/g$ = {slope:.2f} s²/m', 
+            bbox=dict(boxstyle='round', facecolor='white', alpha=0.8))
     
-    # Set plot properties
-    ax.set_xlabel('Pendulum Length (m)')
-    ax.set_ylabel('Period (s)')
-    ax.set_title('Pendulum Period vs. Length')
-    ax.grid(True, alpha=0.3)
-    ax.legend()
-    
-    # Add the formula
-    ax.text(0.05, 0.9, r'$T = 2\pi\sqrt{\frac{L}{g}}$', 
-           transform=ax.transAxes, fontsize=16, 
-           bbox=dict(facecolor='white', alpha=0.7))
+    ax2.set_xlabel('Pendulum Length (m)')
+    ax2.set_ylabel('Period² (s²)')
+    ax2.set_title('Linearized Relationship: Period² vs Length')
+    ax2.legend()
+    ax2.grid(True, alpha=0.3)
     
     plt.tight_layout()
-    plt.savefig(os.path.join(figures_dir, 'length_vs_period.png'), dpi=300)
+    plt.savefig(os.path.join(figures_dir, 'length_vs_period.png'), 
+                dpi=300, bbox_inches='tight', facecolor='white')
+    plt.close()
+
+def create_pendulum_motion_figure():
+    """Create a figure showing pendulum motion and oscillation."""
+    
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 7))
+    fig.suptitle('Pendulum Motion and Oscillation Analysis', fontsize=16, fontweight='bold')
+    
+    # Left plot: Pendulum motion diagram
+    ax1.set_xlim(-3, 3)
+    ax1.set_ylim(-4, 1)
+    ax1.set_aspect('equal')
+    
+    # Draw support
+    support = Rectangle((-0.3, 0.7), 0.6, 0.3, fill=True, color='brown', alpha=0.8)
+    ax1.add_patch(support)
+    ax1.plot(0, 0.85, 'ko', markersize=8)  # Attachment point
+    
+    # Draw pendulum at different positions
+    L = 3
+    angles = [-np.pi/8, 0, np.pi/8]  # Left, center, right positions
+    colors = ['red', 'blue', 'red']
+    labels = ['Maximum\nDisplacement', 'Equilibrium\nPosition', 'Maximum\nDisplacement']
+    
+    for i, (theta, color, label) in enumerate(zip(angles, colors, labels)):
+        x = L * np.sin(theta)
+        y = 0.85 - L * np.cos(theta)
+        
+        # Draw string
+        ax1.plot([0, x], [0.85, y], '-', color=color, linewidth=2, alpha=0.7)
+        
+        # Draw bob
+        ax1.plot(x, y, 'o', color=color, markersize=12, alpha=0.8)
+        
+        # Add labels
+        if i != 1:  # Don't label the center position to avoid clutter
+            ax1.text(x, y-0.5, label, ha='center', va='top', fontsize=9, 
+                    color=color, fontweight='bold')
+    
+    # Draw arc showing oscillation path
+    theta_arc = np.linspace(-np.pi/8, np.pi/8, 50)
+    x_arc = L * np.sin(theta_arc)
+    y_arc = 0.85 - L * np.cos(theta_arc)
+    ax1.plot(x_arc, y_arc, 'g--', linewidth=2, alpha=0.8, label='Oscillation Path')
+    
+    # Add angle annotation
+    ax1.annotate('', xy=(0.5, 0.85), xytext=(0, 0.85),
+                arrowprops=dict(arrowstyle='->', color='black', lw=1))
+    ax1.text(0.25, 1.1, r'$\theta < 15°$', fontsize=12, ha='center')
+    
+    # Add length annotation
+    ax1.annotate('', xy=(0, 0.85), xytext=(0, -2.15),
+                arrowprops=dict(arrowstyle='<->', color='purple', lw=2))
+    ax1.text(-0.5, -0.65, 'L', fontsize=14, color='purple', fontweight='bold')
+    
+    ax1.set_title('Pendulum Motion Diagram')
+    ax1.axis('off')
+    
+    # Right plot: Period vs amplitude (showing small angle approximation)
+    ax2.set_xlim(0, 90)
+    ax2.set_ylim(0.95, 1.15)
+    
+    # Generate data for different amplitudes
+    amplitudes = np.linspace(1, 85, 50)  # angles in degrees
+    L_example = 1.0  # 1 meter pendulum
+    
+    # Exact period calculation (elliptic integral approximation)
+    exact_periods = []
+    for amp in amplitudes:
+        theta_rad = np.radians(amp)
+        # First-order correction for large angles
+        correction = 1 + (1/16) * theta_rad**2 + (11/3072) * theta_rad**4
+        exact_period = pendulum_period(L_example, TRUE_G) * correction
+        exact_periods.append(exact_period)
+    
+    # Small angle approximation (constant period)
+    small_angle_period = pendulum_period(L_example, TRUE_G)
+    small_angle_periods = [small_angle_period] * len(amplitudes)
+    
+    # Normalize to show relative difference
+    exact_normalized = np.array(exact_periods) / small_angle_period
+    small_angle_normalized = np.array(small_angle_periods) / small_angle_period
+    
+    ax2.plot(amplitudes, exact_normalized, 'r-', linewidth=2, label='Exact (with corrections)')
+    ax2.plot(amplitudes, small_angle_normalized, 'b--', linewidth=2, label='Small angle approximation')
+    
+    # Highlight the valid range (< 15°)
+    ax2.axvspan(0, 15, alpha=0.2, color='green', label='Valid range (< 15°)')
+    
+    ax2.set_xlabel('Amplitude (degrees)')
+    ax2.set_ylabel('Normalized Period (T/T₀)')
+    ax2.set_title('Period vs Amplitude\n(Showing Small Angle Approximation Validity)')
+    ax2.legend()
+    ax2.grid(True, alpha=0.3)
+    
+    plt.tight_layout()
+    plt.savefig(os.path.join(figures_dir, 'pendulum_motion.png'), 
+                dpi=300, bbox_inches='tight', facecolor='white')
     plt.close()
 
 def main():
     """Generate all figures for the pendulum experiment."""
-    print("Generating figures for pendulum experiment...")
+    print("Generating figures for real-life pendulum experiment...")
     
     # Generate experimental data
-    data = generate_sample_data()
+    data = generate_realistic_data()
     
     # Create all figures
-    plot_pendulum_setup()
-    create_pendulum_animation()
+    plot_real_pendulum_setup()
+    create_measurement_protocol_figure()
+    create_pendulum_motion_figure()
     plot_measurement_data(data)
     plot_uncertainty_analysis(data)
     plot_length_vs_period()
     
-    print("All figures have been generated and saved to the 'figures' directory.")
+    print("All figures generated successfully!")
+    print("Figures saved in:", figures_dir)
     
-    # Print the data table for inclusion in the markdown file
     print("\nData Table for Markdown File:")
     print("| Parameter | Value | Uncertainty |")
     print("|-----------|-------|------------|")
-    print(f"| Length (L) | {data['L']:.3f} m | {data['delta_L']:.5f} m |")
-    print(f"| Period (T) | {data['T']:.5f} s | {data['delta_T']:.5f} s |")
-    print(f"| Gravitational Acceleration (g) | {data['g']:.5f} m/s² | {data['delta_g']:.5f} m/s² |")
+    for name, pendulum_data in data.items():
+        print(f"| {name} Length (L) | {pendulum_data['length']:.3f} m | {pendulum_data['length_uncertainty']:.5f} m |")
+        print(f"| {name} Period (T) | {pendulum_data['mean_period']:.5f} s | {pendulum_data['std_error']:.5f} s |")
+        print(f"| {name} Gravitational Acceleration (g) | {pendulum_data['g_calculated']:.5f} m/s² | {pendulum_data['g_uncertainty']:.5f} m/s² |")
     
     print("\nIndividual T10 Measurements:")
-    print("| Measurement | Time for 10 Oscillations (s) |")
-    print("|-------------|----------------------------|")
-    for i, T10 in enumerate(data['T10_measurements']):
-        print(f"| {i+1} | {T10:.3f} |")
+    for name, pendulum_data in data.items():
+        print(f"\n{name} Measurements:")
+        print("| Measurement | Time for 10 Oscillations (s) |")
+        print("|-------------|----------------------------|")
+        for i, T10 in enumerate(pendulum_data['times_10_oscillations']):
+            print(f"| {i+1} | {T10:.3f} |")
     
-    print(f"\nMean T10: {data['T10_mean']:.5f} s")
-    print(f"Standard Deviation of T10: {data['T10_std']:.5f} s")
-    print(f"Uncertainty in T10: {data['T10_uncertainty']:.5f} s")
+    for name, pendulum_data in data.items():
+        print(f"\n{name} Mean T10: {np.mean(pendulum_data['times_10_oscillations']):.5f} s")
+        print(f"{name} Standard Deviation of T10: {np.std(pendulum_data['times_10_oscillations'], ddof=1):.5f} s")
+        print(f"{name} Uncertainty in T10: {np.std(pendulum_data['times_10_oscillations'], ddof=1) / np.sqrt(10):.5f} s")
 
 if __name__ == "__main__":
     main()
